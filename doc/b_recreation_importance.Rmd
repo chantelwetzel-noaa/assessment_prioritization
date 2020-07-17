@@ -1,0 +1,48 @@
+
+## Recreational Importance
+
+Recreational landings lack a measure of value that is equivalent to commercial ex-vessel revenue. In the absence of an equivalent metric, these rankings continue to rely on the approach implemented in 2016, in which a "pseudo value" for the recreational landings of each species is calculated by multiplying the `r start.yr-end.yr` landed catch amounts in each state by a set of state-specific relative weights, which serve the same function as prices. The factor score by species is calculated as:
+  
+  \begin{centering}
+
+$\text{pseudo values}_{s} = \sum_{a=1}^{A} \text{catch}_{s,a}*\text{importance}_{s,a} $
+  
+  \end{centering}
+
+where catch is the recreation catch by stock $s$ and state $a$ and importance by stock $s$ and area $a$ is a qualitative measure to represent the importance of that stock to the recreational fishery by area. The overall factor for recreational importance is then calculated as:
+  
+  \begin{centering}
+
+$r_a = \frac{10}{\text{max}(\text{pseudo values}_s)}\text{pseudo values}_s^{0.18}$
+  
+  \end{centering}
+
+The recreational importance by species and state are shown in Table \ref{tab:recr_import}. These weights were initially developed in cooperation with the state recreational representatives to the Groundfish Management Team in 2016, and were reviewed by members of the Groundfish Advisory Panel in in that year and 2018. The pseudo values are transformed into Factor Scores using the same exponential transformation that is applied to commercial revenues. Continued comments and input from the recreational fishing community or state agencies regarding relative value of species among recreational fishery participants of each state will allow these weights to reflect the current priority of the recreational sector.
+
+  
+```{r, results = 'asis', fig.pos = 'H'}
+  tab = read.csv("C:/Assessments/2020/assess_prioritization/doc/tables/recr_importance.csv", header = TRUE) 
+  
+  colnames(tab) = c("Species", "CA", "OR", "WA")
+  
+  table.out = xtable(tab, 
+                     caption = c('Recreational importance of species by state based on the relative species desirability.'),
+                     label = 'tab:recr_import',
+                     digits = c(0,0,2,2,2))
+  
+  # Add alignment  
+  align(table.out) = c('l',
+                       '>{\\raggedright}p{2.5in}',
+                       '>{\\centering}p{0.60in}',
+                       '>{\\centering}p{0.60in}',
+                       '>{\\centering}p{0.60in}')  
+  
+  print(table.out, 
+        include.rownames=FALSE, 
+        caption.placement='top',
+        size="\\fontsize{10pt}{10pt}\\selectfont",
+        sanitize.text.function = function(x){x})
+  
+```
+  
+\FloatBarrier
