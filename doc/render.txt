@@ -1,2 +1,0 @@
-
-bookdown::render_book("C:/Assessments/2020/assess_prioritization/doc/00_assess_prioritization.Rmd", "bookdown::pdf_book")
