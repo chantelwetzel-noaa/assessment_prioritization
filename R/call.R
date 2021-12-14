@@ -1,41 +1,53 @@
-
+# Order of operations for the 2022 Assessment Prioritization proces
 
 setwd("C:\Users\Chantel.Wetzel\Documents\GitHub\assessment_prioritization")
-# figure out how to use here
+# figure out how to use here::here
 
-# CSV files pulled from PacFIN with
-# COUNCIL_CODE == "P" and !FLEET_CODE %in% c("TI", "R")
-com_rev <- "revenue_summarized_12052021.csv"
-# CSV files pulled from PacFIN with
-# COUNCIL_CODE == "P" and FLEET_CODE == "TI"
-tribal_rev <- "tribal_revenue_12062021.csv"
-
+# Load up the species CSV file that will be used across functions
 species_file <-  "species_names.csv"
+# Set the years for the revenue summary, recreational importance
 years <- 2016:2020
 
-summarize_revenue(file_name = com_rev, 
+# Commercial Revenue:
+# CSV files pulled from PacFIN with
+# COUNCIL_CODE == "P" and !FLEET_CODE %in% c("TI", "R")
+summarize_revenue(file_name = "revenue_summarized_12052021.csv", 
 	species_file = species_file, 
 	years = years, 
 	max_exp = 0.18)
 
-summarize_revenue(file_name = tribal_rev, 
+# Tribal revenue:
+# CSV files pulled from PacFIN with
+# COUNCIL_CODE == "P" and FLEET_CODE == "TI"
+summarize_revenue(file_name = "tribal_revenue_12062021.csv", 
 	species_file = species_file, 
 	years = years, 
 	max_exp = 0.18)
 
-rec_import <- "CTE002-2016---2020.csv"
-
+# Recreational Importance:
+# Landings data pulled from RecFIN for all states and species
 summarize_rec_importance(
-	file_name = rec_import, 
+	file_name = "CTE002-2016---2020.csv", 
 	species_file = species_file, 
 	years = years, 
 	max_exp = 0.18) 
 
+# Fishing mortality:
+# Large management quantity download from PacFIN (GMT016) 
+# provided by Rob Ames. Only single species information 
+# available for download as of December 2021
+
+# The nwfscSurvey package is loaded in order to pull GEMM data
+# which is the official mortality source
 library(nwfscSurvey)
-manage_file <- "WOC_STOCK_SUMMARY11232021.csv"
 years <- 2018:2020
 
 summarize_fishing_mortality(
-	manage_file = manage_file, 
+	manage_file = "WOC_STOCK_SUMMARY11232021.csv", 
 	species_file = species_file, 
 	years = years)
+
+# Function that will clean up all folders in the "model_files"
+# folder to only keep the files needed for r4ss to read model results
+
+clean_model_files(loc = "model_files/")
