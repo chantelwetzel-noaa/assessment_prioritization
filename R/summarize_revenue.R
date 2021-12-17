@@ -76,7 +76,7 @@ summarize_revenue <- function(file_name, species_file, years, max_exp = 0.18) {
 
 	temp <- revenue_df$Interum_Value * max / max(revenue_df$Interum_Value) 	
 
-	if(unique(data$FLEET_CODE) == "TI") {	
+	if("TI" %in% unique(data$FLEET_CODE)) {	
 		revenue_df$Initial_Factor_Score <- temp	
 		revenue_df$Factor_Score <- revenue_df$Initial_Factor_Score + revenue_df$Subsitence_Score
 		revenue_df <- revenue_df[order(revenue_df[,"Factor_Score"], decreasing = TRUE),]

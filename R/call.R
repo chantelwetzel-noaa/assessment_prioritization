@@ -42,7 +42,7 @@ summarize_rec_importance(
 library(nwfscSurvey)
 years <- 2018:2020
 
-summarize_fishing_mortality(
+fish_mort <- summarize_fishing_mortality(
 	manage_file = "WOC_STOCK_SUMMARY11232021.csv", 
 	species_file = species_file, 
 	years = years)

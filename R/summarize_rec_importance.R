@@ -64,9 +64,9 @@ summarize_rec_importance <- function(file_name, species_file, years, max_exp = 0
 		sub_data <- sub_data[find, ]
 
 		rec_importance_df[sp, c("Ret_Catch_CA", "Ret_Catch_OR", "Ret_Catch_WA")] <-
-			c(sum(sub_data[key, "CALIFORNIA_RETAINED_MT"], na.rm = TRUE), 
-			  sum(sub_data[key, "OREGON_RETAINED_MT"], na.rm = TRUE), 
-			  sum(sub_data[key, "WASHINGTON_RETAINED_MT"], na.rm = TRUE) )
+			c(sum(sub_data[, "CALIFORNIA_RETAINED_MT"], na.rm = TRUE), 
+			  sum(sub_data[, "OREGON_RETAINED_MT"], na.rm = TRUE), 
+			  sum(sub_data[, "WASHINGTON_RETAINED_MT"], na.rm = TRUE) )
 
 		rec_importance_df[sp, "Ret_Catch_CW"] <- 
 			sum(rec_importance_df[sp, c("Ret_Catch_CA", "Ret_Catch_OR", "Ret_Catch_WA")], na.rm = TRUE)
