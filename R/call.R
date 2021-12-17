@@ -1,6 +1,6 @@
 # Order of operations for the 2022 Assessment Prioritization proces
 
-setwd("C:\Users\Chantel.Wetzel\Documents\GitHub\assessment_prioritization")
+setwd("C:/Users/Chantel.Wetzel/Documents/GitHub/assessment_prioritization")
 # figure out how to use here::here
 
 # Load up the species CSV file that will be used across functions
