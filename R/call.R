@@ -51,3 +51,13 @@ fish_mort <- summarize_fishing_mortality(
 # folder to only keep the files needed for r4ss to read model results
 
 clean_model_files(loc = "model_files/")
+
+# Function to grab and summarize the newest assessment results which
+# will then update the abundcanc (stock status) and the assessment
+# frequency csvs from last cycle
+summarize_model_results(
+	abundance_file = "abundance_previous_cycle.csv", 
+	frequency_file = "assessment_frequency_last_cycle.csv", 
+	species_file = species_file, 
+	model_loc = "model_files", 
+	years = 2000:2020)
