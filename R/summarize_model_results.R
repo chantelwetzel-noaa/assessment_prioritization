@@ -98,7 +98,45 @@ summarize_model_results <- function(abundance_file, frequency_file, species_file
 		new_frequency[key, "Last_Assess"] <-  new_results[group[1], "AssessYear"]
 	}
 
-	write.csv(new_abundance, file.path("tables", "stock_status.csv"), row.names = FALSE)
+	# Rank and score the stock status sheet, delete trend column, and remove NAs.
+	x <- new_abundance
+	x$Rank <- x$Score <- NA
+	for(sp in 1:length(x$Species)) {
+
+		if(!is.na(x$Estimate[sp])) {
+		x$Score[sp] <-
+			ifelse(x$Estimate[sp]  > 2.0 * x$Target[sp],  1,
+			ifelse(x$Estimate[sp] <= 2.0 * x$Target[sp] & x$Estimate[sp] > 1.5 * x$Target[sp], 2,
+			ifelse(x$Estimate[sp] <= 1.5 * x$Target[sp] & x$Estimate[sp] > 1.1 * x$Target[sp], 3,
+			ifelse(x$Estimate[sp] <= 1.1 * x$Target[sp] & x$Estimate[sp] > 0.9 * x$Target[sp], 4,
+			ifelse(x$Estimate[sp] <= 0.9 * x$Target[sp] & x$Estimate[sp] > x$MSST[sp] & x$Trend[sp] %in% c(0, 1), 5,
+			ifelse(x$Estimate[sp] <= 0.9 * x$Target[sp] & x$Estimate[sp] > x$MSST[sp] & x$Trend[sp] == -1, 7,
+			ifelse(x$Estimate[sp] <= x$MSST[sp] & x$Trend[sp] == 1, 8,
+			ifelse(x$Estimate[sp] <= x$MSST[sp] & x$Trend[sp] == 0, 9,
+			ifelse(x$Estimate[sp] <= x$MSST[sp] & x$Trend[sp] == -1 , 10)))))))))
+		} else {
+		x$Score[sp] <- 
+			ifelse(x$PSA[sp] < 1.8, 3,
+			ifelse(x$PSA[sp] >= 1.8 & x$PSA[sp] < 2, 4,
+			ifelse(x$PSA[sp] >= 2.0, 6)))	
+		}
+	}
+
+	x <- x[order(x[,"Score"], decreasing = TRUE), ]
+
+	zz <- 1
+	for(i in 10:1) {
+		ties <- which(x$Score == i)
+		if(length(ties) > 0) {
+			x$Rank[ties] <- zz
+		}
+		zz <- zz + length(ties)
+	}
+
+	abundance_out <- with(x, x[order(x[,"Species"]), ])
+	abundance_out <- abundance_out[, c("Species", "Rank", "Score", "Estimate", "Target", "MSST", "PSA", "Trend")]
+
+	write.csv(abundance_out, file.path("tables", "stock_status.csv"), row.names = FALSE)
 	write.csv(new_frequency, file.path("tables", "frequency_partial.csv"), row.names = FALSE)
 	write.csv(new_results, file.path("tables", "model_results.csv"), row.names = FALSE)
 }
