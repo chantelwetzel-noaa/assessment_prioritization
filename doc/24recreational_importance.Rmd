@@ -1,3 +1,5 @@
+\newpage
+
 ## Recreational Importance
 
 Recreational landings lack a measure of value that is equivalent to commercial ex-vessel revenue. In the absence of an equivalent metric, these rankings continue to rely on the approach implemented in 2016, in which a "pseudo" value for the recreational landings of each species is calculated by multiplying the `r start_yr - end_yr` landed catch amounts in each state by a set of state-specific relative weights, which serve the same function as prices. The factor score by species is calculated as:
@@ -28,16 +30,33 @@ The recreational importance by species and state are shown in Table \ref{tab:rec
 ```{r, results = 'asis', fig.pos = 'H'}
 tab = read.csv("tables/recr_importance.csv", header = TRUE) 
 col_names = c("Species", "California", "Oregon", "Washington")
-tab[is.na(tab)] = "---"
+tab[is.na(tab)] = 0
 
-table_format(tab, 
+t = table_format(tab, 
              caption = c('Recreational importance of species by state based on the relative species desirability.'),
              label = 'recr-import',
-             align = c('l','l','r','r','r'),
+             align = c('l','r','r','r','r'),
              col_names = col_names,
-             digits = c(0,0,2,2,2),
+             digits = c(0,2,2,2,2),
              custom_width = TRUE,
              col_to_adjust = 1:4,
              width = c("6cm", rep("2cm", 3)))  
+
+t %>%
+    kableExtra::column_spec(2, 
+        color = "white", 
+        bold = TRUE,
+        background = kableExtra::spec_color(x = tab[, 2], 
+        alpha = 1, begin = 0.2, end = 0.8, option = 'D', direction = 1)) %>%
+    kableExtra::column_spec(3, 
+        color = "white", 
+        bold = TRUE,
+        background = kableExtra::spec_color(x = tab[, 3], 
+        alpha = 1, begin = 0.2, end = 0.8, option = 'D', direction = 1)) %>%
+    kableExtra::column_spec(4, 
+        color = "white", 
+        bold = TRUE,
+        background = kableExtra::spec_color(x = tab[, 4], 
+        alpha = 1, begin = 0.2, end = 0.8, option = 'D', direction = 1))
   
 ```

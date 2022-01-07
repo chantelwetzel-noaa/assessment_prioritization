@@ -1,27 +1,10 @@
-## Abundance of Stocks, Relative to their Biomass Targets
+## Stock Status Relative to Management Targets
 
-Holding other Factors constant, scheduling an assessment in the upcoming cycle will be a higher priority for a stock whose spawning biomass represents a lower percentage of that in an unfished condition, as estimated in the most recent assessment. Correspondingly, the highest scores for this Factor would be assigned to stocks that are below their Minimum Stock Size Thresholds (MSSTs, i.e., are overfished). Such cases are differentiated in the scoring by whether the spawning biomass trend is decreasing, stable, or increasing. As the ratio of current stock biomass to the unfished level increases, this Factor Score decreases. Where available, the percentage of unfished biomass estimated in the terminal year of the most recent assessment for each species is used as the basis for scoring. However, most groundfish species have not been assessed in a manner that provides an estimate of relative abundance.  For those stocks, the Productivity Susceptibility Analysis (PSA) score, a measure of a species potential vulnerability to fishing pressures, has been used to assign a Factor Score (Table \ref{tab:psa-score}).
+Holding other Factors constant, scheduling an assessment in the upcoming cycle will be a higher priority for a stock whose spawning biomass represents a lower percentage of that in an unfished condition, as estimated in the most recent assessment. Correspondingly, the highest scores for this Factor would be assigned to stocks that are below their Minimum Stock Size Thresholds (MSSTs, i.e., are overfished). Such cases are differentiated in the scoring by whether the spawning biomass trend is decreasing, stable, or increasing. As the ratio of current stock biomass to the unfished level increases, this Factor Score decreases. Where available, the percentage of unfished biomass estimated in the terminal year of the most recent assessment for each species is used as the basis for scoring. Scoring criteria for this factor by species are described in (Table \ref{tab:abund}).
 
-Scoring criteria for this factor by species are described in Table \ref{tab:abund}. Rather than basing scores for these species solely on PSA scores, it may be useful in the future to also categorize them according to the average attainment of their OFL contributions (to assemblage OFLs) over the past 10 years. The scoring criteria show the stocks ordered by PSA score (with assessment-based fraction of unfished levels) and also by the fraction of unfished level, within each of the three PSA categories used in the analysis.
+However, not all groundfish species have not been assessed in a manner that provides an estimate of relative abundance. For those stocks, the Productivity Susceptibility Analysis (PSA) score, a measure of a species potential vulnerability to fishing pressures, has been used to assign a Factor Score (Table \ref{tab:psa-score})
 
-
-```{r, results = 'asis', fig.pos = 'H'}
-
-tab = read.csv("tables/psa.csv", header = TRUE) 
-#col_names = c("Species", "PSA", "Species", "PSA")
-col_names = c("Species", "Status", "PSA Score")
-
-table_format(tab, 
-             caption = c('The estimated stock status and Productivity Susceptibility Analysis (PSA) scores by species.  Higher PSA values indicate higher vulnerability. Stocks that have area specific assessments a single stock status value is calculated by aggregating spawning biomass or output by area.'),
-             label = 'psa-score',
-             align = c('l', 'r', 'r'),
-             col_names = col_names,
-             digits = 2,
-             custom_width = TRUE,
-             col_to_adjust = 1:3, #1:4,
-             width = c("6cm","1cm", "1cm"))#,"6cm","0.5cm"))  
-  
-```
+Rather than basing scores for these species solely on PSA scores, it may be useful in the future to also categorize them according to the average attainment of their OFL contributions (to assemblage OFLs) over the past 10 years. The scoring criteria show the stocks ordered by PSA score (with assessment-based fraction of unfished levels) and also by the fraction of unfished level, within each of the three PSA categories used in the analysis.
  
 
 ```{r, results = 'asis', fig.pos = 'H'}
@@ -51,4 +34,32 @@ table_format(abund,
              custom_width = TRUE,
              col_to_adjust = 1:2,
              width = c("1cm","13cm"))  
+```
+
+
+```{r, results = 'asis', fig.pos = 'H'}
+
+tab = read.csv("tables/psa.csv", header = TRUE) 
+tab = tab[, -2]
+#col_names = c("Species", "PSA", "Species", "PSA")
+col_names = c("Species", "PSA Score")
+
+t = table_format(tab, 
+             caption = c('The estimated stock status and Productivity Susceptibility Analysis (PSA) scores by species.  Higher PSA values indicate higher vulnerability. Stocks that have area specific assessments a single stock status value is calculated by aggregating spawning biomass or output by area.'),
+             label = 'psa-score',
+             align = c('l', 'r', 'r'),
+             col_names = col_names,
+             digits = 2,
+             custom_width = TRUE,
+             col_to_adjust = 1:3, #1:4,
+             width = c("6cm","1cm", "1cm"))#,"6cm","0.5cm"))  
+
+
+t %>%
+    kableExtra::column_spec(2, 
+        color = "white", 
+        bold = TRUE,
+        background = kableExtra::spec_color(x = tab[,2], 
+        alpha = 1, begin = 0.2, end = 0.8, option = 'D', direction = -1))
+  
 ```

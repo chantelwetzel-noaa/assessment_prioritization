@@ -2,7 +2,7 @@
 
 ```{r, results = 'asis'}
 add_figure(
-filein = 'figs/assessment_calendar.png', 
+filein = 'figs/calendar.png', 
 caption = "2021 calendar with Pacific Fishery Management Council meetings and possible STAR Panel weeks shown.",
 label = 'calendar')
 ```

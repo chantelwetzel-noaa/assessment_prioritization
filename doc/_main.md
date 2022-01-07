@@ -1,7 +1,7 @@
 ---
 geometry: margin=1in
-month: "November"
-year: "2021"
+month: "January"
+year: "2022"
 preamble: |
 csl: sa4ss.csl
 output: 
@@ -88,13 +88,15 @@ title: Data and analysis supporting the prioritization of species for stock asse
 
 # Introduction
 
-This document provides analysis that is intended to provide the Pacific Fishery Management Council (Council) and advisory bodies guidance on species specific assessment prioritization by synthesizing information by commercial fisheries, recreational fisheries, stock status, and other attributed defined as "Factors".  The work presented here follows the the general framework advanced in the 2015 National Marine Fisheries Service (NMFS) Technical Memorandum, ["Prioritizing Fish Stock Assessments"](https://www.st.nmfs.noaa.gov/Assets/stock/documents/PrioritizingFishStockAssessments_FinalWeb.pdf).  
+This document provides analysis that is intended to provide the Pacific Fishery Management Council (Council) and advisory bodies guidance on species specific assessment prioritization by synthesizing information by commercial fisheries, recreational fisheries, stock status, and other attributed defined as "Factors".  The work presented here follows the the general framework advanced in the 2015 National Marine Fisheries Service (NMFS) Technical Memorandum, ["Prioritizing Fish Stock Assessments"](https://www.st.nmfs.noaa.gov/Assets/stock/documents/PrioritizingFishStockAssessments_FinalWeb.pdf) [@methot_prioritizing_2015].  
 
 This process was envisioned as a way of synthesizing a broad range of relevant information in a manner that can, over time, provide improved guidance, primarily on which species should be considered for benchmark (i.e., full) assessments, or subsequent stock assessment updates. The ranking process provides a useful tool for focusing discussion on species where a new assessment may have the greatest impact, but it is not a replacement for the judgment of the Council and advisory bodies. An important consideration for selecting any species for assessment is whether the (potentially) available data (e.g., trend and length- and age-composition data) are adequate to conduct the desired level of assessment. This aspect of prioritization is not scored in the way other factors are, and so must be considered independently, at this time.  In that regard, the process is likely to help identify important data gaps and/or situations where a data-moderate approach should be undertaken with whatever data are available.
 
-The scoring and weighting of Factors in the associated **Excel workbook** remains a work in progress, particularly as we consider its ability, as currently configured, to provide useful insight into priorities in subsequent cycles, as requested by the Council. There may be important considerations that are not encompassed by any of the existing factors, or the methods by which Factor Scores are derived or weighted may be identified as needing improvement.  As consideration of priorities for 2023 are considered this spring it will be important to identify any parts of the scoring that could be improved.  As aspects of management change, this framework should adapt to reflect the manner in which those changes affect prioritization.  
+The scoring and weighting of Factors in the associated Excel workbook remains a work in progress, particularly as we consider its ability, as currently configured, to provide useful insight into priorities in subsequent cycles, as requested by the Council. There may be important considerations that are not encompassed by any of the existing factors, or the methods by which Factor Scores are derived or weighted may be identified as needing improvement.  As consideration of priorities for 2023 are considered this spring it will be important to identify any parts of the scoring that could be improved.  As aspects of management change, this framework should adapt to reflect the manner in which those changes affect prioritization.  
 
-The **Excel workbook** that accompanies this document begins with an Overview tab, followed by a Summary tab in which the Factor Scores are assembled and multiplied by the base-case weights, resulting in a total score and ranking.  Those are followed by a tab for each Factor, which documents the Factor scores and ranks for each species, and a Summary scoring worksheet. The following text provides a description of the content and issues associated with each tab, along with the source of data and information used in scoring each Factor.
+The Excel workbook that accompanies this document begins with an Overview tab, followed by a Summary tab in which the Factor Scores are assembled and multiplied by the base-case weights, resulting in a total score and ranking.  Those are followed by a tab for each Factor, which documents the Factor scores and ranks for each species, and a Summary scoring worksheet. The following text provides a description of the content and issues associated with each tab, along with the source of data and information used in scoring each Factor.
+
+\newpage
 
 <!--chapter:end:11introduction.Rmd-->
 
@@ -166,26 +168,26 @@ where Revenue is the total commercial ex-vessel revenue across the summarizing y
 
 ## Tribal Importance
 
-West Coast groundfish species are highly important to northwest coastal Tribes. The Subsistence category identified in the NMFS guidance document was expanded to include the value of Tribal fishing for both commercial sale and subsistence and ceremonial uses. The Tribal Importance Factor is calculated as:
+West Coast groundfish species are highly important to northwest coastal Tribes. The Subsistence category identified in the NMFS guidance document [@methot_prioritizing_2015] was expanded to include the value of Tribal fishing for both commercial sale and subsistence and ceremonial uses. The Tribal Importance Factor is calculated as:
   
 \begin{equation}
 t_{s} = \frac{\alpha}{\text{max}(\text{revenue}_{s})} \text{revenue}_{s}^{0.18} + \beta_s    
 \end{equation}
   
-where $\text{revenue}_s$ is the revenue based on ex-vessel prices by species $s$, $\alpha$ is the initial factor score set equal to 7.0 and $\beta_s$ is the subsistence score by species $s$.
+where $\text{revenue}_s$ is the revenue based on ex-vessel prices by species $s$, $\alpha$ is the initial factor score set equal to 7.0 and $\beta_s$ is the subsistence score by species $s$ (Table \ref{tab:sub-score}).
   
-Commercial revenue from landings by Tribal vessels were obtained from PacFIN concurrently with other commercial data. The calculation of the Tribal Importance scores is broken into two parts.  The first component uses revenues and were transformed using the same process described above for commercial and recreational values, except that the maximum for this part of the total score is set to 7. The second component of the score (ranging from 0 to 3), represents the relative value of groundfish species to Tribal subsistence harvesters (Table \ref{tab:sub-score}).  These species scores were refined through consultation with Tribal representatives.  Continued comments/input from the Tribal community regarding subsistence scores will ensure that the scoring reflect the current prioritization of the Tribal sector. 
+Commercial revenue from landings by Tribal vessels were obtained from PacFIN. The calculation of the Tribal Importance scores is broken into two parts.  The first component uses revenues and were transformed using the same process described above for commercial and recreational values, except that the maximum for this part of the total score is set to 7.0. The second component of the score (ranging from 0 to 3.0), represents the relative value of groundfish species to Tribal subsistence harvesters (Table \ref{tab:sub-score}).  These species scores were refined through consultation with Tribal representatives.  Continued comments/input from the Tribal community regarding subsistence scores will ensure that the scoring reflect the current prioritization of the Tribal sector. 
   
 \begingroup\fontsize{10}{12}\selectfont
 \begingroup\fontsize{10}{12}\selectfont
 
 \begin{longtable}[t]{>{\raggedright\arraybackslash}p{8cm}>{}c}
-\caption{(\#tab:sub-score)Subsistence score by species. The subsitance score is colored reflecting low to high scores ranging between blue to yellow, respectively.}\\
+\caption{(\#tab:sub-score)Subsistence score by species. The subsitance score is colored reflecting low to high scores ranging between blue to green, respectively.}\\
 \toprule
 Species & Score\\
 \midrule
 \endfirsthead
-\caption[]{(\#tab:sub-score)Subsistence score by species. The subsitance score is colored reflecting low to high scores ranging between blue to yellow, respectively. \textit{(continued)}}\\
+\caption[]{(\#tab:sub-score)Subsistence score by species. The subsitance score is colored reflecting low to high scores ranging between blue to green, respectively. \textit{(continued)}}\\
 \toprule
 Species & Score\\
 \midrule
@@ -194,148 +196,79 @@ Species & Score\\
 \endfoot
 \bottomrule
 \endlastfoot
-Arrowtooth flounder & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Aurora rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Bank rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Big skate & \cellcolor[HTML]{9BD93C}{\textcolor{white}{\textbf{2.5}}}\\
-Black rockfish & \cellcolor[HTML]{FDE725}{\textcolor{white}{\textbf{3.0}}}\\
-Blackgill rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Blue/Deacon rockfish & \cellcolor[HTML]{9BD93C}{\textcolor{white}{\textbf{2.5}}}\\
-Bocaccio & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Brown rockfish & \cellcolor[HTML]{9BD93C}{\textcolor{white}{\textbf{2.5}}}\\
-Cabezon & \cellcolor[HTML]{43BF71}{\textcolor{white}{\textbf{2.0}}}\\
-California scorpionfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Canary rockfish & \cellcolor[HTML]{FDE725}{\textcolor{white}{\textbf{3.0}}}\\
-Chilipepper rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-China rockfish & \cellcolor[HTML]{9BD93C}{\textcolor{white}{\textbf{2.5}}}\\
-Copper rockfish & \cellcolor[HTML]{9BD93C}{\textcolor{white}{\textbf{2.5}}}\\
-Cowcod & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Darkblotched rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Dover sole & \cellcolor[HTML]{1E9C89}{\textcolor{white}{\textbf{1.5}}}\\
-English sole & \cellcolor[HTML]{1E9C89}{\textcolor{white}{\textbf{1.5}}}\\
-Flag rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Flathead Sole & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Gopher/Black and yellow rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Grass rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Greenspotted rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Greenstriped rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Honeycomb rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Kelp greenling & \cellcolor[HTML]{43BF71}{\textcolor{white}{\textbf{2.0}}}\\
-Kelp rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Lingcod & \cellcolor[HTML]{FDE725}{\textcolor{white}{\textbf{3.0}}}\\
-Longnose skate & \cellcolor[HTML]{43BF71}{\textcolor{white}{\textbf{2.0}}}\\
-Longspine thornyhead & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Olive rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Pacific cod & \cellcolor[HTML]{FDE725}{\textcolor{white}{\textbf{3.0}}}\\
+Arrowtooth flounder & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Aurora rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Bank rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Big skate & \cellcolor[HTML]{44BF70}{\textcolor{white}{\textbf{2.5}}}\\
+Black rockfish & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{3.0}}}\\
+Blackgill rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Blue/Deacon rockfish & \cellcolor[HTML]{44BF70}{\textcolor{white}{\textbf{2.5}}}\\
+Bocaccio & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Brown rockfish & \cellcolor[HTML]{44BF70}{\textcolor{white}{\textbf{2.5}}}\\
+Cabezon & \cellcolor[HTML]{22A884}{\textcolor{white}{\textbf{2.0}}}\\
+California scorpionfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Canary rockfish & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{3.0}}}\\
+Chilipepper rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+China rockfish & \cellcolor[HTML]{44BF70}{\textcolor{white}{\textbf{2.5}}}\\
+Copper rockfish & \cellcolor[HTML]{44BF70}{\textcolor{white}{\textbf{2.5}}}\\
+Cowcod & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Curlfin sole & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Darkblotched rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Dover sole & \cellcolor[HTML]{21908D}{\textcolor{white}{\textbf{1.5}}}\\
+English sole & \cellcolor[HTML]{21908D}{\textcolor{white}{\textbf{1.5}}}\\
+Flag rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Flathead Sole & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Gopher/Black and yellow rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Grass rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Greenspotted rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Greenstriped rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Honeycomb rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Kelp greenling & \cellcolor[HTML]{22A884}{\textcolor{white}{\textbf{2.0}}}\\
+Kelp rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Leopard shark & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Lingcod & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{3.0}}}\\
+Longnose skate & \cellcolor[HTML]{22A884}{\textcolor{white}{\textbf{2.0}}}\\
+Longspine thornyhead & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Olive rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Pacific cod & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{3.0}}}\\
 Pacific ocean perch & \cellcolor[HTML]{2A788E}{\textcolor{white}{\textbf{1.0}}}\\
-Pacific sanddab & \cellcolor[HTML]{43BF71}{\textcolor{white}{\textbf{2.0}}}\\
-Pacific spiny dogfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Petrale sole & \cellcolor[HTML]{43BF71}{\textcolor{white}{\textbf{2.0}}}\\
-Quillback rockfish & \cellcolor[HTML]{43BF71}{\textcolor{white}{\textbf{2.0}}}\\
-Redbanded rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Rex Sole & \cellcolor[HTML]{43BF71}{\textcolor{white}{\textbf{2.0}}}\\
-Rock sole & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Rougheye/Blackspotted rockfish & \cellcolor[HTML]{43BF71}{\textcolor{white}{\textbf{2.0}}}\\
-Sablefish & \cellcolor[HTML]{FDE725}{\textcolor{white}{\textbf{3.0}}}\\
-Sand sole & \cellcolor[HTML]{43BF71}{\textcolor{white}{\textbf{2.0}}}\\
-Sharpchin rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Shortraker rockfish & \cellcolor[HTML]{43BF71}{\textcolor{white}{\textbf{2.0}}}\\
-Shortspine thornyhead & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Speckled rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Splitnose rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Squarespot rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Starry flounder & \cellcolor[HTML]{43BF71}{\textcolor{white}{\textbf{2.0}}}\\
-Starry rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Treefish rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Vermilion/Sunset rockfish & \cellcolor[HTML]{482576}{\textcolor{white}{\textbf{0.0}}}\\
-Widow rockfish & \cellcolor[HTML]{43BF71}{\textcolor{white}{\textbf{2.0}}}\\
-Yelloweye rockfish & \cellcolor[HTML]{43BF71}{\textcolor{white}{\textbf{2.0}}}\\
-Yellowtail rockfish & \cellcolor[HTML]{FDE725}{\textcolor{white}{\textbf{3.0}}}\\*
-\end{longtable}
-\endgroup{}
-\endgroup{}
-
-\begingroup\fontsize{10}{12}\selectfont
-\begingroup\fontsize{10}{12}\selectfont
-
-\begin{longtable}[t]{>{\raggedright\arraybackslash}p{8cm}>{}c}
-\caption{(\#tab:sub-score)Subsistence score by species. The subsitance score is colored reflecting low to high scores ranging between blue to yellow, respectively.}\\
-\toprule
-Species & Score\\
-\midrule
-\endfirsthead
-\caption[]{(\#tab:sub-score)Subsistence score by species. The subsitance score is colored reflecting low to high scores ranging between blue to yellow, respectively. \textit{(continued)}}\\
-\toprule
-Species & Score\\
-\midrule
-\endhead
-
-\endfoot
-\bottomrule
-\endlastfoot
-Arrowtooth flounder & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Aurora rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Bank rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Big skate & \textcolor[HTML]{B1DD2E}{\textbf{2.5}}\\
-Black rockfish & \textcolor[HTML]{FDE725}{\textbf{3.0}}\\
-Blackgill rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Blue/Deacon rockfish & \textcolor[HTML]{B1DD2E}{\textbf{2.5}}\\
-Bocaccio & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Brown rockfish & \textcolor[HTML]{B1DD2E}{\textbf{2.5}}\\
-Cabezon & \textcolor[HTML]{66CB5D}{\textbf{2.0}}\\
-California scorpionfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Canary rockfish & \textcolor[HTML]{FDE725}{\textbf{3.0}}\\
-Chilipepper rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-China rockfish & \textcolor[HTML]{B1DD2E}{\textbf{2.5}}\\
-Copper rockfish & \textcolor[HTML]{B1DD2E}{\textbf{2.5}}\\
-Cowcod & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Darkblotched rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Dover sole & \textcolor[HTML]{2EB37C}{\textbf{1.5}}\\
-English sole & \textcolor[HTML]{2EB37C}{\textbf{1.5}}\\
-Flag rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Flathead Sole & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Gopher/Black and yellow rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Grass rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Greenspotted rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Greenstriped rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Honeycomb rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Kelp greenling & \textcolor[HTML]{66CB5D}{\textbf{2.0}}\\
-Kelp rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Lingcod & \textcolor[HTML]{FDE725}{\textbf{3.0}}\\
-Longnose skate & \textcolor[HTML]{66CB5D}{\textbf{2.0}}\\
-Longspine thornyhead & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Olive rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Pacific cod & \textcolor[HTML]{FDE725}{\textbf{3.0}}\\
-Pacific ocean perch & \textcolor[HTML]{1F988B}{\textbf{1.0}}\\
-Pacific sanddab & \textcolor[HTML]{66CB5D}{\textbf{2.0}}\\
-Pacific spiny dogfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Petrale sole & \textcolor[HTML]{66CB5D}{\textbf{2.0}}\\
-Quillback rockfish & \textcolor[HTML]{66CB5D}{\textbf{2.0}}\\
-Redbanded rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Rex Sole & \textcolor[HTML]{66CB5D}{\textbf{2.0}}\\
-Rock sole & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Rougheye/Blackspotted rockfish & \textcolor[HTML]{66CB5D}{\textbf{2.0}}\\
-Sablefish & \textcolor[HTML]{FDE725}{\textbf{3.0}}\\
-Sand sole & \textcolor[HTML]{66CB5D}{\textbf{2.0}}\\
-Sharpchin rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Shortraker rockfish & \textcolor[HTML]{66CB5D}{\textbf{2.0}}\\
-Shortspine thornyhead & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Speckled rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Splitnose rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Squarespot rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Starry flounder & \textcolor[HTML]{66CB5D}{\textbf{2.0}}\\
-Starry rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Treefish rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Vermilion/Sunset rockfish & \textcolor[HTML]{35608D}{\textbf{0.0}}\\
-Widow rockfish & \textcolor[HTML]{66CB5D}{\textbf{2.0}}\\
-Yelloweye rockfish & \textcolor[HTML]{66CB5D}{\textbf{2.0}}\\
-Yellowtail rockfish & \textcolor[HTML]{FDE725}{\textbf{3.0}}\\*
+Pacific sanddab & \cellcolor[HTML]{22A884}{\textcolor{white}{\textbf{2.0}}}\\
+Pacific spiny dogfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Petrale sole & \cellcolor[HTML]{22A884}{\textcolor{white}{\textbf{2.0}}}\\
+Quillback rockfish & \cellcolor[HTML]{22A884}{\textcolor{white}{\textbf{2.0}}}\\
+Redbanded rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Redstripe rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Rex Sole & \cellcolor[HTML]{22A884}{\textcolor{white}{\textbf{2.0}}}\\
+Rock sole & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Rosethorn rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Rosy rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Rougheye/Blackspotted rockfish & \cellcolor[HTML]{22A884}{\textcolor{white}{\textbf{2.0}}}\\
+Sablefish & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{3.0}}}\\
+Sand sole & \cellcolor[HTML]{22A884}{\textcolor{white}{\textbf{2.0}}}\\
+Sharpchin rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Shortraker rockfish & \cellcolor[HTML]{22A884}{\textcolor{white}{\textbf{2.0}}}\\
+Shortspine thornyhead & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Silvergray rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Speckled rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Splitnose rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Squarespot rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Starry flounder & \cellcolor[HTML]{22A884}{\textcolor{white}{\textbf{2.0}}}\\
+Starry rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Stripetail rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Treefish rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Vermilion/Sunset rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Widow rockfish & \cellcolor[HTML]{22A884}{\textcolor{white}{\textbf{2.0}}}\\
+Yelloweye rockfish & \cellcolor[HTML]{22A884}{\textcolor{white}{\textbf{2.0}}}\\
+Yellowmouth rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.0}}}\\
+Yellowtail rockfish & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{3.0}}}\\*
 \end{longtable}
 \endgroup{}
 \endgroup{}
 
 
 <!--chapter:end:23tribal_importance.Rmd-->
+
+\newpage
 
 ## Recreational Importance
 
@@ -367,7 +300,7 @@ The recreational importance by species and state are shown in Table \ref{tab:rec
 \begingroup\fontsize{10}{12}\selectfont
 \begingroup\fontsize{10}{12}\selectfont
 
-\begin{longtable}[t]{>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{2cm}>{\raggedright\arraybackslash}p{2cm}>{\raggedright\arraybackslash}p{2cm}}
+\begin{longtable}[t]{>{\raggedright\arraybackslash}p{6cm}>{}r>{}r>{}r}
 \caption{(\#tab:recr-import)Recreational importance of species by state based on the relative species desirability.}\\
 \toprule
 Species & California & Oregon & Washington\\
@@ -382,63 +315,71 @@ Species & California & Oregon & Washington\\
 \endfoot
 \bottomrule
 \endlastfoot
-Arrowtooth flounder & --- & 0.5 & ---\\
-Aurora rockfish & --- & --- & ---\\
-Bank rockfish & 0.9 & --- & ---\\
-Big skate & 0.5 & --- & 0.5\\
-Black rockfish & 2 & 1.9 & 1.8\\
-Blackgill rockfish & --- & --- & ---\\
-Blue/Deacon rockfish & 1.82 & 1.9 & 1.8\\
-Bocaccio & 1.86 & 0.6 & 1.3\\
-Brown rockfish & 1.45 & 0.5 & ---\\
-Cabezon & 1.14 & 1.5 & 0.75\\
-California scorpionfish & 2 & --- & ---\\
-Canary rockfish & 1.78 & 1.8 & 1.9\\
-Chilipepper rockfish & 1.6 & --- & ---\\
-China rockfish & 1.06 & 1 & 1\\
-Copper rockfish & 1.65 & 1 & 1\\
-Cowcod & 1.9 & --- & ---\\
-Darkblotched rockfish & --- & --- & ---\\
-Dover sole & 0.5 & 0.7 & 0.5\\
-English sole & 0.5 & 0.7 & 0.5\\
-Flag rockfish & 1.48 & --- & ---\\
-Flathead Sole & --- & 0.7 & 0.5\\
-Gopher/Black and yellow rockfish & 1.13 & --- & ---\\
-Grass rockfish & 0.91 & --- & ---\\
-Greenspotted rockfish & 1.37 & --- & ---\\
-Greenstriped rockfish & 1 & --- & ---\\
-Honeycomb rockfish & 1.6 & --- & ---\\
-Kelp greenling & 1.19 & 0.8 & 0.8\\
-Kelp rockfish & 1.14 & --- & 0.75\\
-Lingcod & 1.97 & 2 & 2\\
-Longnose skate & --- & 0.5 & ---\\
-Longspine thornyhead & --- & --- & ---\\
-Olive rockfish & 1.16 & 0.8 & ---\\
-Pacific cod & --- & 0.5 & 0.6\\
-Pacific Ocean perch & --- & --- & ---\\
-Pacific sanddab & 0.82 & 0.5 & ---\\
-Pacific spiny dogfish & 0.3 & --- & ---\\
-Petrale sole & 0.62 & 0.7 & 0.5\\
-Quillback rockfish & 0.82 & 1 & 1\\
-Redbanded rockfish & 0.8 & --- & ---\\
-Rex sole & 0.5 & 0.7 & 0.5\\
-Rock sole & 0.65 & 0.7 & 0.5\\
-Rougheye/Blackspotted rockfish & --- & --- & ---\\
-Sablefish & 0.5 & 0.7 & 0.7\\
-Sand sole & 0.65 & 0.7 & 0.5\\
-Sharpchin rockfish & --- & --- & ---\\
-Shortraker rockfish & --- & --- & ---\\
-Shortspine thornyhead & --- & --- & ---\\
-Speckled rockfish & 1.6 & --- & ---\\
-Splitnose rockfish & --- & --- & ---\\
-Squarespot rockfish & 1.8 & --- & ---\\
-Starry flounder & 0.65 & 0.7 & 0.5\\
-Starry rockfish & 1.1 & --- & ---\\
-Treefish rockfish & 0.7 & --- & ---\\
-Vermilion/Sunset rockfish & 1.9 & 1.15 & 1.15\\
-Widow rockfish & 1.15 & 0.7 & 0.5\\
-Yelloweye rockfish & 1.9 & 1.8 & 2\\
-Yellowtail rockfish & 1 & 1.3 & 1.5\\*
+Arrowtooth flounder & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Aurora rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Bank rockfish & \cellcolor[HTML]{23898E}{\textcolor{white}{\textbf{0.90}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Big skate & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}}\\
+Black rockfish & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{2.00}}} & \cellcolor[HTML]{67CC5C}{\textcolor{white}{\textbf{1.90}}} & \cellcolor[HTML]{57C666}{\textcolor{white}{\textbf{1.80}}}\\
+Blackgill rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Blue/Deacon rockfish & \cellcolor[HTML]{5AC864}{\textcolor{white}{\textbf{1.82}}} & \cellcolor[HTML]{67CC5C}{\textcolor{white}{\textbf{1.90}}} & \cellcolor[HTML]{57C666}{\textcolor{white}{\textbf{1.80}}}\\
+Bocaccio & \cellcolor[HTML]{61CA60}{\textcolor{white}{\textbf{1.86}}} & \cellcolor[HTML]{2C738E}{\textcolor{white}{\textbf{0.60}}} & \cellcolor[HTML]{21A685}{\textcolor{white}{\textbf{1.30}}}\\
+Brown rockfish & \cellcolor[HTML]{2AB07F}{\textcolor{white}{\textbf{1.45}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Cabezon & \cellcolor[HTML]{1F9A8A}{\textcolor{white}{\textbf{1.14}}} & \cellcolor[HTML]{2EB47C}{\textcolor{white}{\textbf{1.50}}} & \cellcolor[HTML]{277F8E}{\textcolor{white}{\textbf{0.75}}}\\
+California scorpionfish & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{2.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Canary rockfish & \cellcolor[HTML]{54C568}{\textcolor{white}{\textbf{1.78}}} & \cellcolor[HTML]{57C666}{\textcolor{white}{\textbf{1.80}}} & \cellcolor[HTML]{67CC5C}{\textcolor{white}{\textbf{1.90}}}\\
+Chilipepper rockfish & \cellcolor[HTML]{3ABA76}{\textcolor{white}{\textbf{1.60}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+China rockfish & \cellcolor[HTML]{1F948C}{\textcolor{white}{\textbf{1.06}}} & \cellcolor[HTML]{21908D}{\textcolor{white}{\textbf{1.00}}} & \cellcolor[HTML]{21908D}{\textcolor{white}{\textbf{1.00}}}\\
+Copper rockfish & \cellcolor[HTML]{40BD72}{\textcolor{white}{\textbf{1.65}}} & \cellcolor[HTML]{21908D}{\textcolor{white}{\textbf{1.00}}} & \cellcolor[HTML]{21908D}{\textcolor{white}{\textbf{1.00}}}\\
+Cowcod & \cellcolor[HTML]{67CC5C}{\textcolor{white}{\textbf{1.90}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Curlfin sole & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Darkblotched rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Dover sole & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}}\\
+English sole & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}}\\
+Flag rockfish & \cellcolor[HTML]{2DB27D}{\textcolor{white}{\textbf{1.48}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Flathead Sole & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}}\\
+Gopher/Black and yellow rockfish & \cellcolor[HTML]{1F998A}{\textcolor{white}{\textbf{1.13}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Grass rockfish & \cellcolor[HTML]{238A8D}{\textcolor{white}{\textbf{0.91}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Greenspotted rockfish & \cellcolor[HTML]{25AB82}{\textcolor{white}{\textbf{1.37}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Greenstriped rockfish & \cellcolor[HTML]{21908D}{\textcolor{white}{\textbf{1.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Honeycomb rockfish & \cellcolor[HTML]{3ABA76}{\textcolor{white}{\textbf{1.60}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Kelp greenling & \cellcolor[HTML]{1F9E89}{\textcolor{white}{\textbf{1.19}}} & \cellcolor[HTML]{26828E}{\textcolor{white}{\textbf{0.80}}} & \cellcolor[HTML]{26828E}{\textcolor{white}{\textbf{0.80}}}\\
+Kelp rockfish & \cellcolor[HTML]{1F9A8A}{\textcolor{white}{\textbf{1.14}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{277F8E}{\textcolor{white}{\textbf{0.75}}}\\
+Leopard shark & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Lingcod & \cellcolor[HTML]{74D055}{\textcolor{white}{\textbf{1.97}}} & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{2.00}}} & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{2.00}}}\\
+Longnose skate & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Longspine thornyhead & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Olive rockfish & \cellcolor[HTML]{1E9C89}{\textcolor{white}{\textbf{1.16}}} & \cellcolor[HTML]{26828E}{\textcolor{white}{\textbf{0.80}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Pacific cod & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}} & \cellcolor[HTML]{2C738E}{\textcolor{white}{\textbf{0.60}}}\\
+Pacific Ocean perch & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Pacific sanddab & \cellcolor[HTML]{25838E}{\textcolor{white}{\textbf{0.82}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Pacific spiny dogfish & \cellcolor[HTML]{365D8D}{\textcolor{white}{\textbf{0.30}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Petrale sole & \cellcolor[HTML]{2B748E}{\textcolor{white}{\textbf{0.62}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}}\\
+Quillback rockfish & \cellcolor[HTML]{25838E}{\textcolor{white}{\textbf{0.82}}} & \cellcolor[HTML]{21908D}{\textcolor{white}{\textbf{1.00}}} & \cellcolor[HTML]{21908D}{\textcolor{white}{\textbf{1.00}}}\\
+Redbanded rockfish & \cellcolor[HTML]{26828E}{\textcolor{white}{\textbf{0.80}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Redstripe rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Rex sole & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}}\\
+Rock sole & \cellcolor[HTML]{2A778E}{\textcolor{white}{\textbf{0.65}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}}\\
+Rosethorn rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Rosy rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Rougheye/Blackspotted rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Sablefish & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}}\\
+Sand sole & \cellcolor[HTML]{2A778E}{\textcolor{white}{\textbf{0.65}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}}\\
+Sharpchin rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Shortraker rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Shortspine thornyhead & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Silvergray rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Speckled rockfish & \cellcolor[HTML]{3ABA76}{\textcolor{white}{\textbf{1.60}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Splitnose rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Squarespot rockfish & \cellcolor[HTML]{57C666}{\textcolor{white}{\textbf{1.80}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Starry flounder & \cellcolor[HTML]{2A778E}{\textcolor{white}{\textbf{0.65}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}}\\
+Starry rockfish & \cellcolor[HTML]{1F978B}{\textcolor{white}{\textbf{1.10}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Stripetail rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Treefish rockfish & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Vermilion/Sunset rockfish & \cellcolor[HTML]{67CC5C}{\textcolor{white}{\textbf{1.90}}} & \cellcolor[HTML]{1E9B8A}{\textcolor{white}{\textbf{1.15}}} & \cellcolor[HTML]{1E9B8A}{\textcolor{white}{\textbf{1.15}}}\\
+Widow rockfish & \cellcolor[HTML]{1E9B8A}{\textcolor{white}{\textbf{1.15}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}}\\
+Yelloweye rockfish & \cellcolor[HTML]{67CC5C}{\textcolor{white}{\textbf{1.90}}} & \cellcolor[HTML]{57C666}{\textcolor{white}{\textbf{1.80}}} & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{2.00}}}\\
+Yellowmouth rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Yellowtail rockfish & \cellcolor[HTML]{21908D}{\textcolor{white}{\textbf{1.00}}} & \cellcolor[HTML]{21A685}{\textcolor{white}{\textbf{1.30}}} & \cellcolor[HTML]{2EB47C}{\textcolor{white}{\textbf{1.50}}}\\*
 \end{longtable}
 \endgroup{}
 \endgroup{}
@@ -447,9 +388,19 @@ Yellowtail rockfish & 1 & 1.3 & 1.5\\*
 
 ## Constituent Demand and Choke Species
 
-This Factor includes aspects of species importance that are less easily quantified through formulaic transformation of fisheries data. Constituent Demand is intended to capture elements of fishery importance that are not adequately captured by the scoring for the commercial and recreational fisheries on a coastwide basis. Four elements are currently reflected in the scoring of this component, two of which capture situations in which a species is considerably more important to a segment of the commercial or recreational fishery than is reflected in the coastwide scoring of those Factors.  There are different numbers of species present in the catch of each state/fleet and all species with zero catch have been assigned an intermediate commercial or recreational state or gea rank of 57, in order to better facilitate comparison. Those are accompanied by additional columns showing the differences between the coastwide and each state's/fleet's values.  
+This Factor includes aspects of species importance that are less easily quantified through formulaic transformation of fisheries data. Constituent Demand is intended to capture elements of fishery importance that are not adequately captured by the scoring for the commercial and recreational fisheries on a coastwide basis.
 
-Initial evaluation of the significance of differences is indicated by values ranging generally from 2-0 for the commercial and recreational fleets, respectively. The third element provides an opportunity to elevate scores for "species of concern" that have been identified by stakeholders. One example of such concern might be rapid changes in the availability of a species to fishermen in a particular area.  The final component reflects the degree to which the 5-year catch histories (used in scoring the Commercial, Recreational, and Tribal Factors) of species were reduced as a result of rebuilding, or post-rebuilding caution, in the setting of Annual Catch Limits (ACLs).  Input from the Council family and public regarding areas of importance or concern relevant to this tab is encouraged.  The scoring or each of the above described components generally ranges between 0-2 with higher scores indicating greater impact to either the commercial or recreational fishery. 
+Five elements are currently reflected in the scoring of this component, two of which capture situations in which a species is considerably more important to a segment of the commercial or recreational fishery than is reflected in the coastwide scoring of those Factors. There are different numbers of species present in the commerical and recreastional catch from each state and or gear and all species with zero catch for a specific combination (e.g., zero commercial catch in Washington state) have been assigned the highest numerical rank (i.e., lower numerical ranking indicates species with a high constituent demand and or choke species). Those are accompanied by additional columns showing the differences between the coastwide and each state’s/fleet’s values.
+
+Initial evaluation of the significance of differences between state/fleet values and the coastwide values is indicated by numerical scoring ranging generally from 2.0-0 where a higher value indicates a greater differnce between the state/fleet and coastwide importance.
+
+The third element provides an opportunity to elevate scores for “species of concern” that have been identified by stakeholders. One example of such concern might be rapid changes in the availability of a species to fishermen in a particular area.
+
+The fourth component reflects the degree to which the 5-year catch histories (used in scoring the Commercial, Recreational, and Tribal Factors) of species were reduced as a result of rebuilding, or post-rebuilding caution, in the setting of Annual Catch Limits (ACLs).
+
+The final scoring element is a measure of the impact that a species specific ACLs may restult in constrainst on opportunities across the groundfish fishery (termed ‘choke stock’). An example of a choke stock would be a stock managed via a rebuilding plan resulting in low ACLs and this stock is present across areas of the coast making avoidance difficult without potentially forgoing catches of other co-occurring stock.
+
+Input from the Council family and public regarding areas of importance or concern relevant to this tab is encouraged. The scoring or each of the above described components generally ranges between 0-2.0 with higher scores indicating greater impact to either the commercial or recreational fishery.
 
 The overall ranking for Constituent Demand and Choke Species is calculated as:
 
@@ -461,104 +412,13 @@ $d_s = \text{Choke Stock}_s + \text{Commerical Importance}_s + \text{Recreationa
 
 <!--chapter:end:25constituent_demand.Rmd-->
 
-## Abundance of Stocks, Relative to their Biomass Targets
+## Stock Status Relative to Management Targets
 
-Holding other Factors constant, scheduling an assessment in the upcoming cycle will be a higher priority for a stock whose spawning biomass represents a lower percentage of that in an unfished condition, as estimated in the most recent assessment. Correspondingly, the highest scores for this Factor would be assigned to stocks that are below their Minimum Stock Size Thresholds (MSSTs, i.e., are overfished). Such cases are differentiated in the scoring by whether the spawning biomass trend is decreasing, stable, or increasing. As the ratio of current stock biomass to the unfished level increases, this Factor Score decreases. Where available, the percentage of unfished biomass estimated in the terminal year of the most recent assessment for each species is used as the basis for scoring. However, most groundfish species have not been assessed in a manner that provides an estimate of relative abundance.  For those stocks, the Productivity Susceptibility Analysis (PSA) score, a measure of a species potential vulnerability to fishing pressures, has been used to assign a Factor Score (Table \ref{tab:psa-score}).
+Holding other Factors constant, scheduling an assessment in the upcoming cycle will be a higher priority for a stock whose spawning biomass represents a lower percentage of that in an unfished condition, as estimated in the most recent assessment. Correspondingly, the highest scores for this Factor would be assigned to stocks that are below their Minimum Stock Size Thresholds (MSSTs, i.e., are overfished). Such cases are differentiated in the scoring by whether the spawning biomass trend is decreasing, stable, or increasing. As the ratio of current stock biomass to the unfished level increases, this Factor Score decreases. Where available, the percentage of unfished biomass estimated in the terminal year of the most recent assessment for each species is used as the basis for scoring. Scoring criteria for this factor by species are described in (Table \ref{tab:abund}).
 
-Scoring criteria for this factor by species are described in Table \ref{tab:abund}. Rather than basing scores for these species solely on PSA scores, it may be useful in the future to also categorize them according to the average attainment of their OFL contributions (to assemblage OFLs) over the past 10 years. The scoring criteria show the stocks ordered by PSA score (with assessment-based fraction of unfished levels) and also by the fraction of unfished level, within each of the three PSA categories used in the analysis.
+However, not all groundfish species have not been assessed in a manner that provides an estimate of relative abundance. For those stocks, the Productivity Susceptibility Analysis (PSA) score, a measure of a species potential vulnerability to fishing pressures, has been used to assign a Factor Score (Table \ref{tab:psa-score})
 
-
-\begingroup\fontsize{10}{12}\selectfont
-\begingroup\fontsize{10}{12}\selectfont
-
-\begin{longtable}[t]{>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{1cm}>{\raggedright\arraybackslash}p{1cm}}
-\caption{(\#tab:psa-score)The estimated stock status and Productivity Susceptibility Analysis (PSA) scores by species.  Higher PSA values indicate higher vulnerability. Stocks that have area specific assessments a single stock status value is calculated by aggregating spawning biomass or output by area.}\\
-\toprule
-Species & Status & PSA Score\\
-\midrule
-\endfirsthead
-\caption[]{(\#tab:psa-score)The estimated stock status and Productivity Susceptibility Analysis (PSA) scores by species.  Higher PSA values indicate higher vulnerability. Stocks that have area specific assessments a single stock status value is calculated by aggregating spawning biomass or output by area. \textit{(continued)}}\\
-\toprule
-Species & Status & PSA Score\\
-\midrule
-\endhead
-
-\endfoot
-\bottomrule
-\endlastfoot
-Arrowtooth flounder & 0.87 & 1.21\\
-Aurora rockfish & 0.64 & 2.10\\
-Bank rockfish & NA & 2.02\\
-Big skate & 0.79 & 1.99\\
-Black rockfish & 0.43 & 1.94\\
-Blackgill rockfish & 0.39 & 2.08\\
-Blue/Deacon rockfish & 0.42 & 2.01\\
-Bocaccio & 0.49 & 1.93\\
-Brown rockfish & 0.43 & 1.99\\
-Butter sole & NA & 1.18\\
-Cabezon & 0.60 & 1.48\\
-Calico rockfish & NA & 1.57\\
-California scorpionfish & 0.54 & 1.41\\
-Canary rockfish & 0.57 & 2.01\\
-Chilipepper rockfish & 0.69 & 1.35\\
-China rockfish & 0.46 & 2.23\\
-Copper rockfish & 0.59 & 2.27\\
-Cowcod & 0.57 & 2.13\\
-Curlfin sole & NA & 1.23\\
-Darkblotched rockfish & 0.40 & 1.92\\
-Dover sole & 0.84 & 1.54\\
-English sole & 0.88 & 1.19\\
-Flag rockfish & NA & 1.97\\
-Flathead sole & NA & 1.03\\
-Gopher/Black and yellow rockfish & 0.44 & 1.73\\
-Grass rockfish & NA & 1.89\\
-Greenblotched rockfish & NA & 2.12\\
-Greenspotted rockfish & 0.35 & 1.98\\
-Greenstriped rockfish & 0.81 & 1.88\\
-Honeycomb rockfish & NA & 1.97\\
-Kelp greenling & 0.81 & 1.56\\
-Kelp rockfish & NA & 1.59\\
-Leopard shark & NA & 2.00\\
-Lingcod & 0.49 & 1.55\\
-Longnose skate & 0.57 & 1.68\\
-Longspine thornyhead & 0.75 & 1.53\\
-Olive rockfish & NA & 1.87\\
-Pacific cod & NA & 1.34\\
-Pacific ocean perch & 0.77 & 1.69\\
-Pacific sanddab & NA & 1.25\\
-Pacific spiny dogfish & 0.63 & 2.13\\
-Petrale sole & 0.39 & 1.94\\
-Quillback rockfish & NA & 2.22\\
-Redbanded rockfish & NA & 2.02\\
-Redstripe rockfish & NA & 2.16\\
-Rex sole & 0.80 & 1.28\\
-Rock sole & NA & 1.42\\
-Rosethorn rockfish & NA & 2.09\\
-Rosy rockfish & NA & 1.89\\
-Rougheye/Blackspotted rockfish & 0.47 & 2.27\\
-Sablefish & 0.58 & 1.64\\
-Sand sole & NA & 1.23\\
-Sharpchin rockfish & 0.68 & 2.05\\
-Shortbelly rockfish & 0.67 & 1.13\\
-Shortraker rockfish & NA & 2.25\\
-Shortspine thornyhead & 0.74 & 1.80\\
-Silvergray rockfish & NA & 2.02\\
-Speckled rockfish & NA & 2.10\\
-Splitnose rockfish & 0.66 & 1.82\\
-Squarespot rockfish & NA & 1.86\\
-Starry flounder & NA & 1.02\\
-Starry rockfish & 0.50 & 2.09\\
-Stripetail rockfish & NA & 1.80\\
-Tiger rockfish & NA & 2.06\\
-Treefish rockfish & NA & 1.73\\
-Vermilion rockfish & NA & 2.05\\
-Widow rockfish & 0.92 & 2.05\\
-Yelloweye rockfish & 0.28 & 2.00\\
-Yellowmouth rockfish & 0.67 & 1.96\\
-Yellowtail rockfish & 0.75 & 1.88\\*
-\end{longtable}
-\endgroup{}
-\endgroup{}
+Rather than basing scores for these species solely on PSA scores, it may be useful in the future to also categorize them according to the average attainment of their OFL contributions (to assemblage OFLs) over the past 10 years. The scoring criteria show the stocks ordered by PSA score (with assessment-based fraction of unfished levels) and also by the fraction of unfished level, within each of the three PSA categories used in the analysis.
  
 
 \begingroup\fontsize{10}{12}\selectfont
@@ -589,6 +449,99 @@ Score & Stock Status\\
 8 & Stock is overfished ($SB \le \text{MSST}$) and increasing.\\
 9 & Stock is overfished ($SB \le \text{MSST}$) and stable.\\
 10 & Stock is overfished ($SB \le \text{MSST}$) and decreasing.\\*
+\end{longtable}
+\endgroup{}
+\endgroup{}
+
+
+\begingroup\fontsize{10}{12}\selectfont
+\begingroup\fontsize{10}{12}\selectfont
+
+\begin{longtable}[t]{>{\raggedright\arraybackslash}p{6cm}>{}r>{\raggedright\arraybackslash}p{1cm}}
+\caption{(\#tab:psa-score)The estimated stock status and Productivity Susceptibility Analysis (PSA) scores by species.  Higher PSA values indicate higher vulnerability. Stocks that have area specific assessments a single stock status value is calculated by aggregating spawning biomass or output by area.}\\
+\toprule
+Species & PSA Score\\
+\midrule
+\endfirsthead
+\caption[]{(\#tab:psa-score)The estimated stock status and Productivity Susceptibility Analysis (PSA) scores by species.  Higher PSA values indicate higher vulnerability. Stocks that have area specific assessments a single stock status value is calculated by aggregating spawning biomass or output by area. \textit{(continued)}}\\
+\toprule
+Species & PSA Score\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+Arrowtooth flounder & \cellcolor[HTML]{47C16E}{\textcolor{white}{\textbf{1.21}}}\\
+Aurora rockfish & \cellcolor[HTML]{375B8D}{\textcolor{white}{\textbf{2.10}}}\\
+Bank rockfish & \cellcolor[HTML]{32658E}{\textcolor{white}{\textbf{2.02}}}\\
+Big skate & \cellcolor[HTML]{31688E}{\textcolor{white}{\textbf{1.99}}}\\
+Black rockfish & \cellcolor[HTML]{2E6E8E}{\textcolor{white}{\textbf{1.94}}}\\
+Blackgill rockfish & \cellcolor[HTML]{365D8D}{\textcolor{white}{\textbf{2.08}}}\\
+Blue/Deacon rockfish & \cellcolor[HTML]{31668E}{\textcolor{white}{\textbf{2.01}}}\\
+Bocaccio & \cellcolor[HTML]{2E6F8E}{\textcolor{white}{\textbf{1.93}}}\\
+Brown rockfish & \cellcolor[HTML]{31688E}{\textcolor{white}{\textbf{1.99}}}\\
+Butter sole & \cellcolor[HTML]{4EC36B}{\textcolor{white}{\textbf{1.18}}}\\
+Cabezon & \cellcolor[HTML]{20A386}{\textcolor{white}{\textbf{1.48}}}\\
+Calico rockfish & \cellcolor[HTML]{1F998A}{\textcolor{white}{\textbf{1.57}}}\\
+California scorpionfish & \cellcolor[HTML]{25AB82}{\textcolor{white}{\textbf{1.41}}}\\
+Canary rockfish & \cellcolor[HTML]{31668E}{\textcolor{white}{\textbf{2.01}}}\\
+Chilipepper rockfish & \cellcolor[HTML]{2DB27D}{\textcolor{white}{\textbf{1.35}}}\\
+China rockfish & \cellcolor[HTML]{3E4989}{\textcolor{white}{\textbf{2.23}}}\\
+Copper rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{2.27}}}\\
+Cowcod & \cellcolor[HTML]{39578C}{\textcolor{white}{\textbf{2.13}}}\\
+Curlfin sole & \cellcolor[HTML]{42BE71}{\textcolor{white}{\textbf{1.23}}}\\
+Darkblotched rockfish & \cellcolor[HTML]{2D718E}{\textcolor{white}{\textbf{1.92}}}\\
+Dover sole & \cellcolor[HTML]{1E9C89}{\textcolor{white}{\textbf{1.54}}}\\
+English sole & \cellcolor[HTML]{4CC26C}{\textcolor{white}{\textbf{1.19}}}\\
+Flag rockfish & \cellcolor[HTML]{2F6B8E}{\textcolor{white}{\textbf{1.97}}}\\
+Flathead sole & \cellcolor[HTML]{76D153}{\textcolor{white}{\textbf{1.03}}}\\
+Gopher/Black and yellow rockfish & \cellcolor[HTML]{24868E}{\textcolor{white}{\textbf{1.73}}}\\
+Grass rockfish & \cellcolor[HTML]{2B748E}{\textcolor{white}{\textbf{1.89}}}\\
+Greenblotched rockfish & \cellcolor[HTML]{38598C}{\textcolor{white}{\textbf{2.12}}}\\
+Greenspotted rockfish & \cellcolor[HTML]{30698E}{\textcolor{white}{\textbf{1.98}}}\\
+Greenstriped rockfish & \cellcolor[HTML]{2B758E}{\textcolor{white}{\textbf{1.88}}}\\
+Honeycomb rockfish & \cellcolor[HTML]{2F6B8E}{\textcolor{white}{\textbf{1.97}}}\\
+Kelp greenling & \cellcolor[HTML]{1F9A8A}{\textcolor{white}{\textbf{1.56}}}\\
+Kelp rockfish & \cellcolor[HTML]{1F968B}{\textcolor{white}{\textbf{1.59}}}\\
+Leopard shark & \cellcolor[HTML]{31678E}{\textcolor{white}{\textbf{2.00}}}\\
+Lingcod & \cellcolor[HTML]{1E9B8A}{\textcolor{white}{\textbf{1.55}}}\\
+Longnose skate & \cellcolor[HTML]{228C8D}{\textcolor{white}{\textbf{1.68}}}\\
+Longspine thornyhead & \cellcolor[HTML]{1F9E89}{\textcolor{white}{\textbf{1.53}}}\\
+Olive rockfish & \cellcolor[HTML]{2A768E}{\textcolor{white}{\textbf{1.87}}}\\
+Pacific cod & \cellcolor[HTML]{2EB37C}{\textcolor{white}{\textbf{1.34}}}\\
+Pacific ocean perch & \cellcolor[HTML]{228B8D}{\textcolor{white}{\textbf{1.69}}}\\
+Pacific sanddab & \cellcolor[HTML]{3FBC73}{\textcolor{white}{\textbf{1.25}}}\\
+Pacific spiny dogfish & \cellcolor[HTML]{39578C}{\textcolor{white}{\textbf{2.13}}}\\
+Petrale sole & \cellcolor[HTML]{2E6E8E}{\textcolor{white}{\textbf{1.94}}}\\
+Quillback rockfish & \cellcolor[HTML]{3E4A89}{\textcolor{white}{\textbf{2.22}}}\\
+Redbanded rockfish & \cellcolor[HTML]{32658E}{\textcolor{white}{\textbf{2.02}}}\\
+Redstripe rockfish & \cellcolor[HTML]{3B528B}{\textcolor{white}{\textbf{2.16}}}\\
+Rex sole & \cellcolor[HTML]{38B977}{\textcolor{white}{\textbf{1.28}}}\\
+Rock sole & \cellcolor[HTML]{24AA83}{\textcolor{white}{\textbf{1.42}}}\\
+Rosethorn rockfish & \cellcolor[HTML]{365C8D}{\textcolor{white}{\textbf{2.09}}}\\
+Rosy rockfish & \cellcolor[HTML]{2B748E}{\textcolor{white}{\textbf{1.89}}}\\
+Rougheye/Blackspotted rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{2.27}}}\\
+Sablefish & \cellcolor[HTML]{21918C}{\textcolor{white}{\textbf{1.64}}}\\
+Sand sole & \cellcolor[HTML]{42BE71}{\textcolor{white}{\textbf{1.23}}}\\
+Sharpchin rockfish & \cellcolor[HTML]{34618D}{\textcolor{white}{\textbf{2.05}}}\\
+Shortbelly rockfish & \cellcolor[HTML]{5CC863}{\textcolor{white}{\textbf{1.13}}}\\
+Shortraker rockfish & \cellcolor[HTML]{404688}{\textcolor{white}{\textbf{2.25}}}\\
+Shortspine thornyhead & \cellcolor[HTML]{277F8E}{\textcolor{white}{\textbf{1.80}}}\\
+Silvergray rockfish & \cellcolor[HTML]{32658E}{\textcolor{white}{\textbf{2.02}}}\\
+Speckled rockfish & \cellcolor[HTML]{375B8D}{\textcolor{white}{\textbf{2.10}}}\\
+Splitnose rockfish & \cellcolor[HTML]{287C8E}{\textcolor{white}{\textbf{1.82}}}\\
+Squarespot rockfish & \cellcolor[HTML]{2A778E}{\textcolor{white}{\textbf{1.86}}}\\
+Starry flounder & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{1.02}}}\\
+Starry rockfish & \cellcolor[HTML]{365C8D}{\textcolor{white}{\textbf{2.09}}}\\
+Stripetail rockfish & \cellcolor[HTML]{277F8E}{\textcolor{white}{\textbf{1.80}}}\\
+Tiger rockfish & \cellcolor[HTML]{34608D}{\textcolor{white}{\textbf{2.06}}}\\
+Treefish rockfish & \cellcolor[HTML]{24868E}{\textcolor{white}{\textbf{1.73}}}\\
+Vermilion rockfish & \cellcolor[HTML]{34618D}{\textcolor{white}{\textbf{2.05}}}\\
+Widow rockfish & \cellcolor[HTML]{34618D}{\textcolor{white}{\textbf{2.05}}}\\
+Yelloweye rockfish & \cellcolor[HTML]{31678E}{\textcolor{white}{\textbf{2.00}}}\\
+Yellowmouth rockfish & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{1.96}}}\\
+Yellowtail rockfish & \cellcolor[HTML]{2B758E}{\textcolor{white}{\textbf{1.88}}}\\*
 \end{longtable}
 \endgroup{}
 \endgroup{}
@@ -672,11 +625,11 @@ Score & Stock Harvest Status\\
 
 ## Ecosystem Importance
 
-Ecosystem importance scores are intended to describe the relative importance of each species to the trophic dynamics of the California Current ecosystem.  We based the ecosystem importance scores on an Ecopath model for the California Current ecosystem (**Koehn et al. 2016**). Importance scores have top-down and a bottom-up components, which are summed.  First each species was matched to the corresponding functional group from the Ecopath model, and the proportional contribution of each species to the functional group was calculated using the OFL contributions from the Fishing Mortality tab.  
+Ecosystem importance scores are intended to describe the relative importance of each species to the trophic dynamics of the California Current ecosystem.  We based the ecosystem importance scores on an Ecopath model for the California Current ecosystem [@koehn_developing_2016]. Importance scores have top-down and a bottom-up components, which are summed.  First each species was matched to the corresponding functional group from the Ecopath model, and the proportional contribution of each species to the functional group was calculated using the OFL contributions from the Fishing Mortality tab.  
 
 The top-down component represents the importance of each species as a predator of managed or protected species in the California Current ecosystem.  We represent this as an index of the proportion of total consumption in the ecosystem that can be attributed to each species.  The score is the product of several factors; 1) the proportion of the functional group's adult diet consisting of managed or protected species, 2) the functional group's total consumption rate ($QB*B$ defined in Ecopath), and 3) the proportion of the functional group that consists of the species (calculated from the OFL percentages). The product is then divided by the summed total consumption of managed or protected species.  We then re-scale that proportion using all the functional groups in the Ecopath model, not just groundfish, to range from 0 to 10. 
 
-The bottom-up component represents the importance of the species as a prey species to all predators in the ecosystem. We used the proportion of total consumer biomass to represent the contribution of each species.  This index has been used by others to describe the importance of forage species to ecosystem dynamics (**Smith et al. 2014**) and is referred to as the 'Proportion of species available for consumption'. We calculated the index value for each species in the prioritization, using biomass from the ecopath model and attributing it to each species using the OFL percentages as we did with the top-down score. Because juvenile life stages of groundfish may be more important prey items than adult, we added apportioned biomass from the four juvenile fish groups in the Ecopath model (juvenile rockfish, juvenile flatfish, juvenile thornyhead, and juvenile roundfish) to each of the relevant species biomasses. The species biomass was divided by the total consumer biomass from the model (all functional groups summed except phytoplankton and detritus).  These percentages were then scaled to the ecosystem by dividing by the most abundant consumer functional group and rescaled to range from 0 to 10.
+The bottom-up component represents the importance of the species as a prey species to all predators in the ecosystem. We used the proportion of total consumer biomass to represent the contribution of each species.  This index has been used by others to describe the importance of forage species to ecosystem dynamics [@smith_impacts_2011] and is referred to as the 'Proportion of species available for consumption'. We calculated the index value for each species in the prioritization, using biomass from the ecopath model and attributing it to each species using the OFL percentages as we did with the top-down score. Because juvenile life stages of groundfish may be more important prey items than adult, we added apportioned biomass from the four juvenile fish groups in the Ecopath model (juvenile rockfish, juvenile flatfish, juvenile thornyhead, and juvenile roundfish) to each of the relevant species biomasses. The species biomass was divided by the total consumer biomass from the model (all functional groups summed except phytoplankton and detritus).  These percentages were then scaled to the ecosystem by dividing by the most abundant consumer functional group and rescaled to range from 0 to 10.
 
 The ecosystem factor score $e_s$ is calculated as:
 
@@ -686,7 +639,7 @@ $$
 
 The groundfish top-down scores were much higher than the bottom-up scores, illustrating that in general, the groundfish species are, on balance, more important as predators than prey in California Current ecosystem.  For reference, the five highest top-down scores in Ecopath model were calculated for Pacific hake, Pacific spiny dogfish, California sea lions, sablefish, and arrowtooth flounder.  The five highest bottom-up scores at the ecosystem-scale were for benthic infauna, euphausiids, mesopelagics, copepods, and epibenthic invertebrates. Pacific hake was ranked 6th for bottom-up scores.
 
-There were two species that could not be attributed to a functional group from the Koehn et al., (**2016**) model: California scorpionfish and Pacific cod.  In the absence of information, we assigned these species the median top down and bottom up scores for all groundfish that were present in the model. The top-down and bottom-up scores were combined by summing the ecosystem-scaled scores and then these scores are re-scaled to range between 0 and 10.
+There were two species that could not be attributed to a functional group from the Koehn et al., [-@koehn_developing_2016] model: California scorpionfish and Pacific cod.  In the absence of information, we assigned these species the median top down and bottom up scores for all groundfish that were present in the model. The top-down and bottom-up scores were combined by summing the ecosystem-scaled scores and then these scores are re-scaled to range between 0 and 10.
 
 <!--chapter:end:29ecosystem.Rmd-->
 
@@ -735,7 +688,7 @@ Issues & Prior assessment issues can be addressed & 0-1\\*
 
 The original focus of this Factor was to quantify the extent to which a stock is "overdue" for an assessment (e.g., has it been more than the target number of years since the last assessment was conducted?). Gradually, other considerations which reflect the urgency of conducting a new assessment during the upcoming cycle have been included in the calculation of the final score for this Factor. 
 
-The first step in this process involves the calculation of a target assessment frequency for all stocks that have had a benchmark assessment.  As described in the NMFS Technical Memo (**Methot et al., 2014**), the mean age of harvested fish serves as the starting point, which is then modified by a regional multiplier. In the case of U.S. west coast groundfish, there is more than a 10-fold difference among species in the mean age of fishery catch, so part of the initial adjustment serves to compress the range of the distribution to a range that is more useful for calculating target frequency. The mean age of the catch is transformed as:
+The first step in this process involves the calculation of a target assessment frequency for all stocks that have had a benchmark assessment.  As described in the NMFS Technical Memo [@methot_prioritizing_2015], the mean age of harvested fish serves as the starting point, which is then modified by a regional multiplier. In the case of U.S. west coast groundfish, there is more than a 10-fold difference among species in the mean age of fishery catch, so part of the initial adjustment serves to compress the range of the distribution to a range that is more useful for calculating target frequency. The mean age of the catch is transformed as:
 
 \begin{centering}
 
@@ -824,11 +777,6 @@ Item & Score\\
 
 <!--chapter:end:31assessment_freq.Rmd-->
 
-# Acknowledgments
-Here are all the mad props!
-
-<!--chapter:end:51acknowledgments.Rmd-->
-
 \clearpage
 
 # References
@@ -846,17 +794,6 @@ Here are all the mad props!
  -->
 
 <!--chapter:end:59bibliography.Rmd-->
-
-\clearpage
-# Tables
-
-
-<!--chapter:end:62tables.Rmd-->
-
-\clearpage
-# Figures
-
-<!--chapter:end:63figures.Rmd-->
 
 \clearpage
 # Appendix
@@ -1110,7 +1047,7 @@ Ratio of models to species & 1.4 & 1.1 & 1.1 & 1.4 & 1.1 & 1 & 1.5 & 1.3 & 1.3 &
 ## Assessment Calendar 
 
 
-![2021 calendar with Pacific Fishery Management Council meetings and possible STAR Panel weeks shown.\label{fig:calendar}](figs/assessment_calendar.png){width=100% height=100% alt="."}
+![2021 calendar with Pacific Fishery Management Council meetings and possible STAR Panel weeks shown.\label{fig:calendar}](figs/calendar.png){width=100% height=100% alt="."}
 
 <!--chapter:end:72calender.Rmd-->
 
