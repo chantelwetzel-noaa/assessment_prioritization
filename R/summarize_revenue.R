@@ -38,11 +38,14 @@ summarize_revenue <- function(file_name, species_file, years, max_exp = 0.18) {
 							 Subsitence_Score = NA,
 							 Initial_Factor_Score = NA, 
 							 Interum_Value = NA, 
-							 Revenue = NA)
+							 Revenue = NA,
+							 CA_Revenue = NA,
+							 OR_Revenue = NA,
+							 WA_Revenue = NA)
 
 	denominator <- 1000
 	max <- 10
-	if (unique(data$FLEET_CODE) == "TI") {
+	if (unique(data$FLEET_CODE)[1] == "TI") {
 		denominator <- 1
 		max <- 7
 	}
@@ -62,15 +65,30 @@ summarize_revenue <- function(file_name, species_file, years, max_exp = 0.18) {
 		}
 
 		revenue_df$Subsitence_Score[sp] <- subsistence_score[ss[1], "Score"]
-
 		
 		sub_data <- data[key,]
 		find <- which(sub_data$PACFIN_YEAR %in% years) 
-
-		revenue_df[sp, "Revenue"] <- round(sum(sub_data[find, "AFI_EXVESSEL_REVENUE"]) / denominator, 0)
+		rev_tmp <- aggregate(AFI_EXVESSEL_REVENUE~AGENCY_CODE, sub_data[find, ], function(x) sum(x) / denominator)
+		revenue_df[sp, "Revenue"] <- sum(rev_tmp[, 2])
 		if(is.na(revenue_df[sp, "Revenue"])) { 
 			revenue_df[sp, "Revenue"] <- 0 
 		}
+		if(sum(rev_tmp$AGENCY_CODE == "C") == 1) {
+			revenue_df[sp, "CA_Revenue"] <- rev_tmp[rev_tmp$AGENCY_CODE == "C", 2]
+		} else {
+			revenue_df[sp, "CA_Revenue"] <- 0
+		}
+		if(sum(rev_tmp$AGENCY_CODE == "O") == 1) {
+			revenue_df[sp, "OR_Revenue"] <- rev_tmp[rev_tmp$AGENCY_CODE == "O", 2]
+		} else {
+			revenue_df[sp, "OR_Revenue"] <- 0
+		}
+		if(sum(rev_tmp$AGENCY_CODE == "W") == 1) {
+			revenue_df[sp, "WA_Revenue"] <- rev_tmp[rev_tmp$AGENCY_CODE == "W", 2]
+		} else {
+			revenue_df[sp, "WA_Revenue"] <- 0
+		}
+			
 		revenue_df[sp, "Interum_Value"] <- as.numeric(revenue_df[sp, "Revenue"]) ^ max_exp
 	}
 
