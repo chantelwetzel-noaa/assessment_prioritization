@@ -53,8 +53,8 @@ summarize_future_spex <- function(manage_file, fishing_mort_file, freq_file, spe
 		Modifier = NA,
 		Fishing_Mortality = NA,
 		OFL = NA,
-		ABC = NA,
-		ABC_Attain_Percent = NA,
+		ACL = NA,
+		ACL_Attain_Percent = NA,
 		Last_Assessed = NA 
 	)
 	
@@ -73,26 +73,26 @@ summarize_future_spex <- function(manage_file, fishing_mort_file, freq_file, spe
 		}
 
 		mort_df[sp, "OFL"] <- sum(targets[ss, "OFL"], na.rm = TRUE)
-		mort_df[sp, "ABC"] <- sum(targets[ss, "ABC"], na.rm = TRUE) 
+		mort_df[sp, "ACL"] <- sum(targets[ss, "ACL"], na.rm = TRUE) 
 
 		mort_df[sp, "Fishing_Mortality"] <- fmort_data[key[1], "Fishing_Mortality"]
 	}
 
-	mort_df[, "ABC_Attain_Percent"] <- mort_df[, "Fishing_Mortality"] / mort_df[, "ABC"]
+	mort_df[, "ACL_Attain_Percent"] <- mort_df[, "Fishing_Mortality"] / mort_df[, "ACL"]
 	mort_df[, "Last_Assessed"] <- freq_data[, "Last_Assess"]
 
 	for(sp in 1:nrow(species)){
 		score <-
-			ifelse(mort_df$ABC_Attain_Percent[sp] <= 0.10, 1,
-			ifelse(mort_df$ABC_Attain_Percent[sp] > 0.10 & mort_df$ABC_Attain_Percent[sp] <= 0.25, 2,
-			ifelse(mort_df$ABC_Attain_Percent[sp] > 0.25 & mort_df$ABC_Attain_Percent[sp] <= 0.50, 3,
-			ifelse(mort_df$ABC_Attain_Percent[sp] > 0.50 & mort_df$ABC_Attain_Percent[sp] <= 0.75, 5,
-			ifelse(mort_df$ABC_Attain_Percent[sp] > 0.75 & mort_df$ABC_Attain_Percent[sp] <= 0.90, 7,
-			ifelse(mort_df$ABC_Attain_Percent[sp] > 0.90 & mort_df$ABC_Attain_Percent[sp] <= 1.00, 8,
-			ifelse(mort_df$ABC_Attain_Percent[sp] > 1.00 & mort_df$ABC_Attain_Percent[sp] <= 1.10, 9,
-			ifelse(mort_df$ABC_Attain_Percent[sp] > 1.10, 10))))))))
+			ifelse(mort_df$ACL_Attain_Percent[sp] <= 0.10, 1,
+			ifelse(mort_df$ACL_Attain_Percent[sp] > 0.10 & mort_df$ACL_Attain_Percent[sp] <= 0.25, 2,
+			ifelse(mort_df$ACL_Attain_Percent[sp] > 0.25 & mort_df$ACL_Attain_Percent[sp] <= 0.50, 3,
+			ifelse(mort_df$ACL_Attain_Percent[sp] > 0.50 & mort_df$ACL_Attain_Percent[sp] <= 0.75, 5,
+			ifelse(mort_df$ACL_Attain_Percent[sp] > 0.75 & mort_df$ACL_Attain_Percent[sp] <= 0.90, 7,
+			ifelse(mort_df$ACL_Attain_Percent[sp] > 0.90 & mort_df$ACL_Attain_Percent[sp] <= 1.00, 8,
+			ifelse(mort_df$ACL_Attain_Percent[sp] > 1.00 & mort_df$ACL_Attain_Percent[sp] <= 1.10, 9,
+			ifelse(mort_df$ACL_Attain_Percent[sp] > 1.10, 10))))))))
 
-		score <- ifelse(mort_df[sp, "Last_Assessed"] %in% years, 1, score)
+		#score <- ifelse(mort_df[sp, "Last_Assessed"] %in% years, 1, score)
 		mort_df$Factor_Score[sp] <- score
 	}
 
@@ -108,12 +108,18 @@ summarize_future_spex <- function(manage_file, fishing_mort_file, freq_file, spe
 		x <- x + length(ties)
 	}
 
+	# Modifier scores ranging from +4 to -2 where highest attainment would equal 4
 	for(sp in 1:nrow(species)){
 		mort_df[sp, "Modifier"] <-
-			ifelse(mort_df$Rank[sp] <= 5, 2, 
-			ifelse(mort_df$Rank[sp] > 5 & mort_df$Rank[sp] <= 15, 1, 
-			ifelse(mort_df$Rank[sp] > 15 & mort_df$Rank[sp] <= 30, 0, -1)))
+			ifelse(mort_df$Factor_Score[sp] == 10, 4, 
+			ifelse(mort_df$Factor_Score[sp] > 10 & mort_df$Factor_Score[sp] <= 8, 3, 
+			ifelse(mort_df$Factor_Score[sp] >  8 & mort_df$Factor_Score[sp] <= 6, 2, 
+			ifelse(mort_df$Factor_Score[sp] >  8 & mort_df$Factor_Score[sp] <= 6, 2,
+			ifelse(mort_df$Factor_Score[sp] >  8 & mort_df$Factor_Score[sp] <= 6, 2,
+				-1)))
 	}
 
-	write.csv(mort_df, file.path("tables", "fishing_mortality.csv"), row.names = FALSE)
+	mort_df <- with(mort_df, mort_df[order(mort_df[,"Species"]), ])
+
+	write.csv(mort_df, file.path("tables", "future_spex.csv"), row.names = FALSE)
 }
