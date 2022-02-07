@@ -22,14 +22,14 @@ T_s + r_s + f_s + e_s & \text{if $<$ 10}\\
 \end{cases}
 $$
 
-where the $F_s$ score is then rounded to near factor of 2 to align with the PFMC groundfish biennial cycle.
+where the $F_s$ score is then rounded to near factor of 2 to align with the groundfish biennial cycle.
 
 The number of years a stock is "overdue" for assessment is calculated as the difference between the years since the last assessment and the target frequency (with a minimum value of zero). In an effort to better reflect Council selection decisions of the past decade, a value of 2 was subtracted for any stock that was assessed in the previous cycle.  This makes it harder, but not impossible for a species to return directly to the top-20.  The guidance in the Technical Memorandum calls for points to be added to a species after it has not been assessed by its target frequency.  In order to promote assessing species by the time the target frequency has been reached, points start being added when the target frequency equals the years since the last assessment. This is calculated as:
 
 $$
 \text{Target Score}_s = 
 \begin{cases}
--2 & \text{if $\text{LAY}_{s} - \text{NAY} =$ 2}\\
+-4 & \text{if $\text{LAY}_{s} - \text{NAY} =$ 2}\\
 0  & \text{if $\text{LAY}_{s} - \text{NAY} - F_s < $ 0}\\
 \text{LAY}_{s} - \text{NAY} - F_s & \text{otherwise}
 \end{cases}
@@ -37,24 +37,24 @@ $$
 
 where LAY is the last year the stock $s$ was assessed and NAY is the next assessment cycle year.  If a stock has not had an accepted assessment to-date a score of 4 is assigned. 
 
-Several other conditional adjustments are made to initial scores. The first of these adds one point to the species if the prior assessment will be 10 years old by the next assessment year. This element acknowledges the Scientific and Statistical Committee's (SSC) previously expressed preference for not endorsing model projections beyond a 10-year period. Now, with a time-varying uncertainty buffer applied to West Coast groundfish OFLs, this addition might need to be revisited.  If, at the time of the last assessment, the SSC recommended that an update assessment was suitable for the next assessment and that assessment will be no more than 6 years old, one point is subtracted.  This is intended to reflect the decreased need for a new assessment to be a benchmark.  If a species is at or beyond its target frequency an additional point is added.  
+Several other conditional adjustments are made to initial scores. The first of these adds one point to the species if the prior assessment will be 10 years old by the next assessment year. This element acknowledges the Scientific and Statistical Committee's (SSC) previously expressed preference for not endorsing model projections beyond a 10-year period. Now, with a time-varying uncertainty buffer applied to West Coast groundfish when setting ABCs, this addition might need to be revisited.  If, at the time of the last assessment, the SSC recommended that an update assessment was suitable for the next assessment and that assessment will be no more than 6 years old, one point is subtracted.  This is intended to reflect the decreased need for a new assessment to be a benchmark.  If a species is at or beyond its target frequency an additional point is added.  
 
-With the Council's adoption of time-varying uncertainty buffers, a new element has been incorporated to reflect concern over the degree to which upcoming catches are likely to be constrained by future ABCs.  For each species, the largest of either the `r (start_yr)` - `r end_yr` average fishing mortality or that in `r end_yr` is compared with the draft ABC (or ABC contribution) for `r ass_yr + 1`. The overall score for the Assessment Frequency Factor $a_s$ is calculated as:
+The overall score for the Assessment Frequency Factor $a_s$ is calculated as:
 
 $$
 \begin{aligned}
 a_s = \text{Target Score}_s - (r_s + f_s + e_s) + \text{Assessment Age}_s + \text{Update}_s + \\
-\text{Target Frequency}_s + \text{Catch}_s
+\text{Target Frequency}_s 
 \end{aligned}
 $$
 
-where Assessment Age for stock $s$ is applied if the time since the last assessment will be 10 years or greater by next assessment cycle, the Update by stock $s$ is based on the time since the last assessment and if the STAR panel recommended an Update for the next assessment, the Target Frequency by stock $s$ is whether the time since the last assessment is greater that the recommended target frequency $F_s$, and the Catch by stock $s$ is an adjustment to reflect if catches are anticipated to be constrained in the future if the stock is not assessed in the next cycle. The potential adjustment scores for each of these items is given in Table \ref{tab:penalty}.
+where Assessment Age for stock $s$ is applied if the time since the last assessment will be 10 years or greater by next assessment cycle, the Update by stock $s$ is based on the time since the last assessment and if the STAR panel recommended an Update for the next assessment, and the Target Frequency by stock $s$ is whether the time since the last assessment is greater that the recommended target frequency $F_s$. The potential adjustment scores for each of these items is given in Table \ref{tab:penalty}.
 
 This Factor is a key element in the ability of the process to elevate species from lower ranks to higher-priority levels in a reasonable cyclical manner. Further exploration will likely be required to achieve desirable longer-term performance. What is 'desirable' should be the topic of discussion with Council and advisory bodies. There are real limits on how many assessments of different levels of complexity and review. 
 
 
 ```{r, results = 'asis', fig.pos = 'h!'}
-adj = matrix(NA, 14, 2)
+adj = matrix(NA, 9, 2)
 col_names = c("Item", "Score")
 
 adj[1,]  = c("\\textit{Assessment Age}", " ")
@@ -66,14 +66,10 @@ adj[6,]  = c("Otherwise", 0)
 adj[7,]  = c("\\textit{Target Frequency}", " ")
 adj[8,]  = c("Number of years since last assessment $\\ge F_s$", 1)
 adj[9,]  = c("Otherwise", 0)
-adj[10,] = c("\\textit{Catch}", " ")
-adj[11,] = c("Current mortality would exceed future ABC", 2)
-adj[12,] = c("Current mortality is more than 75 percent of future ABC", 1)
-adj[13,] = c("Current mortality is less than 20 percent of future ABC", -1)
-adj[14,] = c("Otherwise", 0)
+
 
 t <- table_format(adj, 
-             caption = c('List of scoring adjustments made depending upon assessment age, the level of recommended next assessment, the target assessment frequency, and potential of future ABCs constraint.'),
+             caption = c('List of scoring adjustments made depending upon assessment age, the level of recommended next assessment, and the target assessment frequency.'),
              label = 'penalty',
              align = 'l',
              escape = FALSE,
@@ -83,6 +79,6 @@ t <- table_format(adj,
              width = c("10cm","1cm"))
 
 t %>%
-    kableExtra::add_indent(c(2, 3, 5, 6, 8, 9, 11:14)) 
+    kableExtra::add_indent(c(2, 3, 5, 6, 8, 9)) 
 
 ```                    

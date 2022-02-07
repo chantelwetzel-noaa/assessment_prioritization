@@ -1,6 +1,6 @@
 ---
 geometry: margin=1in
-month: "January"
+month: "February"
 year: "2022"
 preamble: |
 csl: sa4ss.csl
@@ -53,7 +53,7 @@ bibliography:
 <!--chapter:end:00bibliography.Rmd-->
 
 ---
-title: Data and analysis supporting the prioritization of species for stock assessments in 2023 and 2025
+title: Description of assessment prioritization methodology applied to U.S. West Coast groundfish stock to inform the selection of species assessments in 2023 and 2025
 ---
 
 <!--chapter:end:00title.Rmd-->
@@ -88,13 +88,13 @@ title: Data and analysis supporting the prioritization of species for stock asse
 
 # Introduction
 
-This document provides analysis that is intended to provide the Pacific Fishery Management Council (Council) and advisory bodies guidance on species specific assessment prioritization by synthesizing information by commercial fisheries, recreational fisheries, stock status, and other attributed defined as "Factors".  The work presented here follows the the general framework advanced in the 2015 National Marine Fisheries Service (NMFS) Technical Memorandum, ["Prioritizing Fish Stock Assessments"](https://www.st.nmfs.noaa.gov/Assets/stock/documents/PrioritizingFishStockAssessments_FinalWeb.pdf) [@methot_prioritizing_2015].  
+This document provides a detailed description of the analysis that is intended to provide the Pacific Fishery Management Council (Council) and advisory bodies guidance on species-specific assessment prioritization by synthesizing information from commercial fisheries, recreational fisheries, stock status, and other attributes defined as "Factors".  The methodology presented here follows the general framework advanced in the 2015 National Marine Fisheries Service (NMFS) Technical Memorandum, ["Prioritizing Fish Stock Assessments"](https://www.st.nmfs.noaa.gov/Assets/stock/documents/PrioritizingFishStockAssessments_FinalWeb.pdf) [@methot_prioritizing_2015].  
 
 This process was envisioned as a way of synthesizing a broad range of relevant information in a manner that can, over time, provide improved guidance, primarily on which species should be considered for benchmark (i.e., full) assessments, or subsequent stock assessment updates. The ranking process provides a useful tool for focusing discussion on species where a new assessment may have the greatest impact, but it is not a replacement for the judgment of the Council and advisory bodies. An important consideration for selecting any species for assessment is whether the (potentially) available data (e.g., trend and length- and age-composition data) are adequate to conduct the desired level of assessment. This aspect of prioritization is not scored in the way other factors are, and so must be considered independently, at this time.  In that regard, the process is likely to help identify important data gaps and/or situations where a data-moderate approach should be undertaken with whatever data are available.
 
-The scoring and weighting of Factors in the associated Excel workbook remains a work in progress, particularly as we consider its ability, as currently configured, to provide useful insight into priorities in subsequent cycles, as requested by the Council. There may be important considerations that are not encompassed by any of the existing factors, or the methods by which Factor Scores are derived or weighted may be identified as needing improvement.  As consideration of priorities for 2023 are considered this spring it will be important to identify any parts of the scoring that could be improved.  As aspects of management change, this framework should adapt to reflect the manner in which those changes affect prioritization.  
+The scoring and weighting of Factors in the associated Excel workbook, "NMFS Assessment Prioritization Workbook", remains a work in progress, particularly as we consider its ability, as currently configured, to provide useful insight into priorities in subsequent cycles, as requested by the Council. There may be important considerations that are not encompassed by any of the existing factors, or the methods by which Factor Scores are derived or weighted may be identified as needing improvement.  As consideration of priorities for 2023 are considered this spring it will be important to identify any parts of the scoring that could be improved.  As aspects of management change, this framework should adapt to reflect the manner in which those changes affect prioritization.  
 
-The Excel workbook that accompanies this document begins with an Overview tab, followed by a Summary tab in which the Factor Scores are assembled and multiplied by the base-case weights, resulting in a total score and ranking.  Those are followed by a tab for each Factor, which documents the Factor scores and ranks for each species, and a Summary scoring worksheet. The following text provides a description of the content and issues associated with each tab, along with the source of data and information used in scoring each Factor.
+The NMFS Assessment Prioritization Workbook that accompanies this document begins with an Overview tab, followed by a Summary tab in which the Factor Scores are assembled and multiplied by the base-case weights, resulting in a total score and ranking.  Those are followed by a tab for each Factor, which documents the Factor scores and ranks for each species. The following text provides a description of the content and issues associated with each tab, along with the source of data and information used in scoring each Factor.
 
 \newpage
 
@@ -135,12 +135,12 @@ Factor & Notation & Weight Notation & Weight\\
 \bottomrule
 \endlastfoot
 Commercial Importance & $c$ & $w_c$ & 0.21\\
-Recrational Importance & $r$ & $w_r$ & 0.09\\
+Recreational Importance & $r$ & $w_r$ & 0.09\\
 Tribal Importance & $t$ & $w_t$ & 0.05\\
-Constituant Demand/Choke Species & $d$ & $w_d$ & 0.11\\
-Rebuild & $o$ & $w_o$ & 0.10\\
+Constituent Demand & $d$ & $w_d$ & 0.11\\
+Rebuilding & $o$ & $w_o$ & 0.10\\
 Relative Stock Status & $b$ & $w_b$ & 0.08\\
-Harvest Status & $h$ & $w_h$ & 0.08\\
+Fishing Mortality & $h$ & $w_h$ & 0.08\\
 Ecosystem Importance & $e$ & $w_e$ & 0.05\\
 New Information Available & $n$ & $w_n$ & 0.05\\
 Assessment Frequency & $a$ & $w_a$ & 0.18\\*
@@ -153,15 +153,15 @@ Assessment Frequency & $a$ & $w_a$ & 0.18\\*
 
 ## Commercial Importance
 
-The commercial importance score is based on the coastwide ex-vessel revenue generated by commercial landings of groundfish during the period 2018 - 2020. The raw revenue amounts generally have a very large range across goundfish species.  Consequently, a transformation is used to compress the distribution and reduce the differences between species.  
+The commercial importance score is based on the coastwide ex-vessel revenue generated by commercial landings of groundfish during the period 2018 - 2020. The raw revenue amounts generally have a very large range across groundfish species.  Consequently, a transformation is used to compress the distribution and reduce the differences between species.  
 
-As 2-stage logarithmic transformation is used to compress and rescale the distribution, to a high score of 10, using the following approach:
+A two-stage logarithmic transformation is used to compress and rescale the distribution, to a high score of 10, using the following approach:
 
 \begin{equation}
   c_{s} = \frac{10}{\text{max}(\text{Revenue}_s)}\text{Revenue}_s^{0.18} 
 \end{equation}
 
-where Revenue is the total commercial ex-vessel revenue across the summarizing years for each species $s$. Revenue amounts are retreived from the Pacific Fisheries Information Network (PacFIN). Revenue amounts included in this scoring do not include sales of Tribally-caught groundfish. Those are included in a separate Tribal calculation. 
+where Revenue is the total commercial ex-vessel revenue across the summarizing years for each species $s$. Revenue amounts are obtained from the Pacific Fisheries Information Network (PacFIN). Revenue amounts included in this scoring do not include sales of Tribally-caught groundfish. Those are included in a separate Tribal calculation. 
 
 <!--chapter:end:22commercial_importance.Rmd-->
 
@@ -182,12 +182,12 @@ Commercial revenue from landings by Tribal vessels were obtained from PacFIN. Th
 \begingroup\fontsize{10}{12}\selectfont
 
 \begin{longtable}[t]{>{\raggedright\arraybackslash}p{8cm}>{}c}
-\caption{(\#tab:sub-score)Subsistence score by species. The subsitance score is colored reflecting low to high scores ranging between blue to green, respectively.}\\
+\caption{(\#tab:sub-score)Subsistence score by species. The subsistence score is colored reflecting low to high scores ranging between blue to green, respectively.}\\
 \toprule
 Species & Score\\
 \midrule
 \endfirsthead
-\caption[]{(\#tab:sub-score)Subsistence score by species. The subsitance score is colored reflecting low to high scores ranging between blue to green, respectively. \textit{(continued)}}\\
+\caption[]{(\#tab:sub-score)Subsistence score by species. The subsistence score is colored reflecting low to high scores ranging between blue to green, respectively. \textit{(continued)}}\\
 \toprule
 Species & Score\\
 \midrule
@@ -386,27 +386,21 @@ Yellowtail rockfish & \cellcolor[HTML]{21908D}{\textcolor{white}{\textbf{1.00}}}
 
 <!--chapter:end:24recreational_importance.Rmd-->
 
-## Constituent Demand and Choke Species
+## Constituent Demand
 
 This Factor includes aspects of species importance that are less easily quantified through formulaic transformation of fisheries data. Constituent Demand is intended to capture elements of fishery importance that are not adequately captured by the scoring for the commercial and recreational fisheries on a coastwide basis.
 
-Five elements are currently reflected in the scoring of this component, two of which capture situations in which a species is considerably more important to a segment of the commercial or recreational fishery than is reflected in the coastwide scoring of those Factors. There are different numbers of species present in the commerical and recreastional catch from each state and or gear and all species with zero catch for a specific combination (e.g., zero commercial catch in Washington state) have been assigned the highest numerical rank (i.e., lower numerical ranking indicates species with a high constituent demand and or choke species). Those are accompanied by additional columns showing the differences between the coastwide and each state’s/fleet’s values.
+Six elements are currently reflected in the scoring of this component. The first two components capture situations in which a species is considerably more important to a segment of the commercial or recreational fishery than is reflected in the coastwide scoring of those Factors. There are different numbers of species present in the commercial and recreational catch from each state and or gear and all species with zero catch for a specific combination (e.g., zero commercial catch in Washington state) have been assigned the highest numerical rank (i.e., lower numerical ranking indicates species with a high constituent demand and or choke species). Those are accompanied by additional columns showing the differences between the coastwide and each state’s/fleet’s values. Initial evaluation of the significance of differences between state/fleet values and the coastwide values is indicated by numerical scoring ranging generally from 2.0-0 where a higher value indicates a greater difference between the state/fleet and coastwide importance.
 
-Initial evaluation of the significance of differences between state/fleet values and the coastwide values is indicated by numerical scoring ranging generally from 2.0-0 where a higher value indicates a greater differnce between the state/fleet and coastwide importance.
+The third element provides an opportunity to elevate scores for "species of concern" that have been identified by stakeholders. One example of such concern might be rapid changes in the availability of a species to fishermen in a particular area. The fourth component reflects the degree to which the 5-year catch histories (used in scoring the Commercial, Recreational, and Tribal Factors) of species were reduced as a result of rebuilding, or post-rebuilding caution, in the setting of Annual Catch Limits (ACLs).The fifth scoring element is a measure of the impact that a species specific ACLs may result in a constraint on opportunities across the groundfish fishery (termed 'choke stock'). An example of a choke stock would be a stock managed via a rebuilding plan resulting in low ACLs and this stock is present across areas of the coast making avoidance difficult without potentially forgoing catches of other co-occurring stock. The final scoring element is based on the potential future limiting specification. A modifier value is calculated based on the percent attainment between recent average mortality to future ACL values (see Section \ref{future-spex-sec} for details). Modifier values range between -2.0 to +4.0 with a value of 4 being given to species with potential future attainments greater than 100 percent or stocks are managed under a rebuilding plan.  
 
-The third element provides an opportunity to elevate scores for “species of concern” that have been identified by stakeholders. One example of such concern might be rapid changes in the availability of a species to fishermen in a particular area.
+Input from the Council family and public regarding areas of importance or concern relevant to this tab is encouraged. The scoring or each of the above described components generally ranges between 0.0-2.0 with higher scores indicating greater impact to either the commercial or recreational fishery.
 
-The fourth component reflects the degree to which the 5-year catch histories (used in scoring the Commercial, Recreational, and Tribal Factors) of species were reduced as a result of rebuilding, or post-rebuilding caution, in the setting of Annual Catch Limits (ACLs).
-
-The final scoring element is a measure of the impact that a species specific ACLs may restult in constrainst on opportunities across the groundfish fishery (termed ‘choke stock’). An example of a choke stock would be a stock managed via a rebuilding plan resulting in low ACLs and this stock is present across areas of the coast making avoidance difficult without potentially forgoing catches of other co-occurring stock.
-
-Input from the Council family and public regarding areas of importance or concern relevant to this tab is encouraged. The scoring or each of the above described components generally ranges between 0-2.0 with higher scores indicating greater impact to either the commercial or recreational fishery.
-
-The overall ranking for Constituent Demand and Choke Species is calculated as:
+The overall score for Constituent Demand and Choke Species is calculated as:
 
 \begin{centering}
 
-$d_s = \text{Choke Stock}_s + \text{Commerical Importance}_s + \text{Recreational Importance}_s + \text{Rebuilding Impact on Landings}_s + \text{Industry Concern}_s$
+$d_s = \text{Choke Stock}_s + \text{Commercial Importance}_s + \text{Recreational Importance}_s + \text{Rebuilding Impact on Landings}_s + \text{Industry Concern}_s + \text{Future Limiting}_s$
 
 \end{centering}
 
@@ -551,7 +545,7 @@ Yellowtail rockfish & \cellcolor[HTML]{2B758E}{\textcolor{white}{\textbf{1.88}}}
 
 ## Rebuilding Status
 
-This Factor provides another means of emphasizing the importance of rebuilding stocks, whose harvest amounts are commonly highly restricted. The highest possible score would be assigned to species that are being managed under rebuilding plans, whose spawning biomass is continuing to decline. The next highest score acknowledges the importance of completing the rebuilding process (stocks projected to rebuild by the next cycle) and permitting the relaxation of constraints that rebuilding has presented. Species with longer anticipated rebuilding times receive lower scores than those with shorter ones. Table \ref{tab:rebuild} shows how the scores are assigned for this factor according to rebuiding status of the species.
+This Factor provides another means of emphasizing the importance of rebuilding stocks, whose harvest amounts are commonly highly restricted. The highest possible score would be assigned to species that are being managed under rebuilding plans, whose spawning biomass is continuing to decline. The next highest score acknowledges the importance of completing the rebuilding process (stocks projected to rebuild by the next cycle) and permitting the relaxation of constraints that rebuilding has presented. Species with longer anticipated rebuilding times receive lower scores than those with shorter ones. Table \ref{tab:rebuild} shows how the scores are assigned for this factor according to rebuilding status of the species.
 
 \begingroup\fontsize{10}{12}\selectfont
 \begingroup\fontsize{10}{12}\selectfont
@@ -629,7 +623,7 @@ Ecosystem importance scores are intended to describe the relative importance of 
 
 The top-down component represents the importance of each species as a predator of managed or protected species in the California Current ecosystem.  We represent this as an index of the proportion of total consumption in the ecosystem that can be attributed to each species.  The score is the product of several factors; 1) the proportion of the functional group's adult diet consisting of managed or protected species, 2) the functional group's total consumption rate ($QB*B$ defined in Ecopath), and 3) the proportion of the functional group that consists of the species (calculated from the OFL percentages). The product is then divided by the summed total consumption of managed or protected species.  We then re-scale that proportion using all the functional groups in the Ecopath model, not just groundfish, to range from 0 to 10. 
 
-The bottom-up component represents the importance of the species as a prey species to all predators in the ecosystem. We used the proportion of total consumer biomass to represent the contribution of each species.  This index has been used by others to describe the importance of forage species to ecosystem dynamics [@smith_impacts_2011] and is referred to as the 'Proportion of species available for consumption'. We calculated the index value for each species in the prioritization, using biomass from the ecopath model and attributing it to each species using the OFL percentages as we did with the top-down score. Because juvenile life stages of groundfish may be more important prey items than adult, we added apportioned biomass from the four juvenile fish groups in the Ecopath model (juvenile rockfish, juvenile flatfish, juvenile thornyhead, and juvenile roundfish) to each of the relevant species biomasses. The species biomass was divided by the total consumer biomass from the model (all functional groups summed except phytoplankton and detritus).  These percentages were then scaled to the ecosystem by dividing by the most abundant consumer functional group and rescaled to range from 0 to 10.
+The bottom-up component represents the importance of the species as a prey species to all predators in the ecosystem. We used the proportion of total consumer biomass to represent the contribution of each species.  This index has been used by others to describe the importance of forage species to ecosystem dynamics [@smith_impacts_2011] and is referred to as the 'Proportion of species available for consumption'. We calculated the index value for each species in the prioritization, using biomass from the Ecopath model and attributing it to each species using the OFL percentages as we did with the top-down score. Because juvenile life stages of groundfish may be more important prey items than adult, we added apportioned biomass from the four juvenile fish groups in the Ecopath model (juvenile rockfish, juvenile flatfish, juvenile thornyhead, and juvenile roundfish) to each of the relevant species biomasses. The species biomass was divided by the total consumer biomass from the model (all functional groups summed except phytoplankton and detritus).  These percentages were then scaled to the ecosystem by dividing by the most abundant consumer functional group and rescaled to range from 0 to 10.
 
 The ecosystem factor score $e_s$ is calculated as:
 
@@ -708,14 +702,14 @@ T_s + r_s + f_s + e_s & \text{if $<$ 10}\\
 \end{cases}
 $$
 
-where the $F_s$ score is then rounded to near factor of 2 to align with the PFMC groundfish biennial cycle.
+where the $F_s$ score is then rounded to near factor of 2 to align with the groundfish biennial cycle.
 
 The number of years a stock is "overdue" for assessment is calculated as the difference between the years since the last assessment and the target frequency (with a minimum value of zero). In an effort to better reflect Council selection decisions of the past decade, a value of 2 was subtracted for any stock that was assessed in the previous cycle.  This makes it harder, but not impossible for a species to return directly to the top-20.  The guidance in the Technical Memorandum calls for points to be added to a species after it has not been assessed by its target frequency.  In order to promote assessing species by the time the target frequency has been reached, points start being added when the target frequency equals the years since the last assessment. This is calculated as:
 
 $$
 \text{Target Score}_s = 
 \begin{cases}
--2 & \text{if $\text{LAY}_{s} - \text{NAY} =$ 2}\\
+-4 & \text{if $\text{LAY}_{s} - \text{NAY} =$ 2}\\
 0  & \text{if $\text{LAY}_{s} - \text{NAY} - F_s < $ 0}\\
 \text{LAY}_{s} - \text{NAY} - F_s & \text{otherwise}
 \end{cases}
@@ -723,18 +717,18 @@ $$
 
 where LAY is the last year the stock $s$ was assessed and NAY is the next assessment cycle year.  If a stock has not had an accepted assessment to-date a score of 4 is assigned. 
 
-Several other conditional adjustments are made to initial scores. The first of these adds one point to the species if the prior assessment will be 10 years old by the next assessment year. This element acknowledges the Scientific and Statistical Committee's (SSC) previously expressed preference for not endorsing model projections beyond a 10-year period. Now, with a time-varying uncertainty buffer applied to West Coast groundfish OFLs, this addition might need to be revisited.  If, at the time of the last assessment, the SSC recommended that an update assessment was suitable for the next assessment and that assessment will be no more than 6 years old, one point is subtracted.  This is intended to reflect the decreased need for a new assessment to be a benchmark.  If a species is at or beyond its target frequency an additional point is added.  
+Several other conditional adjustments are made to initial scores. The first of these adds one point to the species if the prior assessment will be 10 years old by the next assessment year. This element acknowledges the Scientific and Statistical Committee's (SSC) previously expressed preference for not endorsing model projections beyond a 10-year period. Now, with a time-varying uncertainty buffer applied to West Coast groundfish when setting ABCs, this addition might need to be revisited.  If, at the time of the last assessment, the SSC recommended that an update assessment was suitable for the next assessment and that assessment will be no more than 6 years old, one point is subtracted.  This is intended to reflect the decreased need for a new assessment to be a benchmark.  If a species is at or beyond its target frequency an additional point is added.  
 
-With the Council's adoption of time-varying uncertainty buffers, a new element has been incorporated to reflect concern over the degree to which upcoming catches are likely to be constrained by future ABCs.  For each species, the largest of either the 2018 - 2020 average fishing mortality or that in 2020 is compared with the draft ABC (or ABC contribution) for 2024. The overall score for the Assessment Frequency Factor $a_s$ is calculated as:
+The overall score for the Assessment Frequency Factor $a_s$ is calculated as:
 
 $$
 \begin{aligned}
 a_s = \text{Target Score}_s - (r_s + f_s + e_s) + \text{Assessment Age}_s + \text{Update}_s + \\
-\text{Target Frequency}_s + \text{Catch}_s
+\text{Target Frequency}_s 
 \end{aligned}
 $$
 
-where Assessment Age for stock $s$ is applied if the time since the last assessment will be 10 years or greater by next assessment cycle, the Update by stock $s$ is based on the time since the last assessment and if the STAR panel recommended an Update for the next assessment, the Target Frequency by stock $s$ is whether the time since the last assessment is greater that the recommended target frequency $F_s$, and the Catch by stock $s$ is an adjustment to reflect if catches are anticipated to be constrained in the future if the stock is not assessed in the next cycle. The potential adjustment scores for each of these items is given in Table \ref{tab:penalty}.
+where Assessment Age for stock $s$ is applied if the time since the last assessment will be 10 years or greater by next assessment cycle, the Update by stock $s$ is based on the time since the last assessment and if the STAR panel recommended an Update for the next assessment, and the Target Frequency by stock $s$ is whether the time since the last assessment is greater that the recommended target frequency $F_s$. The potential adjustment scores for each of these items is given in Table \ref{tab:penalty}.
 
 This Factor is a key element in the ability of the process to elevate species from lower ranks to higher-priority levels in a reasonable cyclical manner. Further exploration will likely be required to achieve desirable longer-term performance. What is 'desirable' should be the topic of discussion with Council and advisory bodies. There are real limits on how many assessments of different levels of complexity and review. 
 
@@ -743,12 +737,12 @@ This Factor is a key element in the ability of the process to elevate species fr
 \begingroup\fontsize{10}{12}\selectfont
 
 \begin{longtable}[t]{>{\raggedright\arraybackslash}p{10cm}>{\raggedright\arraybackslash}p{1cm}}
-\caption{(\#tab:penalty)List of scoring adjustments made depending upon assessment age, the level of recommended next assessment, the target assessment frequency, and potential of future ABCs constraint.}\\
+\caption{(\#tab:penalty)List of scoring adjustments made depending upon assessment age, the level of recommended next assessment, and the target assessment frequency.}\\
 \toprule
 Item & Score\\
 \midrule
 \endfirsthead
-\caption[]{(\#tab:penalty)List of scoring adjustments made depending upon assessment age, the level of recommended next assessment, the target assessment frequency, and potential of future ABCs constraint. \textit{(continued)}}\\
+\caption[]{(\#tab:penalty)List of scoring adjustments made depending upon assessment age, the level of recommended next assessment, and the target assessment frequency. \textit{(continued)}}\\
 \toprule
 Item & Score\\
 \midrule
@@ -759,23 +753,55 @@ Item & Score\\
 \endlastfoot
 \textit{Assessment Age} & \\
 \hspace{1em}Number of years since last assessment $\ge$ 10 years & 1\\
-\hspace{1em}Otherwise & \vphantom{3} 0\\
+\hspace{1em}Otherwise & \vphantom{2} 0\\
 \textit{Update} & \\
 \hspace{1em}Number of years since last assessment $<$ 6 & 1\\
-\hspace{1em}Otherwise & \vphantom{2} 0\\
+\hspace{1em}Otherwise & \vphantom{1} 0\\
 \textit{Target Frequency} & \\
 \hspace{1em}Number of years since last assessment $\ge F_s$ & 1\\
-\hspace{1em}Otherwise & \vphantom{1} 0\\
-\textit{Catch} & \\
-\hspace{1em}Current mortality would exceed future ABC & 2\\
-\hspace{1em}Current mortality is more than 75 percent of future ABC & 1\\
-\hspace{1em}Current mortality is less than 20 percent of future ABC & -1\\
 \hspace{1em}Otherwise & 0\\*
 \end{longtable}
 \endgroup{}
 \endgroup{}
 
 <!--chapter:end:31assessment_freq.Rmd-->
+
+## Future Limiting Harvest Specifications{#future-spex-sec}
+
+The assessment prioritization for the first time in 2020 explored the potential for future catch to be constrained relative to future OFLs and ABCs.  The Council adopted a time-varying $\sigma$ resulting in increased uncertainty and greater reduction between the OFL and the ABC as the time from last assessment increases.  A similar analysis was also conducted this year.  
+
+The potential impacts of limiting future harvest specification relative to recent average catches is not incorporated as its own Factor but rather as a modifier to adjust the Constituent Demand Factor scoring.  The modifier that ranges from -2.0 to +4.0 is calculated based on the potential future percent attainments.  The ratio of the average mortality between 2018-2020 to the future Annual Catch Limit (ACL) in 2024 (i.e., only draft harvest specifications were available at the time of the analysis) is calculated to determine the potential future attainment percentage.  A Factor score is then calculated using the same methodology as applied to calculate Fishing Mortality Factor scores (see Table \ref{tab:mort}). The modifier score is then determined based on the Factor score, except in the case for stocks undergoing rebuilding which are given a default value of +4.0 (Table \ref{tab:future-spex}). 
+
+\begingroup\fontsize{10}{12}\selectfont
+\begingroup\fontsize{10}{12}\selectfont
+
+\begin{longtable}[t]{>{\raggedright\arraybackslash}p{1cm}>{\raggedright\arraybackslash}p{2cm}}
+\caption{(\#tab:future-spex)Modifier values based the future specification Factor score. Factor score values are based on the percent attainment between recent average catches and future ACL values.  }\\
+\toprule
+Factor Score & Modifier\\
+\midrule
+\endfirsthead
+\caption[]{(\#tab:future-spex)Modifier values based the future specification Factor score. Factor score values are based on the percent attainment between recent average catches and future ACL values.   \textit{(continued)}}\\
+\toprule
+Factor Score & Modifier\\
+\midrule
+\endhead
+
+\endfoot
+\bottomrule
+\endlastfoot
+10 & 4\\
+9 & 3\\
+8 & 2\\
+7 & 1\\
+5 - 6 & 0\\
+2 - 4 & -1\\
+1 & 2\\*
+\end{longtable}
+\endgroup{}
+\endgroup{}
+
+<!--chapter:end:32future_spex.Rmd-->
 
 \clearpage
 
@@ -1044,10 +1070,13 @@ Ratio of models to species & 1.4 & 1.1 & 1.1 & 1.4 & 1.1 & 1 & 1.5 & 1.3 & 1.3 &
 
 <!--chapter:end:71assessment_history.Rmd-->
 
-## Assessment Calendar 
+## 2023 Assessment Calendar 
+
+The following tab in the workbook presents an annotated 2023 assessment planning calendar
+that identifies potential weeks in which STAR panels can be scheduled. Based on the expected availability of 2022 data and the time needed for model development and documentation, it is unlikely that any full assessments could be reviewed before May. As of January 2022, the June and September Pacific Fishery Management Council meeting date have not been announced.  Once meeting dates for June and September 2023 are available these weeks will be shaded and potential STAR panel weeks will be finalized. 
 
 
-![2021 calendar with Pacific Fishery Management Council meetings and possible STAR Panel weeks shown.\label{fig:calendar}](figs/calendar.png){width=100% height=100% alt="."}
+![Calendar highlighting Pacific Fishery Management Council meetings, Briefing Book deadlines, and possible STAR Panel weeks.\label{fig:calendar}](figs/calendar.png){width=100% height=100% alt="."}
 
 <!--chapter:end:72calender.Rmd-->
 

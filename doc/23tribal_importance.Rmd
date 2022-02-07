@@ -17,7 +17,7 @@ tab = read.csv("tables/subsistence_score.csv", header = TRUE)
 col_names = c("Species", "Score")
   
 t = table_format(tab, 
-             caption = c('Subsistence score by species. The subsitance score is colored reflecting low to high scores ranging between blue to green, respectively.'),
+             caption = c('Subsistence score by species. The subsistence score is colored reflecting low to high scores ranging between blue to green, respectively.'),
              label = 'sub-score',
              col_names = col_names,
              digits = 2,
