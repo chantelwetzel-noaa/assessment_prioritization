@@ -78,7 +78,7 @@ summarize_frequency <- function(frequency_file, ecosystem_file, mortality_file,
 			df$Recruit_Adj[sp] <-
 				ifelse(df$Recruit_Var[sp] >= 1, -1, 
 				ifelse(df$Recruit_Var[sp] < 1 & df$Recruit_Var[sp] >= 0.35, 0, 
-				ifelse(df$Recruit_Var[sp] < 0.35, 1))) 
+				ifelse(df$Recruit_Var[sp] < 0.30, 1))) 
 		} else {
 			df$Recruit_Adj[sp] <-  0
 		}

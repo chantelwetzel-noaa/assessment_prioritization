@@ -112,11 +112,11 @@ summarize_future_spex <- function(manage_file, fishing_mort_file, freq_file, spe
 	for(sp in 1:nrow(species)){
 		mort_df[sp, "Modifier"] <-
 			ifelse(mort_df$Factor_Score[sp] == 10, 4, 
-			ifelse(mort_df$Factor_Score[sp] > 10 & mort_df$Factor_Score[sp] <= 8, 3, 
-			ifelse(mort_df$Factor_Score[sp] >  8 & mort_df$Factor_Score[sp] <= 6, 2, 
-			ifelse(mort_df$Factor_Score[sp] >  8 & mort_df$Factor_Score[sp] <= 6, 2,
-			ifelse(mort_df$Factor_Score[sp] >  8 & mort_df$Factor_Score[sp] <= 6, 2,
-				-1)))
+			ifelse(mort_df$Factor_Score[sp] == 9, 3, 
+			ifelse(mort_df$Factor_Score[sp] == 8, 2, 
+			ifelse(mort_df$Factor_Score[sp] == 7, 1,
+			ifelse(mort_df$Factor_Score[sp] == 5, 0,
+			ifelse(mort_df$Factor_Score[sp] >  4 & mort_df$Factor_Score[sp] <= 2, -1, -2))))))
 	}
 
 	mort_df <- with(mort_df, mort_df[order(mort_df[,"Species"]), ])
