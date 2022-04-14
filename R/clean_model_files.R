@@ -12,6 +12,8 @@
 clean_model_files <- function(loc) {
 
 	dir_list <- list.dirs(loc)[-1]
+	remove <- grep("plots", dir_list)
+	dir_list <- dir_list[-remove]
 
 	files_to_keep <- c(
 		"CompReport.sso",

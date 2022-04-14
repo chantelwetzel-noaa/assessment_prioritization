@@ -13,8 +13,8 @@
 #' @md
 #' 
 #' file_name <- "CTE002-2016---2020.csv"
-#' year <- 2016:2020
-#' 
+#' years <- 2016:2020
+#' species_file <-  "species_names.csv"
 #' 
 #'
 #'
