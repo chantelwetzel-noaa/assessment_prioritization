@@ -1,6 +1,6 @@
 ---
 geometry: margin=1in
-month: "February"
+month: "March"
 year: "2022"
 preamble: |
 csl: sa4ss.csl
@@ -158,7 +158,7 @@ The commercial importance score is based on the coastwide ex-vessel revenue gene
 A two-stage logarithmic transformation is used to compress and rescale the distribution, to a high score of 10, using the following approach:
 
 \begin{equation}
-  c_{s} = \frac{10}{\text{max}(\text{Revenue}_s)}\text{Revenue}_s^{0.18} 
+  c_{s} = \frac{10}{\text{max}(\text{Revenue}_s^{0.18})}\text{Revenue}_s^{0.18} 
 \end{equation}
 
 where Revenue is the total commercial ex-vessel revenue across the summarizing years for each species $s$. Revenue amounts are obtained from the Pacific Fisheries Information Network (PacFIN). Revenue amounts included in this scoring do not include sales of Tribally-caught groundfish. Those are included in a separate Tribal calculation. 
@@ -171,7 +171,7 @@ where Revenue is the total commercial ex-vessel revenue across the summarizing y
 West Coast groundfish species are highly important to northwest coastal Tribes. The Subsistence category identified in the NMFS guidance document [@methot_prioritizing_2015] was expanded to include the value of Tribal fishing for both commercial sale and subsistence and ceremonial uses. The Tribal Importance Factor is calculated as:
   
 \begin{equation}
-t_{s} = \frac{\alpha}{\text{max}(\text{revenue}_{s})} \text{revenue}_{s}^{0.18} + \beta_s    
+t_{s} = \frac{\alpha}{\text{max}(\text{revenue}_{s}^{0.18})} \text{revenue}_{s}^{0.18} + \beta_s    
 \end{equation}
   
 where $\text{revenue}_s$ is the revenue based on ex-vessel prices by species $s$, $\alpha$ is the initial factor score set equal to 7.0 and $\beta_s$ is the subsistence score by species $s$ (Table \ref{tab:sub-score}).
@@ -284,7 +284,7 @@ where catch is the recreational catch by stock $s$ and state $a$ and importance 
 
 \begin{centering}
 
-$r_s = \frac{10}{\text{max}(\text{pseudo value}_s)}\text{pseudo value}_s^{0.18}$  
+$r_s = \frac{10}{\text{max}(\text{pseudo value}_s^{0.18})}\text{pseudo value}_s^{0.18}$  
 
 \end{centering}
 
@@ -344,7 +344,7 @@ Greenstriped rockfish & \cellcolor[HTML]{21908D}{\textcolor{white}{\textbf{1.00}
 Honeycomb rockfish & \cellcolor[HTML]{3ABA76}{\textcolor{white}{\textbf{1.60}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
 Kelp greenling & \cellcolor[HTML]{1F9E89}{\textcolor{white}{\textbf{1.19}}} & \cellcolor[HTML]{26828E}{\textcolor{white}{\textbf{0.80}}} & \cellcolor[HTML]{26828E}{\textcolor{white}{\textbf{0.80}}}\\
 Kelp rockfish & \cellcolor[HTML]{1F9A8A}{\textcolor{white}{\textbf{1.14}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{277F8E}{\textcolor{white}{\textbf{0.75}}}\\
-Leopard shark & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Leopard shark & \cellcolor[HTML]{26828E}{\textcolor{white}{\textbf{0.80}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
 Lingcod & \cellcolor[HTML]{74D055}{\textcolor{white}{\textbf{1.97}}} & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{2.00}}} & \cellcolor[HTML]{7AD151}{\textcolor{white}{\textbf{2.00}}}\\
 Longnose skate & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
 Longspine thornyhead & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
@@ -360,7 +360,7 @@ Redstripe rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} 
 Rex sole & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}}\\
 Rock sole & \cellcolor[HTML]{2A778E}{\textcolor{white}{\textbf{0.65}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}}\\
 Rosethorn rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
-Rosy rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
+Rosy rockfish & \cellcolor[HTML]{21908D}{\textcolor{white}{\textbf{1.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
 Rougheye/Blackspotted rockfish & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}} & \cellcolor[HTML]{414487}{\textcolor{white}{\textbf{0.00}}}\\
 Sablefish & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}}\\
 Sand sole & \cellcolor[HTML]{2A778E}{\textcolor{white}{\textbf{0.65}}} & \cellcolor[HTML]{297A8E}{\textcolor{white}{\textbf{0.70}}} & \cellcolor[HTML]{2F6C8E}{\textcolor{white}{\textbf{0.50}}}\\

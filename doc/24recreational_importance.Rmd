@@ -14,7 +14,7 @@ where catch is the recreational catch by stock $s$ and state $a$ and importance 
 
 \begin{centering}
 
-$r_s = \frac{10}{\text{max}(\text{pseudo value}_s)}\text{pseudo value}_s^{0.18}$  
+$r_s = \frac{10}{\text{max}(\text{pseudo value}_s^{0.18})}\text{pseudo value}_s^{0.18}$  
 
 \end{centering}
 
