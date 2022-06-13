@@ -49,6 +49,7 @@ summarize_rec_importance(
 # which is the official mortality source
 library(nwfscSurvey)
 years <- 2018:2020
+species_file <-  "species_names.csv"
 
 fish_mort <- summarize_fishing_mortality(
 	manage_file = "WOC_STOCK_SUMMARY11232021.csv", 
@@ -99,7 +100,7 @@ summarize_future_spex(
 	freq_file = freq_file, 
 	species_file = species_file, 
 	years = years, 
-	low_f_species = TRUE
+	low_f_species = low_f_species
 )
 
 #============================================================================
