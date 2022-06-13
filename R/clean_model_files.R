@@ -3,13 +3,14 @@
 #' the number of files for each assessment. Not necessary to run to
 #' read or summarize model results.
 #'
-#' @param loc file location where folders needing clearn up are
+#' @param loc file location where folders needing cleaned up are
 #'
 #' @author Chantel Wetzel
 #' @export
 #' @md
 #' 
-#' loc = "model_files/"
+#' @examples
+#' clean_model_files(loc = "model_files/")
 #'
 #'
 clean_model_files <- function(loc) {

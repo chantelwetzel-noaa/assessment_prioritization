@@ -12,19 +12,28 @@
 #'
 #' @param file_name CSV file pulled from PacFIN with commerical revenue
 #' data
-#' @param species_file
-#' @param years
-#' @param max_exp
+#' @param species_file A csv file will all species name to summarize
+#' @param years A vector of years to calculate the average revenue across (e.g. 2016:2020)
+#' @param max_exp A numerical value to assume as the exponent to create a reasonable
+#' spread across rankings by species.
 #'
 #' @author Chantel Wetzel
 #' @export
 #' @md
 #' 
-#' file_name <- "revenue_summarized_12052021.csv"
-#' file_name <- "tribal_revenue_12062021.csv"
-#' species_file <-  "species_names.csv"
-#' years <- 2016:2020
+#' @examples
+#' summarize_revenue(
+#' 		file_name <- "revenue_summarized_12052021.csv"
+#' 		species_file <-  "species_names.csv"
+#' 		years <- 2016:2020
+#' )
 #'
+#' summarize_revenue(
+#' 		file_name <- "tribal_revenue_12062021.csv"
+#' 		species_file <-  "species_names.csv"
+#' 		years <- 2016:2020
+#' )
+#' 
 #'
 summarize_revenue <- function(file_name, species_file, years, max_exp = 0.18) {
 

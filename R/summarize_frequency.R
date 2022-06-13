@@ -1,6 +1,6 @@
-#' 
-#' 
-#' 
+#' Function to create the full assessment frequency tab. This function relies on output
+#' from the summarize_model_results, ecosystem, summarize_fishing_mortality, and 
+#' summarize_future_spex functions. 
 #' 
 #' 
 #' 
