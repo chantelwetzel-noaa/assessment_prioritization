@@ -1,21 +1,29 @@
-#' Summarize and format recreational catch data to be used
-#' along with recreational importance scores to calculate the 
-#' 'revenue' by species for the recreational fishery.  
+#' Summarize and format recreational catch data to be used along with recreational
+#' importance scores to calculate the 'pseudo revenue' by species for the recreational fishery.  
+#' The function currently uses an existing csv file with previously calculated recreational
+#' importance to access existing relative weights for each species and state. In the future
+#' this should be modified in the future to use a stand-alone file containing the recreational
+#' species weights by state that should be saved in the "data" folder.
 #'
-#' @param file_name CSV file pulled from PacFIN with commerical revenue
-#' data
-#' @param species_file
-#' @param years
-#' @param max_exp
+#' @param file_name A csv file pulled from RecFIN with recreational catches.
+#' data. Found in the data folder in the assessment prioritization github repo.
+#' @param species_file A csv including all species to calculate values for.
+#' @param years A vector of years to calculate the average recreational catch
+#' across.
+#' @param max_exp A numerical value to apply as an exponent to the coastwide
+#' pseudo revenue score. Default value of 0.18.
 #'
 #' @author Chantel Wetzel
 #' @export
 #' @md
 #' 
-#' file_name <- "CTE002-2016---2020.csv"
-#' years <- 2016:2020
-#' species_file <-  "species_names.csv"
+#' @examples
 #' 
+#' summarize_rec_importance(
+#' 		file_name <- "CTE002-2016---2020.csv",
+#' 		years <- 2016:2020,
+#' 		species_file <-  "species_names.csv"
+#' )
 #'
 #'
 summarize_rec_importance <- function(file_name, species_file, years, max_exp = 0.18) {

@@ -13,27 +13,42 @@
 #' 
 #' 
 #'
-#' @param frequency_file
-#' @param ecosystem_file 
-#' @param mortality_file
-#' @param future_mortality_file
-#' @param prioritization_year 
-#' 
-#' 
+#' @param frequency_file A csv file created by the summarize_model_results function that 
+#' inlcudes summarize the recruitment variation, mean age, year of last assessment, and the SSC
+#' recommendation about the next assessment being update or a full assessment.
+#' @param ecosystem_file A csv file  
+#' @param mortality_file A csv file created by the summarize_fishing_mortality function with 
+#' attainment comparison between recent mortality averages vs. the OFL and ACL.
+#' @param future_mortality_file A csv file created by the summarize_future_spex function with 
+#' attainment comparison between recent mortality averages vs. the future OFL and ACL.
+#' @param prioritization_year A numerical value of the current year the assessment prioritization
+#' is being conducted. This value is compared to the last year assessed values to provide species
+#' rotation in the ranking based on time since the last assessment.
+#' @param max_age A numerical value that is used with the age_exp to transform mean catch age 
+#' by creating a meaningful spread across species (MeanAge * max_age)^age_exp). Current default
+#' value is set to 20. The transformed mean catch age is combined with the "total adjustment" value where
+#' the "Adjusted Transformed Mean Catch Age" is equal to the sum of these two values, unless they
+#' are greater than 10, which are then capped at a maximum value of 10. The total adjustments are a
+#' sum of the scored from the Recruit_Adj + Mortality_Adj + Eco_Adj
+#' @param age_exp A numerical value applied as a exponential to calculate the transformed mean age
+#' of the catch. Default value of 0.38.
 #'
 #' @author Chantel Wetzel
 #' @export
 #' @md
+#'  
 #' 
+#' @examples
 #' 
-#' frequency_file <- "frequency_partial.csv"
-#' ecosystem_file <- "ecosystem.csv"
-#' mortality_file <- "fishing_mortality.csv"
-#' future_mortality_file <- "fishing_mortality.csv"
-#' prioritization_year <- 2023
-#' max_age = 20
-#' age_exp = 0.38
-#' 
+#' summarize_frequency(
+#' 		frequency_file <- "frequency_partial.csv",
+#' 		ecosystem_file <- "ecosystem.csv",
+#' 		mortality_file <- "fishing_mortality.csv",
+#' 		future_mortality_file <- "fishing_mortality.csv",
+#' 		prioritization_year <- 2023,
+#' 		max_age = 20,
+#' 		age_exp = 0.38
+#' )
 #' 
 summarize_frequency <- function(frequency_file, ecosystem_file, mortality_file, 
 	future_mortality_file, prioritization_year, max_age = 20, age_exp = 0.38) {

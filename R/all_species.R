@@ -1,4 +1,12 @@
-
+#' Common species name in a matrix form. This approach can result in 
+#' issues in identifying species. Needs to be improved in order to create
+#' search groups for complex species.
+#' 
+#' @author Chantel Wetzel
+#' @export
+#' @md
+#' 
+#' 
 all_species <- function(){
 default <- getOption('warn')
 options(warn = -1)

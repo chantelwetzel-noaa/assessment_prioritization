@@ -13,10 +13,14 @@
 #' 
 #' 
 #'
-#' @param abundance_file 
-#' @param frequency_file
-#' @param model_loc
-#' @param years the specific year to summarize for mean age
+#' @param abundance_file A csv file containing the existing abundance by species that the 
+#' newly assessed species abundance estimates will be added to or old abundance values replaced. The
+#' csv file to be read is found in the data folder.
+#' @param frequency_file A csv file from the previous assessment prioritization assessment
+#' frequency tab. The csv file to be read is found in the data folder.
+#' @param model_loc Folder name to look for model files. The default is "model_files" in the 
+#' assessment prioritization github.
+#' @param years Vector of specific years to calculate the mean age of the catches by species.
 #' 
 #' 
 #'
@@ -24,13 +28,15 @@
 #' @export
 #' @md
 #' 
+#' @examples
 #' 
-#' abundance_file <- "abundance_previous_cycle.csv"
-#' frequency_file <- "assessment_frequency_last_cycle.csv"
-#' species_file <- "species_names.csv"
-#' model_loc <- "model_files"
-#' years <- 2000:2020
-#' 
+#' summarize_model_results(
+#' 		abundance_file <- "abundance_previous_cycle.csv",
+#' 		frequency_file <- "assessment_frequency_last_cycle.csv",
+#' 		species_file <- "species_names.csv",
+#' 		model_loc <- "model_files",
+#' 		years <- 2000:2020
+#' )
 #' 
 summarize_model_results <- function(abundance_file, frequency_file, species_file, model_loc = "model_files", 
 	years) {
@@ -69,7 +75,6 @@ summarize_model_results <- function(abundance_file, frequency_file, species_file
 		new_results[a, "Status"] <- model$current_depletion
 		new_results[a, "AssessYear"] <- model$endyr + 1
 	}
-
 
 	unique_species <- unique(new_results$Species) 
 	for(b in 1:length(unique_species)) {

@@ -1,42 +1,36 @@
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
+#' Function to compare future ACLs to existing fishing mortality averages. 
+#' This function uses output from the summarize_fishing_mortality and the summarize_frequency
+#' functions and hence should be only run after these two functions. The manage_file
+#' is downloaded from PacFIN APEX future harvest specifications
+#' table (GMT008). The draft harvest specification ACLs should correspond to 
+#' the current year plus two (e.g., 2022 + 2 = 2024 ACLs). The fishing_mort_file
+#' is the csv file created by the summarize_fishing_mortality function where
+#' the average fishing mortality across recent years is used to compare future
+#' ACLs against. The freq_file is a csv file created by the summarize_frequency function where
+#' the year of the last assessment will be found to be appending in this output file.
 #' 
 #'
-#' @param manage_file CSV file with OFLs and ABCs across years
-#' @param fishing_mort_file 
-#' @param species_file CSV file in the data folder called "species_names.csv"
-#' @param years the specific year to summarize
-#' @param low_f_species summarize for species with low Fs and low OFLs that
-#' are excluded from analysis
+#' @param manage_file A csv file with OFLs and ACLs from the draft harvest 
+#' specifications table in PacFIN APEX reporting online.
+#' @param fishing_mort_file A csv file created by the summarize_fishing_mortality function.
+#' @param freq_file A csv file created by the summarize_frequency function.
+#' @param species_file A csv file in the data folder called "species_names.csv" to summarize across.
 #'
 #' @author Chantel Wetzel
 #' @export
 #' @md
 #' 
-#' manage_file <- "GMT008-harvest specifications-2024.csv"
-#' fishing_mort_file <- "fishing_mortality.csv"
-#' freq_file <- "assessment_frequency.csv"
-#' species_file <-  "species_names.csv"
-#' years <- c(2019, 2021)
-#' low_f_species <- TRUE
-#' 
-#' species_file <- "species_names_not_included.csv"
-#' low_f_species = FALSE
+#' @examples
 #'
-summarize_future_spex <- function(manage_file, fishing_mort_file, freq_file, species_file, years, 
-	low_f_species = TRUE
-) {
+#' Example call including all species:
+#' summarize_future_spex(
+#'    manage_file <- "GMT008-harvest specifications-2024.csv",
+#'    fishing_mort_file <- "fishing_mortality.csv",
+#'    freq_file <- "assessment_frequency.csv",
+#'    species_file <-  "species_names.csv"
+#' )
+#'
+summarize_future_spex <- function(manage_file, fishing_mort_file, freq_file, species_file) {
 
 	targets <- read.csv(file.path("data", manage_file)) 
 	fmort_data <- read.csv(file.path("tables", fishing_mort_file))
@@ -72,6 +66,8 @@ summarize_future_spex <- function(manage_file, fishing_mort_file, freq_file, spe
 			)
 		}
 
+		# deal with multiple captures from complex species
+		ss <- unique(ss)
 		mort_df[sp, "OFL"] <- sum(targets[ss, "OFL"], na.rm = TRUE)
 		mort_df[sp, "ACL"] <- sum(targets[ss, "ACL"], na.rm = TRUE) 
 
@@ -92,7 +88,6 @@ summarize_future_spex <- function(manage_file, fishing_mort_file, freq_file, spe
 			ifelse(mort_df$ACL_Attain_Percent[sp] > 1.00 & mort_df$ACL_Attain_Percent[sp] <= 1.10, 9,
 			ifelse(mort_df$ACL_Attain_Percent[sp] > 1.10, 10))))))))
 
-		#score <- ifelse(mort_df[sp, "Last_Assessed"] %in% years, 1, score)
 		mort_df$Factor_Score[sp] <- score
 	}
 

@@ -1,4 +1,7 @@
-#' Function to delete un-needed Stock Synthesis files
+#' Function to delete extraneous Stock Synthesis files.
+#' This function only deletes extra Stock Synthesis files to reduce
+#' the number of files for each assessment. Not necessary to run to
+#' read or summarize model results.
 #'
 #' @param loc file location where folders needing clearn up are
 #'
