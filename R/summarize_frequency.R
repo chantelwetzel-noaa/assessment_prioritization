@@ -44,26 +44,29 @@
 #' 		frequency_file <- "frequency_partial.csv",
 #' 		ecosystem_file <- "ecosystem.csv",
 #' 		mortality_file <- "fishing_mortality.csv",
-#' 		future_mortality_file <- "fishing_mortality.csv",
 #' 		prioritization_year <- 2023,
 #' 		max_age = 20,
 #' 		age_exp = 0.38
 #' )
 #' 
 summarize_frequency <- function(frequency_file, ecosystem_file, mortality_file, 
-	future_mortality_file, prioritization_year, max_age = 20, age_exp = 0.38) {
+	prioritization_year, max_age = 20, age_exp = 0.38) {
  
+ 	# TODO: Update how the overall fishery importance is calculated. Currently,
+ 	# it is calculated only based on fishing mortality and should be updated to 
+ 	# account for multiple fishery metrics to capture importance across fisheries.
 	frequency <- read.csv(file.path("tables", frequency_file))
 	ecosystem  <- read.csv(file.path("tables", ecosystem_file))
 	mortality <- read.csv(file.path("tables", mortality_file))
-	future_mortality <- read.csv(file.path("tables", future_mortality_file))
 
-	ecosystem <- with(ecosystem, ecosystem[order(ecosystem[,"Species"]), ])
-	mortality <- with(mortality, mortality[order(mortality[,"Species"]), ])
-	future_mortality <- with(future_mortality, future_mortality[order(future_mortality[,"Species"]), ])
+	ecosystem <- with(ecosystem, ecosystem[order(ecosystem[, "Species"]), ])
+	mortality <- with(mortality, mortality[order(mortality[, "Species"]), ])
+	frequency <- with(frequency, frequency[order(frequency[, "Species"]), ])
 	
 	df <- data.frame(
 		Species = frequency$Species,
+		Rank = NA,
+		Score = NA,
 		Recruit_Var = frequency$Recruit_Var,
 		MeanAge = frequency$Mean_Age,
 		Trans_MeanAge = NA,
@@ -79,35 +82,37 @@ summarize_frequency <- function(frequency_file, ecosystem_file, mortality_file,
 		Adj_Negative = NA,
 		Greater_Than_10 = NA,
 		Less_Than_6_Update = NA,
-		Greater_Than_Target_Freq = NA,
-		Constraint_2022 = NA,
-		Score = NA,
-		Rank = NA
+		Greater_Than_Target_Freq = NA
 	)
 
 	df$Trans_MeanAge <- (df$MeanAge * max_age)^age_exp
 	df$Years_Since_Assess <- prioritization_year - df$Last_Assess
 
+	# The point to calculate -1, 0, +1 for overall fishery and ecosystem importance
+	# Current approach cuts the species into 1/3rds to assign these values.
+	change <- ceiling(nrow(df) / 3)
+
 	for(sp in 1:nrow(df)) {
+
 		if(!is.na(df$Recruit_Var[sp])) {
 			df$Recruit_Adj[sp] <-
 				ifelse(df$Recruit_Var[sp] >= 1, -1, 
 				ifelse(df$Recruit_Var[sp] < 1 & df$Recruit_Var[sp] >= 0.35, 0, 
-				ifelse(df$Recruit_Var[sp] < 0.30, 1))) 
+				ifelse(df$Recruit_Var[sp] < 0.35, 1))) 
 		} else {
 			df$Recruit_Adj[sp] <-  0
 		}
 
 		df$Mortality_Adj[sp] <- 
-			ifelse(mortality$Rank[sp] < 21, -1, 
-			ifelse(mortality$Rank[sp] >= 21 & mortality$Rank[sp] < 41, 0, 1))
+			ifelse(mortality$Rank[sp] <= change, -1, 
+			ifelse(mortality$Rank[sp] > change & mortality$Rank[sp] < 2 * change, 0, 1))
 
 		df$Eco_Adj[sp] <- 
-			ifelse(ecosystem$Rank[sp] < 21, -1,
-			ifelse(ecosystem$Rank[sp] >= 21 & ecosystem$Rank[sp] < 41, 0, 1))
+			ifelse(ecosystem$Rank[sp] <= change, -1,
+			ifelse(ecosystem$Rank[sp] > change & ecosystem$Rank[sp] < 2 * change, 0, 1))
 
 		df$Total_Adj[sp] <- df$Recruit_Adj[sp] + df$Mortality_Adj[sp] + df$Eco_Adj[sp]
-
+		
 		df$MeanAge_Adj[sp] <- 
 			ifelse( df$Trans_MeanAge[sp] + df$Total_Adj[sp] > 10, 
 				10, df$Trans_MeanAge[sp] + df$Total_Adj[sp])
@@ -123,7 +128,11 @@ summarize_frequency <- function(frequency_file, ecosystem_file, mortality_file,
 			df$Beyond_Target_Freq[sp] <- 4
 		}
 
-		df$Adj_Negative[sp] <- ifelse(df$Beyond_Target_Freq[sp] == 4, -1 * df$Eco_Adj, 0)
+		#df$Adj_Negative[sp] <- ifelse(df$Beyond_Target_Freq[sp] == 4, -1 * df$Eco_Adj, 0)
+		if(is.na(df$Last_Assess[sp])) {
+			df$Adj_Negative[sp] <- -1 * df$Total_Adj[sp]
+
+		}	
 
 		df$Greater_Than_10[sp] <- ifelse(df$Years_Since_Assess[sp] > 10, 1, 0)
 
@@ -133,17 +142,12 @@ summarize_frequency <- function(frequency_file, ecosystem_file, mortality_file,
 		df$Greater_Than_Target_Freq[sp] <- 
 			ifelse(df$MeanAge_Adj_Round[sp] <= df$Years_Since_Assess[sp], 1, 0)
 
-		df$Constraint_2022[sp] <- 
-			ifelse(future_mortality$Rank[sp] < 21, -1, 
-			ifelse(future_mortality$Rank[sp] >= 21 & future_mortality$Rank[sp] < 41, 0, 1))
-
 		df$Score[sp] <- 
 			sum(df$Beyond_Target_Freq[sp], 
 				df$Adj_Negative[sp], 
 				df$Greater_Than_10[sp], 
 				df$Less_Than_6_Update[sp],
 				df$Greater_Than_Target_Freq[sp],
-				df$Constraint_2022[sp],
 				na.rm = TRUE)
 	}
 
