@@ -23,14 +23,14 @@
 #' 
 #' @examples
 #' summarize_revenue(
-#' 		file_name <- "revenue_summarized_12052021.csv"
-#' 		species_file <-  "species_names.csv"
+#' 		file_name <- "revenue_summarized_12052021.csv",
+#' 		species_file <-  "species_names.csv",
 #' 		years <- 2016:2020
 #' )
 #'
 #' summarize_revenue(
-#' 		file_name <- "tribal_revenue_12062021.csv"
-#' 		species_file <-  "species_names.csv"
+#' 		file_name <- "tribal_revenue_12062021.csv",
+#' 		species_file <-  "species_names.csv",
 #' 		years <- 2016:2020
 #' )
 #' 
