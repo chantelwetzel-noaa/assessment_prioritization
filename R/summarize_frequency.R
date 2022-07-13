@@ -2,25 +2,13 @@
 #' from the summarize_model_results, ecosystem, summarize_fishing_mortality, and 
 #' summarize_future_spex functions. 
 #' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
-#' 
 #'
 #' @param frequency_file A csv file created by the summarize_model_results function that 
 #' inlcudes summarize the recruitment variation, mean age, year of last assessment, and the SSC
 #' recommendation about the next assessment being update or a full assessment.
 #' @param ecosystem_file A csv file  
-#' @param mortality_file A csv file created by the summarize_fishing_mortality function with 
-#' attainment comparison between recent mortality averages vs. the OFL and ACL.
-#' @param future_mortality_file A csv file created by the summarize_future_spex function with 
-#' attainment comparison between recent mortality averages vs. the future OFL and ACL.
+#' @param fishery_importance_files A list of csv files created by the summarize_revenue and 
+#' summarize_recreational functions 
 #' @param prioritization_year A numerical value of the current year the assessment prioritization
 #' is being conducted. This value is compared to the last year assessed values to provide species
 #' rotation in the ranking based on time since the last assessment.
@@ -29,7 +17,7 @@
 #' value is set to 20. The transformed mean catch age is combined with the "total adjustment" value where
 #' the "Adjusted Transformed Mean Catch Age" is equal to the sum of these two values, unless they
 #' are greater than 10, which are then capped at a maximum value of 10. The total adjustments are a
-#' sum of the scored from the Recruit_Adj + Mortality_Adj + Eco_Adj
+#' sum of the scored from the Recruit_Adj + Importance_Adj + Eco_Adj
 #' @param age_exp A numerical value applied as a exponential to calculate the transformed mean age
 #' of the catch. Default value of 0.38.
 #'
@@ -43,25 +31,33 @@
 #' summarize_frequency(
 #' 		frequency_file <- "frequency_partial.csv",
 #' 		ecosystem_file <- "ecosystem.csv",
-#' 		mortality_file <- "fishing_mortality.csv",
+#' 		fishery_importance_files <- c("commercial_revenue.csv", "tribal_revenue.csv", "recreational_importance.csv"),
 #' 		prioritization_year <- 2023,
 #' 		max_age = 20,
 #' 		age_exp = 0.38
 #' )
 #' 
-summarize_frequency <- function(frequency_file, ecosystem_file, mortality_file, 
+summarize_frequency <- function(frequency_file, ecosystem_file, fishery_importance_files, 
 	prioritization_year, max_age = 20, age_exp = 0.38) {
  
- 	# TODO: Update how the overall fishery importance is calculated. Currently,
- 	# it is calculated only based on fishing mortality and should be updated to 
- 	# account for multiple fishery metrics to capture importance across fisheries.
 	frequency <- read.csv(file.path("tables", frequency_file))
 	ecosystem  <- read.csv(file.path("tables", ecosystem_file))
-	mortality <- read.csv(file.path("tables", mortality_file))
 
 	ecosystem <- with(ecosystem, ecosystem[order(ecosystem[, "Species"]), ])
-	mortality <- with(mortality, mortality[order(mortality[, "Species"]), ])
 	frequency <- with(frequency, frequency[order(frequency[, "Species"]), ])
+
+	# Loop over files to use in scoring overall importance
+	tmp <- data.frame(Species = tab$Species)
+	for (a in fishery_importance_files){
+		tab <- read.csv(file.path("tables", a))
+		tab <- with(tab, tab[order(tab[, "Species"]), ])
+		tmp <- cbind(tmp, tab$Factor_Score)
+	}
+
+	tmp[, "Total"] <- apply(tmp[, 2:ncol(tmp)], 1, sum)
+	tmp <- tmp[order(tmp[,"Total"], decreasing = TRUE), ]
+	tmp[, "Rank"] <- 1:nrow(tmp)
+	fishery_importance <- with(tmp, tmp[order(tmp[, "Species"]), ])
 	
 	df <- data.frame(
 		Species = frequency$Species,
@@ -71,7 +67,7 @@ summarize_frequency <- function(frequency_file, ecosystem_file, mortality_file,
 		MeanAge = frequency$Mean_Age,
 		Trans_MeanAge = NA,
 		Recruit_Adj = NA,
-		Mortality_Adj = NA,
+		Importance_Adj = NA,
 		Eco_Adj = NA,
 		Total_Adj = NA,
 		MeanAge_Adj = NA,
@@ -103,15 +99,15 @@ summarize_frequency <- function(frequency_file, ecosystem_file, mortality_file,
 			df$Recruit_Adj[sp] <-  0
 		}
 
-		df$Mortality_Adj[sp] <- 
-			ifelse(mortality$Rank[sp] <= change, -1, 
-			ifelse(mortality$Rank[sp] > change & mortality$Rank[sp] < 2 * change, 0, 1))
+		df$Importance_Adj[sp] <- 
+			ifelse(fishery_importance$Rank[sp] <= change, -1, 
+			ifelse(fishery_importance$Rank[sp] > change & fishery_importance$Rank[sp] < 2 * change, 0, 1))
 
 		df$Eco_Adj[sp] <- 
 			ifelse(ecosystem$Rank[sp] <= change, -1,
 			ifelse(ecosystem$Rank[sp] > change & ecosystem$Rank[sp] < 2 * change, 0, 1))
 
-		df$Total_Adj[sp] <- df$Recruit_Adj[sp] + df$Mortality_Adj[sp] + df$Eco_Adj[sp]
+		df$Total_Adj[sp] <- df$Recruit_Adj[sp] + df$Importance_Adj[sp] + df$Eco_Adj[sp]
 		
 		df$MeanAge_Adj[sp] <- 
 			ifelse( df$Trans_MeanAge[sp] + df$Total_Adj[sp] > 10, 
@@ -164,7 +160,7 @@ summarize_frequency <- function(frequency_file, ecosystem_file, mortality_file,
 	out <- with(df, df[order(df[,"Species"]), ])
 	write.csv(out, file.path("tables", "assessment_frequency.csv"), row.names = FALSE)
 
-	keep <- which(!colnames(out) %in% c("Mortality_Adj", "Eco_Adj", "Adj_Negative", "Constraint_2022"))
+	keep <- which(!colnames(out) %in% c("Importance_Adj", "Eco_Adj", "Adj_Negative", "Constraint_2022"))
 	df <- out[, keep]
 	for(sp in 1:nrow(df)) {		
 
