@@ -63,26 +63,27 @@ summarize_frequency <- function(frequency_file, ecosystem_file, fishery_importan
 		Species = frequency$Species,
 		Rank = NA,
 		Score = NA,
-		Recruit_Var = frequency$Recruit_Var,
-		MeanAge = frequency$Mean_Age,
-		Trans_MeanAge = NA,
-		Recruit_Adj = NA,
-		Importance_Adj = NA,
-		Eco_Adj = NA,
-		Total_Adj = NA,
-		MeanAge_Adj = NA,
-		MeanAge_Adj_Round = NA,
-		Last_Assess = frequency$Last_Assess,
-		Years_Since_Assess = NA,
-		Beyond_Target_Freq = NA,
-		Adj_Negative = NA,
-		Greater_Than_10 = NA,
-		Less_Than_6_Update = NA,
-		Greater_Than_Target_Freq = NA
+		Recruit_Variation = frequency$Recruit_Variation,
+		Mean_Age = frequency$Mean_Age,
+		Transformed_Mean_Age = NA,
+		Recruit_Adjustment = NA,
+		Importance_Adjustment = NA,
+		Ecosystem_Adjustment = NA,
+		Total_Adjustment = NA,
+		Mean_Age_Adjustment = NA, # Remove  column
+		Mean_Age_Adjustment_Round = NA, # Target_Assessment_Frequency
+		Last_Assessment_Year = frequency$Last_Assessment,
+		Years_Since_Assessment = NA,
+		Years_Past_Target_Frequency = NA,
+		Beyond_Assessment_Adjustment = NA,
+		Greater_Than_10_Years = NA,
+		Less_Than_6_Years_Update = NA,
+		Greater_Than_Target_Frequency = NA,
+		Future_ACL_Contraint = NA
 	)
 
-	df$Trans_MeanAge <- (df$MeanAge * max_age)^age_exp
-	df$Years_Since_Assess <- prioritization_year - df$Last_Assess
+	df$Transform_Mean_Age <- (df$Mean_Age * max_age)^age_exp
+	df$Years_Since_Assessment <- prioritization_year - df$Last_Assessment
 
 	# The point to calculate -1, 0, +1 for overall fishery and ecosystem importance
 	# Current approach cuts the species into 1/3rds to assign these values.
@@ -91,59 +92,60 @@ summarize_frequency <- function(frequency_file, ecosystem_file, fishery_importan
 	for(sp in 1:nrow(df)) {
 
 		if(!is.na(df$Recruit_Var[sp])) {
-			df$Recruit_Adj[sp] <-
-				ifelse(df$Recruit_Var[sp] >= 1, -1, 
-				ifelse(df$Recruit_Var[sp] < 1 & df$Recruit_Var[sp] >= 0.35, 0, 
-				ifelse(df$Recruit_Var[sp] < 0.35, 1))) 
+			df$Recruit_Adjustment[sp] <-
+				ifelse(df$Recruit_Variation[sp] >= 1, -1, 
+				ifelse(df$Recruit_Variation[sp] < 1 & df$Recruit_Variation[sp] >= 0.35, 0, 
+				ifelse(df$Recruit_Variation[sp] < 0.35, 1))) 
 		} else {
-			df$Recruit_Adj[sp] <-  0
+			df$Recruit_Adjustment[sp] <-  0
 		}
 
-		df$Importance_Adj[sp] <- 
+		df$Importance_Adjustment[sp] <- 
 			ifelse(fishery_importance$Rank[sp] <= change, -1, 
 			ifelse(fishery_importance$Rank[sp] > change & fishery_importance$Rank[sp] < 2 * change, 0, 1))
 
-		df$Eco_Adj[sp] <- 
+		df$Ecosystem_Adjustment[sp] <- 
 			ifelse(ecosystem$Rank[sp] <= change, -1,
 			ifelse(ecosystem$Rank[sp] > change & ecosystem$Rank[sp] < 2 * change, 0, 1))
 
-		df$Total_Adj[sp] <- df$Recruit_Adj[sp] + df$Importance_Adj[sp] + df$Eco_Adj[sp]
+		df$Total_Adjustment[sp] <- df$Recruit_Adjustment[sp] + 
+			df$Importance_Adjustment[sp] + df$Ecosytem_Adjustment[sp]
 		
-		df$MeanAge_Adj[sp] <- 
-			ifelse( df$Trans_MeanAge[sp] + df$Total_Adj[sp] > 10, 
-				10, df$Trans_MeanAge[sp] + df$Total_Adj[sp])
+		df$Mean_Age_Adjustment[sp] <- 
+			ifelse( df$Transformed_Mean_Age[sp] + df$Total_Adjustment[sp] > 10, 
+				10, df$Transformed_Mean_Age[sp] + df$Total_Adjustment[sp])
 
-		df$MeanAge_Adj_Round[sp] <- 
-			ifelse(df$MeanAge_Adj[sp] < 4, 4, 2 * round(df$MeanAge_Adj[sp] / 2) )
+		df$Target_Assessment_Frequency <- #df$MeanAge_Adj_Round[sp] <- 
+			ifelse(df$Mean_Age_Adjustment[sp] < 4, 4, 2 * round(df$Mean_Age_Adjustment[sp] / 2) )
 
-		if(!is.na(df$Years_Since_Assess[sp])) {
-			df$Beyond_Target_Freq[sp] <- 
-				ifelse(df$Years_Since_Assess[sp] == 2, -2, 
-					max(df$Years_Since_Assess[sp] - df$MeanAge_Adj_Round[sp], 0))
+		if(!is.na(df$Years_Since_Assessment[sp])) {
+			df$Years_Past_Target_Assessment_Frequency[sp] <- 
+				ifelse(df$Years_Since_Assessment[sp] == 2, -2, 
+					max(df$Years_Since_Assessment[sp] - df$Target_Assessment_Frequency[sp], 0))
 		} else {
-			df$Beyond_Target_Freq[sp] <- 4
+			df$Years_Past_Target_Assessment[sp] <- 4
 		}
 
 		#df$Adj_Negative[sp] <- ifelse(df$Beyond_Target_Freq[sp] == 4, -1 * df$Eco_Adj, 0)
-		if(is.na(df$Last_Assess[sp])) {
-			df$Adj_Negative[sp] <- -1 * df$Total_Adj[sp]
+		if(is.na(df$Last_Assessment_Year[sp])) {
+			df$Beyond_Assessment_Adjustment[sp] <- -1 * df$Total_Adjustment[sp]
 
 		}	
 
-		df$Greater_Than_10[sp] <- ifelse(df$Years_Since_Assess[sp] > 10, 1, 0)
+		df$Greater_Than_10_Years[sp] <- ifelse(df$Years_Since_Assessment[sp] > 10, 1, 0)
 
-		df$Less_Than_6_Update[sp] <- 
-			ifelse(df$Years_Since_Assess[sp] < 6 & frequency$SSC_Rec[sp] == "Update", -1, 0)
+		df$Less_Than_6_Years_Update[sp] <- 
+			ifelse(df$Years_Since_Assessment[sp] < 6 & frequency$SSC_Rec[sp] == "Update", -1, 0)
 
-		df$Greater_Than_Target_Freq[sp] <- 
-			ifelse(df$MeanAge_Adj_Round[sp] <= df$Years_Since_Assess[sp], 1, 0)
+		df$Greater_Than_Target_Assessment_Frequency[sp] <- 
+			ifelse(df$Target_Assessment_Frequency[sp] <= df$Years_Since_Assessment[sp], 1, 0)
 
 		df$Score[sp] <- 
-			sum(df$Beyond_Target_Freq[sp], 
-				df$Adj_Negative[sp], 
-				df$Greater_Than_10[sp], 
-				df$Less_Than_6_Update[sp],
-				df$Greater_Than_Target_Freq[sp],
+			sum(df$Beyond_Target_Assessment_Frequecny[sp], 
+				df$Beyond_Assessment_Adjustment[sp], 
+				df$Greater_Than_10_Years[sp], 
+				df$Less_Than_6_Years_Update[sp],
+				df$Greater_Than_Target_Frequency[sp],
 				na.rm = TRUE)
 	}
 
@@ -160,40 +162,40 @@ summarize_frequency <- function(frequency_file, ecosystem_file, fishery_importan
 	out <- with(df, df[order(df[,"Species"]), ])
 	write.csv(out, file.path("tables", "assessment_frequency.csv"), row.names = FALSE)
 
-	keep <- which(!colnames(out) %in% c("Importance_Adj", "Eco_Adj", "Adj_Negative", "Constraint_2022"))
+	keep <- which(!colnames(out) %in% c("Importance_Adjustment", "Ecosystme_Adjustment", "Beyond_Assessment_Adjustment", "Future_ACL_Contraint"))
 	df <- out[, keep]
 	for(sp in 1:nrow(df)) {		
 
-		df$Total_Adj[sp] <- df$Recruit_Adj[sp] 
+		df$Total_Adjustment[sp] <- df$Recruit_Adjustment[sp] 
 
-		df$MeanAge_Adj[sp] <- 
-			ifelse( df$Trans_MeanAge[sp] + df$Total_Adj[sp] > 10, 
-				10, df$Trans_MeanAge[sp] + df$Total_Adj[sp])
+		df$Mean_Age_Adjustment[sp] <- 
+			ifelse( df$Transform_Mean_Age[sp] + df$Total_Adjustment[sp] > 10, 
+				10, df$Transform_Mean_Age[sp] + df$Total_Adjustment[sp])
 
 		df$MeanAge_Adj_Round[sp] <- 
-			ifelse(df$MeanAge_Adj[sp] < 4, 4, 2 * round(df$MeanAge_Adj[sp] / 2) )
+			ifelse(df$Mean_Age_Adjustment[sp] < 4, 4, 2 * round(df$Mean_Age_Adjustment[sp] / 2) )
 
-		if(!is.na(df$Years_Since_Assess[sp])) {
-			df$Beyond_Target_Freq[sp] <- 
-				ifelse(df$Years_Since_Assess[sp] == 2, -2, 
-					max(df$Years_Since_Assess[sp] - df$MeanAge_Adj_Round[sp], 0))
+		if(!is.na(df$Years_Since_Assessment[sp])) {
+			df$Years_Past_Target_Frequency[sp] <- 
+				ifelse(df$Years_Since_Assessment[sp] == 2, -2, 
+					max(df$Years_Since_Assessment[sp] - df$Target_Assessment_Frequency[sp], 0))
 		} else {
-			df$Beyond_Target_Freq[sp] <- 4
+			df$Years_Beyond_Target_Frequency[sp] <- 4
 		}
 
-		df$Greater_Than_10[sp] <- ifelse(df$Years_Since_Assess[sp] > 10, 1, 0)
+		df$Greater_Than_10_Yeas[sp] <- ifelse(df$Years_Since_Assessment[sp] > 10, 1, 0)
 
-		df$Less_Than_6_Update[sp] <- 
-			ifelse(df$Years_Since_Assess[sp] < 6 & frequency$SSC_Rec[sp] == "Update", -1, 0)
+		df$Less_Than_6_Years_Update[sp] <- 
+			ifelse(df$Years_Since_Assessment[sp] < 6 & frequency$SSC_Rec[sp] == "Update", -1, 0)
 
-		df$Greater_Than_Target_Freq[sp] <- 
-			ifelse(df$MeanAge_Adj_Round[sp] <= df$Years_Since_Assess[sp], 1, 0)
+		df$Greater_Than_Target_Frequency[sp] <- 
+			ifelse(df$Target_Assessment_Frequency[sp] <= df$Years_Since_Assessment[sp], 1, 0)
 
 		df$Score[sp] <- 
-			sum(df$Beyond_Target_Freq[sp], 
-				df$Greater_Than_10[sp], 
-				df$Less_Than_6_Update[sp],
-				df$Greater_Than_Target_Freq[sp],
+			sum(df$Years_Past_Assessment_Frequency[sp], 
+				df$Greater_Than_10_Years[sp], 
+				df$Less_Than_6_Years_Update[sp],
+				df$Greater_Than_Target_Frequency[sp],
 				na.rm = TRUE)
 	}	
 

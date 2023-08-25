@@ -37,17 +37,17 @@ summarize_rec_importance <- function(file_name, species_file, years, max_exp = 0
 		Rank = NA, 
 		Factor_Score = NA,
 		Initial_Factor_Score = NA, 
-		Pseudo_CW = NA,
-		Pseudo_CA = NA,
-		Pseudo_OR = NA,
-		Pseudo_WA = NA,
-		Rel_Weight_CA = NA,
-		Rel_Weight_OR = NA, 
-		Rel_Weight_WA = NA,  
-		Ret_Catch_CW = NA, 
-		Ret_Catch_CA = NA,
-		Ret_Catch_OR = NA, 
-		Ret_Catch_WA = NA
+		Pseudo_Revenue_Coastwide = NA,
+		Pseudo_Revenue_CA = NA,
+		Pseudo_Revenue_OR = NA,
+		Pseudo_Revenue_WA = NA,
+		Species_Importance_CA = NA,
+		Species_Importance_OR = NA, 
+		Species_Importance_WA = NA,  
+		Retained_Catch_Coastwide = NA, 
+		Retained_Catch_CA = NA,
+		Retained_Catch_OR = NA, 
+		Retained_Catch_WA = NA
 	)
 
 	# Remove "Dogfish Shark Family" so it does not get lumped with dogfish 
@@ -71,27 +71,27 @@ summarize_rec_importance <- function(file_name, species_file, years, max_exp = 0
 		find <- which(sub_data$RECFIN_YEAR %in% years) 
 		sub_data <- sub_data[find, ]
 
-		rec_importance_df[sp, c("Ret_Catch_CA", "Ret_Catch_OR", "Ret_Catch_WA")] <-
+		rec_importance_df[sp, c("Retained_Catch_CA", "Retained_Catch_OR", "Retained_Catch_WA")] <-
 			c(sum(sub_data[, "CALIFORNIA_RETAINED_MT"], na.rm = TRUE), 
 			  sum(sub_data[, "OREGON_RETAINED_MT"], na.rm = TRUE), 
 			  sum(sub_data[, "WASHINGTON_RETAINED_MT"], na.rm = TRUE) )
 
-		rec_importance_df[sp, "Ret_Catch_CW"] <- 
+		rec_importance_df[sp, "Retained_Catch_Coastwide"] <- 
 			sum(rec_importance_df[sp, c("Ret_Catch_CA", "Ret_Catch_OR", "Ret_Catch_WA")], na.rm = TRUE)
 
 		rec_importance_df[sp, c("Rel_Weight_CA", "Rel_Weight_OR", "Rel_Weight_WA")] <- 
 			rec_score[ss[1], c("CA", "OR", "WA")]
 
-		rec_importance_df[sp, c("Pseudo_CA", "Pseudo_OR", "Pseudo_WA")] <- 
+		rec_importance_df[sp, c("Pseudo_Revenue_CA", "Pseudo_Revenue_OR", "Pseudo_Revenue_WA")] <- 
 			rec_score[ss[1], c("CA", "OR", "WA")] * 
-			rec_importance_df[sp, c("Ret_Catch_CA", "Ret_Catch_OR", "Ret_Catch_WA")] 
+			rec_importance_df[sp, c("Retained_Catch_CA", "Retained_Catch_OR", "Retained_Catch_WA")] 
 
-		rec_importance_df[sp, "Pseudo_CW"] <- 
-			sum(rec_importance_df[sp, c("Pseudo_CA", "Pseudo_OR", "Pseudo_WA")], na.rm = TRUE)
+		rec_importance_df[sp, "Pseudo_Revenue_Coastwide"] <- 
+			sum(rec_importance_df[sp, c("Pseudo_Revenue_CA", "Pseudo_Revenue_OR", "Pseudo_Revenue_WA")], na.rm = TRUE)
 
 	}
 
-	rec_importance_df$Initial_Factor_Score <- rec_importance_df$Pseudo_CW ^ max_exp
+	rec_importance_df$Initial_Factor_Score <- rec_importance_df$Pseudo_Revenue_Coastwide ^ max_exp
 	rec_importance_df$Factor_Score <- rec_importance_df$Initial_Factor_Score * 10 / 
 		max(rec_importance_df$Initial_Factor_Score)
 

@@ -50,12 +50,11 @@ summarize_fishing_mortality <- function(
 		Species = species[,1], 
 		Rank = NA, 
 		Factor_Score = NA,
-		Fishing_Mortality = NA,
-		OFL = NA,
-		OFL_Attain_Percent = NA,
-		Total_Below_OFL = NA, 
-		ACL = NA,
-		ACL_Attain_Percent = NA 
+		Average_Removals = NA,
+		Average_OFL = NA,
+		Average_OFL_Attainment = NA,
+		Average_ACL = NA,
+		Average_ACL_Attainment = NA 
 	)
 	
 	for(sp in 1:nrow(species)) {
@@ -76,7 +75,7 @@ summarize_fishing_mortality <- function(
 		key <- unique(key)
 
 		sub_data <- data[key,]
-		mort_df[sp, "Fishing_Mortality"] <- sum(sub_data$total_discard_with_mort_rates_applied_and_landings_mt) / length(years)
+		mort_df[sp, "Average_Removals"] <- sum(sub_data$total_discard_with_mort_rates_applied_and_landings_mt) / length(years)
 		
 		if (length(ss) > 0 ) {
 			temp_targ <- targets[ss,]
@@ -85,34 +84,33 @@ summarize_fishing_mortality <- function(
 			
 			# Need to use sum rather than mean due to OFLs and ACLs under different names (e.g. Gopher and Black and Yellow)
 			value <- aggregate(SPECIFICATION_VALUE ~ SPECIFICATION_NAME, temp_targ, sum)
-			mort_df$OFL[sp] <- 
+			mort_df$Average_OFL[sp] <- 
 				value[value$SPECIFICATION_NAME == manage_quants[1], "SPECIFICATION_VALUE"] /
 				length(years)
-			mort_df$ACL[sp] <- 
+			mort_df$Average_ACL[sp] <- 
 				value[value$SPECIFICATION_NAME == manage_quants[2], "SPECIFICATION_VALUE"] /
 				length(years)
 		}
 		
 
-		mort_df$OFL_Attain_Percent[sp] <- mort_df$Fishing_Mortality[sp] / mort_df$OFL[sp]
+		mort_df$Average_OFL_Attainment[sp] <- mort_df$Average_Removals[sp] / mort_df$Average_OFL[sp]
 		score <-
-			ifelse(mort_df$OFL_Attain_Percent[sp] <= 0.10, 1,
-			ifelse(mort_df$OFL_Attain_Percent[sp] > 0.10 & mort_df$OFL_Attain_Percent[sp] <= 0.25, 2,
-			ifelse(mort_df$OFL_Attain_Percent[sp] > 0.25 & mort_df$OFL_Attain_Percent[sp] <= 0.50, 3,
-			ifelse(mort_df$OFL_Attain_Percent[sp] > 0.50 & mort_df$OFL_Attain_Percent[sp] <= 0.75, 5,
-			ifelse(mort_df$OFL_Attain_Percent[sp] > 0.75 & mort_df$OFL_Attain_Percent[sp] <= 0.90, 7,
-			ifelse(mort_df$OFL_Attain_Percent[sp] > 0.90 & mort_df$OFL_Attain_Percent[sp] <= 1.00, 8,
-			ifelse(mort_df$OFL_Attain_Percent[sp] > 1.00 & mort_df$OFL_Attain_Percent[sp] <= 1.10, 9,
-			ifelse(mort_df$OFL_Attain_Percent[sp] > 1.10, 10))))))))
+			ifelse(mort_df$Average_OFL_Attainment[sp] <= 0.10, 1,
+			ifelse(mort_df$Average_OFL_Attainment[sp] > 0.10 & mort_df$Average_OFL_Attainment[sp] <= 0.25, 2,
+			ifelse(mort_df$Average_OFL_Attainment[sp] > 0.25 & mort_df$Average_OFL_Attainment[sp] <= 0.50, 3,
+			ifelse(mort_df$Average_OFL_Attainment[sp] > 0.50 & mort_df$Average_OFL_Attainment[sp] <= 0.75, 5,
+			ifelse(mort_df$Average_OFL_Attainment[sp] > 0.75 & mort_df$Average_OFL_Attainment[sp] <= 0.90, 7,
+			ifelse(mort_df$Average_OFL_Attainment[sp] > 0.90 & mort_df$Average_OFL_Attainment[sp] <= 1.00, 8,
+			ifelse(mort_df$Average_OFL_Attainment[sp] > 1.00 & mort_df$Average_OFL_Attainment[sp] <= 1.10, 9,
+			ifelse(mort_df$Average_OFL_Attainment[sp] > 1.10, 10))))))))
 
 		mort_df$Factor_Score[sp] <- score
 	}
 
-	mort_df$Total_Below_OFL <-  mort_df$OFL - mort_df$Fishing_Mortality 
-	mort_df$ACL_Attain_Percent <- (mort_df$Fishing_Mortality / mort_df$ACL)
+	mort_df$Average_ACL_Attainment <- (mort_df$Average_Removasl / mort_df$Average_ACL)
 
 	mort_df <- 
-		mort_df[order(mort_df[,"OFL_Attain_Percent"], decreasing = TRUE), ]
+		mort_df[order(mort_df[,"Average_OFL_Attainment"], decreasing = TRUE), ]
 
 	x <- 1
 	for(i in 10:1) {
@@ -127,6 +125,6 @@ summarize_fishing_mortality <- function(
 	write.csv(mort_df, file.path("tables", "fishing_mortality.csv"), row.names = FALSE)
 
 	fish_mort <- data.frame(Species = mort_df$Species,
-							Fishing_Mortality = mort_df$Fishing_Mortality)
+							Average_Removals = mort_df$Average_Removals)
 	return(fish_mort)
 }

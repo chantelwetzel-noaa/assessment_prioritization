@@ -4,7 +4,8 @@
 === 
 .Rhistory
 === 
-data/
+data-raw/
+data-processed/
 model_files/
 proposal/
 archive/
