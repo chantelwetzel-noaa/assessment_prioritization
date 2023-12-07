@@ -13,12 +13,14 @@
 #' clean_model_files(loc = "model_files/")
 #'
 #'
-clean_model_files <- function(loc) {
+clean_model_files <- function(loc = "model_files/") {
 
 	dir_list <- list.dirs(loc)[-1]
 	remove <- grep("plots", dir_list)
-	dir_list <- dir_list[-remove]
-
+	if(length(remove) > 0){
+	  dir_list <- dir_list[-remove]  
+	}
+	
 	files_to_keep <- c(
 		"CompReport.sso",
 		"control.ss_new",
