@@ -30,7 +30,7 @@
 #' 
 #' @examples
 #' 
-#' summarize_model_results(
+#' summarize_stock_status(
 #' 		abundance_file <- "abundance_previous_cycle.csv",
 #' 		frequency_file <- "assessment_frequency_last_cycle.csv",
 #' 		species_file <- "species_names.csv",
@@ -38,27 +38,34 @@
 #' 		years <- 2000:2020
 #' )
 #' 
-summarize_model_results <- function(abundance_file, frequency_file, species_file, model_loc = "model_files", 
+summarize_stock_status <- function(abundance, frequency, species, model_loc = "model_files", 
 	years) {
  
-	abundance <- read.csv(file.path("data", abundance_file)) 
-	frequency <- read.csv(file.path("data", frequency_file))
-	species  <-  read.csv(file.path("data", species_file))
+	#abundance <- read.csv(file.path("data", abundance_file)) 
+	#frequency <- read.csv(file.path("data", frequency_file))
+	#species  <-  read.csv(file.path("data", species_file))
 	
 	new_models <- list.files(model_loc)
 	new_results <- data.frame(
 		SpeciesArea = new_models,
 		Species = NA,
 		AssessYear = NA,
-		MeanAge = NA,
+		Mean_Catch_Age = NA,
+		M = NA,
+		Max_Age = NA,
 		SigmaR = NA,
 		SB0 = NA,
 		SBfinal = NA,
+		SBfinal_5 = NA,
 		Status = NA,
+		Status_5 = NA,
 		WeightedStatus = NA,
-		WeightedMeanAge = NA
+		WeightedStatus_5 = NA,
+		WeightedMeanCatchAge = NA, 
+		MeanMaxAge = NA,
+		Mean_SigmaR = NA
 	)
-
+	
 	for (a in 1:length(new_models)) {
 
 		new_results[a, "Species"] <- strsplit(new_models[a], ".", fixed = TRUE)[[1]][1]
@@ -67,12 +74,20 @@ summarize_model_results <- function(abundance_file, frequency_file, species_file
 		find <- which(model$catage$Yr %in% years)
 		ncols <- dim(model$catage)[2] 
 		age <- 0:(ncols - 12)
-		new_results[a, "MeanAge"] <- round(sum(age * apply(model$catage[find, 12:ncols], 2, sum)) / 
+		new_results[a, "Mean_Catch_Age"] <- round(sum(age * apply(model$catage[find, 12:ncols], 2, sum)) / 
 											sum(model$catage[find, 12:ncols]), 1)
-		new_results[a, "SigmaR"] <- model$sigma_R_in
+		if(sum(model$recruitpars[, "Value"]) != 0){
+		  new_results[a, "SigmaR"] <- model$sigma_R_in
+		} else {
+		  new_results[a, "SigmaR"] <- NA
+		}
+		new_results[a, "M"] <- model$parameters[rownames(model$parameters) %in% c("NatM_p_1_Fem_GP_1", "NatM_uniform_Fem_GP_1", "NatM_break_1_Fem_GP_1"), "Value"]
+		new_results[a, "Max_Age"] <- round(5.4 / new_results[a, "M"], 0)
 		new_results[a, "SB0"] <- model$SBzero
 		new_results[a, "SBfinal"] <- model$SBzero * model$current_depletion
+		new_results[a, "SBfinal_5"] <- model$derived_quants[model$derived_quants$Label == paste0("SSB_", model$endyr - 5), "Value"]
 		new_results[a, "Status"] <- model$current_depletion
+		new_results[a, "Status_5"] <- new_results[a, "SBfinal_5"] / new_results[a, "SB0"]
 		new_results[a, "AssessYear"] <- model$endyr + 1
 	}
 
@@ -80,10 +95,14 @@ summarize_model_results <- function(abundance_file, frequency_file, species_file
 	for(b in 1:length(unique_species)) {
 		group <- which(new_results$Species == unique_species[b])
 		new_results[group, "WeightedStatus"] <- sum(new_results[group, "SBfinal"]) / sum(new_results[group, "SB0"])
+		new_results[group, "WeightedStatus_5"] <- sum(new_results[group, "SBfinal_5"]) / sum(new_results[group, "SB0"])
 		prop <- new_results[group, "SBfinal"] / sum(new_results[group, "SBfinal"])
-		new_results[group, "WeightedMeanAge"] <- sum(prop * new_results[group, "MeanAge"])
+		new_results[group, "WeightedMeanCatchAge"] <- sum(prop * new_results[group, "Mean_Catch_Age"])
+		new_results[group, "MeanMaxAge"] <- mean(new_results[group, "Max_Age"])
+		new_results[group, "Mean_SigmaR"] <- mean(new_results[group, "SigmaR"], na.rm = TRUE)
 	}
-
+	new_results[is.na(new_results[,"Mean_SigmaR"]), "Mean_SigmaR"] <- NA
+	
 	# Thread the new values into existing files
 	new_abundance <- abundance
 	new_frequency <- frequency
@@ -97,9 +116,14 @@ summarize_model_results <- function(abundance_file, frequency_file, species_file
 
 		group <- which(new_results$Species == unique_species[b])
 		new_abundance[key,"Estimate"] <- new_results[group[1], "WeightedStatus"]
+		new_abundance[key, "Trend"] <- ifelse(new_abundance[key,"Estimate"] >= new_abundance[key,"Target"], 
+		                                      0, 
+		                                      ifelse(new_results[group[1], "WeightedStatus"] > new_results[group[1], "WeightedStatus_5"],
+		                                             1, -1))
 
-		new_frequency[key, "Recruit_Var"] <- new_results[group[1], "SigmaR"]
-		new_frequency[key, "Mean_Age"] <- new_results[group[1], "WeightedMeanAge"]
+		new_frequency[key, "Recruit_Var"] <- new_results[group[1], "Mean_SigmaR"]
+		new_frequency[key, "Mean_Catch_Age"] <- new_results[group[1], "WeightedMeanCatchAge"]
+		new_frequency[key, "Mean_Max_Age"] <- new_results[group[1], "MeanMaxAge"]
 		new_frequency[key, "Last_Assess"] <-  new_results[group[1], "AssessYear"]
 	}
 
@@ -139,9 +163,11 @@ summarize_model_results <- function(abundance_file, frequency_file, species_file
 	}
 
 	abundance_out <- with(x, x[order(x[,"Species"]), ])
-	abundance_out <- abundance_out[, c("Species", "Rank", "Score", "Estimate", "Target", "MSST", "PSA", "Trend")]
+	stock_status <- abundance_out[, c("Species", "Rank", "Score", "Estimate", "Target", "MSST", "PSA", "Trend")]
 
-	write.csv(abundance_out, file.path("tables", "stock_status.csv"), row.names = FALSE)
-	write.csv(new_frequency, file.path("tables", "frequency_partial.csv"), row.names = FALSE)
-	write.csv(new_results, file.path("tables", "model_results.csv"), row.names = FALSE)
+	write.csv(stock_status, file.path("data-processed", "6_stock_status.csv"), row.names = FALSE)
+	write.csv(new_frequency, file.path("data-processed", "species_sigmaR_catage.csv"), row.names = FALSE)
+	write.csv(new_results,   file.path("data-processed", "model_results_processed.csv"), row.names = FALSE)
+	
+	return(stock_status)
 }
