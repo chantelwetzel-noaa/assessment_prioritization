@@ -12,9 +12,16 @@
 #' thornyhead, and shortspine thornyhead.
 #' 3) Quantities (OFLs,..) were duplicated for blue rockfish and rougheye/blackspotted
 #' rockfish and had to be corrected by hand.
-#'
-#' @param manage_file CSV file with OFLs, ABCs, and ACLs across years for West Coast groundfish
-#' @param species_file CSV file in the data folder called "species_names.csv" that includes
+#' 
+#' 2023 Notes of GMT 015 correction
+#' 1) blue rockfish in Oregon - hand deleted the blue/deacon/black complex rows
+#' 2) cowcod - hand deleted the south of 4010 rows
+#' 3) lingcod - hand deleted WA-OR and 42-4010 rows
+#' 4) starry and kelp - add rockfish to each
+#' 
+#' @param gemm_mortality
+#' @param harvest_spex CSV file with OFLs, ABCs, and ACLs across years for West Coast groundfish
+#' @param species CSV file in the data folder called "species_names.csv" that includes
 #' all the species to include in this analysis.
 #' @param years The specific year to summarize the management quantities (OFLs, ABCs, ACLs).
 #' @param manage_quants The names of the management quantities in the manage_file to grep.
@@ -37,64 +44,78 @@
 #'
 #'
 summarize_fishing_mortality <- function(
-	manage_file, 
-	species_file, 
-	years, 
-	manage_quants = c("Overfishing Limit", "Annual Catch Limit")) {
+  gemm_mortality,
+	harvest_spex, 
+  future_spex,
+	species = species, 
+	manage_quants = c("OVERFISHING_LIMIT", "ANNUAL_CATCH_LIMIT")) {
 
-	data <- nwfscSurvey::pull_gemm(years = years)
-	targets <- read.csv(file.path("data", manage_file)) 
-	species <-  read.csv(paste0("data/", species_file))
+  data <- gemm_mortality
+  spex <- harvest_spex
+  #future_spex <- future_spex
+	#data <- nwfscSurvey::pull_gemm()
+	#spex <- read.csv(file.path("data-raw", manage_file)) 
+	#species <-  read.csv(paste0("data-raw/", species_file))
 
 	mort_df <- data.frame(
 		Species = species[,1], 
 		Rank = NA, 
 		Factor_Score = NA,
+		OFL_Score = NA,
+		Future_OFL_Score = NA,
 		Average_Removals = NA,
 		Average_OFL = NA,
 		Average_OFL_Attainment = NA,
 		Average_ACL = NA,
-		Average_ACL_Attainment = NA 
+		Average_ACL_Attainment = NA,
+		Future_OFL_Attainment = NA,
+		Future_ACL_Attainment = NA
 	)
 	
 	for(sp in 1:nrow(species)) {
 
-		key <- ss <- NULL
+		key <- ss <- ff <- NULL
 		name_list <- species[sp, species[sp,] != -99]
+		
 		for(a in 1:length(name_list)){
-			key = c(key,
-				grep(species[sp,a], data$species, ignore.case = TRUE)
-			)
-
-			#first_name <- strsplit(species[sp, a], split = " rockfish")
-			ss <- c(ss, 
-				grep(species[sp, a], targets$STOCK_NAME, ignore.case = TRUE)
-			)
+			key <- c(key, grep(species[sp,a], data$species, ignore.case = TRUE))
+			ss <- c(ss, grep(species[sp, a], spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
+			ff <- c(ff, grep(species[sp, a], future_spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
 		}
+		if (length(ss) == 0){
+		  for(a in 1:length(name_list)){
+		    init_string <- tm::removeWords(species[sp, a], " rockfish")
+		    ss <- c(ss, grep(init_string, spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
+		  }
+		}
+		if (length(ff) == 0){
+		  for(a in 1:length(name_list)){
+		    init_string <- tm::removeWords(species[sp, a], " rockfish")
+		    ff <- c(ff, grep(init_string, future_spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
+		  }
+		}
+		
 		ss <- unique(ss)
 		key <- unique(key)
+		ff <- unique(ff)
 
 		sub_data <- data[key,]
-		mort_df[sp, "Average_Removals"] <- sum(sub_data$total_discard_with_mort_rates_applied_and_landings_mt) / length(years)
+		mort_df[sp, "Average_Removals"] <- sum(sub_data$total_discard_with_mort_rates_applied_and_landings_mt) / length(unique(data$year))
 		
 		if (length(ss) > 0 ) {
-			temp_targ <- targets[ss,]
-			ind <- which(temp_targ$SPECIFICATION_NAME %in% manage_quants & temp_targ$YEAR %in% years) 
-			temp_targ <- temp_targ[ind, ]
+			temp_spex <- spex[ss,]
+			ind <- which(colnames(temp_spex) %in% c("SPEX_YEAR", manage_quants)) 
+			temp_spex <- temp_spex[, ind]
 			
 			# Need to use sum rather than mean due to OFLs and ACLs under different names (e.g. Gopher and Black and Yellow)
-			value <- aggregate(SPECIFICATION_VALUE ~ SPECIFICATION_NAME, temp_targ, sum)
-			mort_df$Average_OFL[sp] <- 
-				value[value$SPECIFICATION_NAME == manage_quants[1], "SPECIFICATION_VALUE"] /
-				length(years)
-			mort_df$Average_ACL[sp] <- 
-				value[value$SPECIFICATION_NAME == manage_quants[2], "SPECIFICATION_VALUE"] /
-				length(years)
+			value <- apply(temp_spex[,2:3], 2, sum, na.rm = TRUE) #aggregate(SPECIFICATION_VALUE ~ SPECIFICATION_NAME, temp_spex, sum)
+			mort_df$Average_OFL[sp] <- value[ manage_quants[1]] / length(unique(temp_spex$SPEX_YEAR))
+			mort_df$Average_ACL[sp] <- value[ manage_quants[2]] / length(unique(temp_spex$SPEX_YEAR))
 		}
 		
-
 		mort_df$Average_OFL_Attainment[sp] <- mort_df$Average_Removals[sp] / mort_df$Average_OFL[sp]
-		score <-
+		
+		mort_df[sp, "OFL_Score"] <-
 			ifelse(mort_df$Average_OFL_Attainment[sp] <= 0.10, 1,
 			ifelse(mort_df$Average_OFL_Attainment[sp] > 0.10 & mort_df$Average_OFL_Attainment[sp] <= 0.25, 2,
 			ifelse(mort_df$Average_OFL_Attainment[sp] > 0.25 & mort_df$Average_OFL_Attainment[sp] <= 0.50, 3,
@@ -103,17 +124,38 @@ summarize_fishing_mortality <- function(
 			ifelse(mort_df$Average_OFL_Attainment[sp] > 0.90 & mort_df$Average_OFL_Attainment[sp] <= 1.00, 8,
 			ifelse(mort_df$Average_OFL_Attainment[sp] > 1.00 & mort_df$Average_OFL_Attainment[sp] <= 1.10, 9,
 			ifelse(mort_df$Average_OFL_Attainment[sp] > 1.10, 10))))))))
-
-		mort_df$Factor_Score[sp] <- score
+		
+		# Future Attainment
+		mort_df$Future_OFL_Attainment[sp] <- mort_df$Average_Removals[sp] / sum(future_spex[ff, "OFL"], na.rm = TRUE)
+		mort_df$Future_ACL_Attainment[sp] <- mort_df$Average_Removals[sp] / sum(future_spex[ff, "ACL"], na.rm = TRUE)
+		
+		# Calculate the adjustment based on future spex limitations
+		mort_df[sp, "Future_OFL_Score"] <-
+		  ifelse(mort_df[sp, "OFL_Score"] >= 9 & mort_df$Future_OFL_Attainment[sp] < 1.0, -2, 
+		  ifelse(mort_df[sp, "OFL_Score"] >= 9 & mort_df$Future_OFL_Attainment[sp] > 1.0, 2, 
+		  ifelse(mort_df$Future_OFL_Attainment[sp] > 0.80, 1, 0)))
 	}
+	
+	mort_df$Average_ACL_Attainment <- (mort_df$Average_Removals / mort_df$Average_ACL)
+	mort_df$Factor_Score <- mort_df[, "OFL_Score"] + mort_df[, "Future_OFL_Score"]
+	mort_df[, c("Average_Removals", "Average_OFL", "Average_ACL")] <- 
+	  round(mort_df[, c("Average_Removals", "Average_OFL", "Average_ACL")], 1)
+	mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment", "Future_OFL_Attainment", "Future_ACL_Attainment")] <-
+	  round(100 * mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment", "Future_OFL_Attainment", "Future_ACL_Attainment")], 1)
+	
+	# Future spex rule
+	# If you are not exceeding the future OFL = -2 (this is likely due to a new assessment)
+	# If you are exceeding the future OFL and current = +2 (this is already top ranking)
+	# If you are between 80-100% of future OFL = +1
+	# If you are less than 80% of the future OFL = 0 
 
-	mort_df$Average_ACL_Attainment <- (mort_df$Average_Removasl / mort_df$Average_ACL)
-
+	mort_df$Factor_Score <- round(10 * (mort_df$OFL_Score + mort_df$Future_OFL_Score) / max(mort_df$OFL_Score + mort_df$Future_OFL_Score), 1)
+	
 	mort_df <- 
-		mort_df[order(mort_df[,"Average_OFL_Attainment"], decreasing = TRUE), ]
+		mort_df[order(mort_df[,"Factor_Score"], decreasing = TRUE), ]
 
 	x <- 1
-	for(i in 10:1) {
+	for(i in sort(unique(mort_df[, "Factor_Score"]), decreasing = TRUE)) {
 		ties <- which(mort_df$Factor_Score == i)
 		if(length(ties) > 0) {
 			mort_df$Rank[ties] <- x
@@ -121,8 +163,10 @@ summarize_fishing_mortality <- function(
 		x <- x + length(ties)
 	}
 
-
-	write.csv(mort_df, file.path("tables", "fishing_mortality.csv"), row.names = FALSE)
+	mort_df <- 
+	  mort_df[order(mort_df[,"Species"], decreasing = FALSE), ]
+	
+	write.csv(mort_df, file.path("data-processed", "1_fishing_mortality.csv"), row.names = FALSE)
 
 	fish_mort <- data.frame(Species = mort_df$Species,
 							Average_Removals = mort_df$Average_Removals)
