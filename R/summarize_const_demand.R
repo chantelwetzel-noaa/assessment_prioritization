@@ -168,7 +168,7 @@ summarize_const_demand <- function(
              ifelse(choke_df$Future_ACL_Attainment[sp] < 1.25 & choke_df$Future_ACL_Attainment[sp] >= 1, 4,
              ifelse(choke_df$Future_ACL_Attainment[sp] < 1.0 & choke_df$Future_ACL_Attainment[sp] >= 0.90, 3,
                     ifelse(choke_df$Future_ACL_Attainment[sp] < 0.9 & choke_df$Future_ACL_Attainment[sp] >= 0.80, 2, 
-                           ifelse(choke_df$Future_ACL_Attainment[sp] < 0.8 & choke_df$Future_ACL_Attainment[sp] >= 0.70, 2, 0)))))
+                           ifelse(choke_df$Future_ACL_Attainment[sp] < 0.8 & choke_df$Future_ACL_Attainment[sp] >= 0.70, 1, 0)))))
   }
   
   
