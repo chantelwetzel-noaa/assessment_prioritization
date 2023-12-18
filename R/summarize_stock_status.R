@@ -13,10 +13,10 @@
 #' 
 #' 
 #'
-#' @param abundance_file A csv file containing the existing abundance by species that the 
+#' @param abundance A csv file containing the existing abundance by species that the 
 #' newly assessed species abundance estimates will be added to or old abundance values replaced. The
 #' csv file to be read is found in the data folder.
-#' @param frequency_file A csv file from the previous assessment prioritization assessment
+#' @param frequency A csv file from the previous assessment prioritization assessment
 #' frequency tab. The csv file to be read is found in the data folder.
 #' @param model_loc Folder name to look for model files. The default is "model_files" in the 
 #' assessment prioritization github.
@@ -31,19 +31,15 @@
 #' @examples
 #' 
 #' summarize_stock_status(
-#' 		abundance_file <- "abundance_previous_cycle.csv",
-#' 		frequency_file <- "assessment_frequency_last_cycle.csv",
-#' 		species_file <- "species_names.csv",
-#' 		model_loc <- "model_files",
-#' 		years <- 2000:2020
+#' 		abundance = abundance, #abundance_historical.csv 
+#' 		frequency = frequency, #species_sigma_sigmaR.csv 
+#' 		species = species,
+#' 		model_loc = "model_files",
+#' 		years = 2000:2020 # Catch-at-Age range
 #' )
 #' 
 summarize_stock_status <- function(abundance, frequency, species, model_loc = "model_files", 
 	years) {
- 
-	#abundance <- read.csv(file.path("data", abundance_file)) 
-	#frequency <- read.csv(file.path("data", frequency_file))
-	#species  <-  read.csv(file.path("data", species_file))
 	
 	new_models <- list.files(model_loc)
 	new_results <- data.frame(
@@ -53,6 +49,7 @@ summarize_stock_status <- function(abundance, frequency, species, model_loc = "m
 		Mean_Catch_Age = NA,
 		M = NA,
 		Max_Age = NA,
+		h = NA,
 		SigmaR = NA,
 		SB0 = NA,
 		SBfinal = NA,
@@ -79,9 +76,10 @@ summarize_stock_status <- function(abundance, frequency, species, model_loc = "m
 		if(sum(model$recruitpars[, "Value"]) != 0){
 		  new_results[a, "SigmaR"] <- model$sigma_R_in
 		} else {
-		  new_results[a, "SigmaR"] <- NA
+		  new_results[a, "SigmaR"] <- 0
 		}
 		new_results[a, "M"] <- model$parameters[rownames(model$parameters) %in% c("NatM_p_1_Fem_GP_1", "NatM_uniform_Fem_GP_1", "NatM_break_1_Fem_GP_1"), "Value"]
+		new_results[a, "h"] <- model$parameters[rownames(model$parameters) %in% c("SR_BH_steep", "SR_surv_zfrac"), "Value"]
 		new_results[a, "Max_Age"] <- round(5.4 / new_results[a, "M"], 0)
 		new_results[a, "SB0"] <- model$SBzero
 		new_results[a, "SBfinal"] <- model$SBzero * model$current_depletion
@@ -124,6 +122,7 @@ summarize_stock_status <- function(abundance, frequency, species, model_loc = "m
 		new_frequency[key, "Recruit_Var"] <- new_results[group[1], "Mean_SigmaR"]
 		new_frequency[key, "Mean_Catch_Age"] <- new_results[group[1], "WeightedMeanCatchAge"]
 		new_frequency[key, "Mean_Max_Age"] <- new_results[group[1], "MeanMaxAge"]
+		new_frequency[key, "h"] <- new_results[group[1], "h"]
 		new_frequency[key, "Last_Assess"] <-  new_results[group[1], "AssessYear"]
 	}
 
