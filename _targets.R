@@ -17,7 +17,7 @@ tar_option_set(packages = c(
 source("R/summarize_fishing_mortality.R")
 source("R/summarize_revenue.R")
 source("R/summarize_rec_importance.R")
-source("R/clean_model_files.R")
+#source("R/clean_model_files.R")
 source("R/summarize_stock_status.R")
 source("R/summarize_ecosystem.R")
 source("R/summarize_frequency.R")
@@ -26,6 +26,8 @@ source("R/summarize_rebuilding.R")
 source("R/filter_years.R")
 source("R/filter_revenue.R")
 source("R/filter_gemm.R")
+
+#source("R/functions.R")
 
 # End this file with a list of target objects.
 list(
@@ -42,7 +44,6 @@ list(
     tar_target(harvest_spex_data, read.csv("data-raw/GMT015-final specifications-2015 - 2023.csv")),
     tar_target(gemm_mortality_data, nwfscSurvey::pull_gemm(years = recent_5_years)),
     # Future Spex
-    #tar_target(future_spex, read.csv("data-raw/GMT008-harvest specifications-2024.csv")),
     tar_target(future_spex_data, read.csv("data-raw/GMT008-harvest specifications_alt2-2025.csv")),
     # Revenue
     tar_target(revenue_data, read.csv("data-raw/pacfin_revenue.csv")),
@@ -54,7 +55,7 @@ list(
     tar_target(recreational_importance_scores, read.csv(file.path("doc", "tables", "recr_importance.csv"))),
     # Abundance and Assessment Frequency
     tar_target(abundance, read.csv("data-raw/abundance_historical.csv")), 
-    tar_target(frequency, read.csv("data-processed/species_sigmaR_catage.csv")),
+    tar_target(frequency, read.csv("data-raw/species_sigmaR_catage_main.csv")),
     tar_target(ecosystem_data, read.csv("data-raw/ecosystem_data.csv")),#, format = "file"),
     # Overfished data
     tar_target(overfished_data, read.csv("data-raw/overfished_species.csv"))
@@ -71,9 +72,6 @@ list(
     tar_target(revenue_data_filtered, filter_years(
       data = revenue_data,
       years = recent_5_years)),
-    #tar_target(rec_catch_filtered, filter_years(
-    #  data = recreational_catch_data,
-    #  years = recent_5_years)), 
     tar_target(rec_catch_filtered, filter_gemm(
       data = gemm_mortality_data)),
     # Commercial or Tribal Revenue Data Filter
@@ -92,8 +90,7 @@ list(
     # 1 Fishing Mortality
     tar_target(fishing_mortality, summarize_fishing_mortality(
       gemm_mortality = gemm_mortality_data,
-      harvest_spex = harvest_spex_filtered, 
-      future_spex = future_spex_data,
+      harvest_spex = harvest_spex_filtered,
       species = species)),
     # 2 Commercial Revenue
     tar_target(commercial, summarize_revenue(
@@ -131,6 +128,8 @@ list(
     tar_target(constituent_demand, summarize_const_demand(
       revenue_data = revenue_data_filtered, 
       rec_importance_data = recreational, 
+      fishing_mortality = fishing_mortality,
+      future_spex = future_spex_data,
       species = species)),
     # 9 New Information
     # 10 Rebuilding
