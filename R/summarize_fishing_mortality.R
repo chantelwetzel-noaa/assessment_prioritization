@@ -15,61 +15,50 @@
 #' 
 #' 2023 Notes of GMT 015 correction
 #' 1) blue rockfish in Oregon - hand deleted the blue/deacon/black complex rows
-#' 2) cowcod - hand deleted the south of 4010 rows
+#' 2) cowcod - hand deleted the south of 4010 rows and add in the ACLs by area
 #' 3) lingcod - hand deleted WA-OR and 42-4010 rows
 #' 4) starry and kelp - add rockfish to each
 #' 
-#' @param gemm_mortality
+#' 2023 future spex fixes
+#' 1) delete s4010 cowcod
+#' 
+#' @param gemm_mortality R object created by nwfscSurvey::pull_gemm()
 #' @param harvest_spex CSV file with OFLs, ABCs, and ACLs across years for West Coast groundfish
 #' @param species CSV file in the data folder called "species_names.csv" that includes
 #' all the species to include in this analysis.
-#' @param years The specific year to summarize the management quantities (OFLs, ABCs, ACLs).
 #' @param manage_quants The names of the management quantities in the manage_file to grep.
 #' This allows to easily shift between the ABC and the ACL if needed.
 #'
 #' @author Chantel Wetzel
-#' @import nwfscSurvey
 #' @export
 #' @md
 #' 
 #' @examples
-#' library(nwfscSurvey)
 #' 
-#' summarize_fishing_mortality(
-#' 		file_name <- "commercial_mortality.csv"
-#' 		manage_file <- "WOC_STOCK_SUMMARY11232021.csv"
-#' 		species_file <-  "species_names.csv"
-#' 		years <- 2018:2020
-#' )
 #'
 #'
 summarize_fishing_mortality <- function(
   gemm_mortality,
 	harvest_spex, 
-  future_spex,
 	species = species, 
 	manage_quants = c("OVERFISHING_LIMIT", "ANNUAL_CATCH_LIMIT")) {
 
   data <- gemm_mortality
   spex <- harvest_spex
-  #future_spex <- future_spex
-	#data <- nwfscSurvey::pull_gemm()
-	#spex <- read.csv(file.path("data-raw", manage_file)) 
-	#species <-  read.csv(paste0("data-raw/", species_file))
 
 	mort_df <- data.frame(
 		Species = species[,1], 
 		Rank = NA, 
 		Factor_Score = NA,
 		OFL_Score = NA,
-		Future_OFL_Score = NA,
+		#Future_OFL_Score = NA,
 		Average_Removals = NA,
 		Average_OFL = NA,
 		Average_OFL_Attainment = NA,
 		Average_ACL = NA,
-		Average_ACL_Attainment = NA,
-		Future_OFL_Attainment = NA,
-		Future_ACL_Attainment = NA
+		Average_ACL_Attainment = NA#,
+		#Future_OFL_Attainment = NA,
+		#Future_ACL_Attainment = NA
 	)
 	
 	for(sp in 1:nrow(species)) {
@@ -80,7 +69,7 @@ summarize_fishing_mortality <- function(
 		for(a in 1:length(name_list)){
 			key <- c(key, grep(species[sp,a], data$species, ignore.case = TRUE))
 			ss <- c(ss, grep(species[sp, a], spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
-			ff <- c(ff, grep(species[sp, a], future_spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
+			#ff <- c(ff, grep(species[sp, a], future_spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
 		}
 		if (length(ss) == 0){
 		  for(a in 1:length(name_list)){
@@ -88,16 +77,16 @@ summarize_fishing_mortality <- function(
 		    ss <- c(ss, grep(init_string, spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
 		  }
 		}
-		if (length(ff) == 0){
-		  for(a in 1:length(name_list)){
-		    init_string <- tm::removeWords(species[sp, a], " rockfish")
-		    ff <- c(ff, grep(init_string, future_spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
-		  }
-		}
+		#if (length(ff) == 0){
+		#  for(a in 1:length(name_list)){
+		#    init_string <- tm::removeWords(species[sp, a], " rockfish")
+		#    ff <- c(ff, grep(init_string, future_spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
+		#  }
+		#}
 		
 		ss <- unique(ss)
 		key <- unique(key)
-		ff <- unique(ff)
+		#ff <- unique(ff)
 
 		sub_data <- data[key,]
 		mort_df[sp, "Average_Removals"] <- sum(sub_data$total_discard_with_mort_rates_applied_and_landings_mt) / length(unique(data$year))
@@ -126,30 +115,23 @@ summarize_fishing_mortality <- function(
 			ifelse(mort_df$Average_OFL_Attainment[sp] > 1.10, 10))))))))
 		
 		# Future Attainment
-		mort_df$Future_OFL_Attainment[sp] <- mort_df$Average_Removals[sp] / sum(future_spex[ff, "OFL"], na.rm = TRUE)
-		mort_df$Future_ACL_Attainment[sp] <- mort_df$Average_Removals[sp] / sum(future_spex[ff, "ACL"], na.rm = TRUE)
+		#mort_df$Future_OFL_Attainment[sp] <- mort_df$Average_Removals[sp] / sum(future_spex[ff, "OFL"], na.rm = TRUE)
+		#mort_df$Future_ACL_Attainment[sp] <- mort_df$Average_Removals[sp] / sum(future_spex[ff, "ACL"], na.rm = TRUE)
 		
 		# Calculate the adjustment based on future spex limitations
-		mort_df[sp, "Future_OFL_Score"] <-
-		  ifelse(mort_df[sp, "OFL_Score"] >= 9 & mort_df$Future_OFL_Attainment[sp] < 1.0, -2, 
-		  ifelse(mort_df[sp, "OFL_Score"] >= 9 & mort_df$Future_OFL_Attainment[sp] > 1.0, 2, 
-		  ifelse(mort_df$Future_OFL_Attainment[sp] > 0.80, 1, 0)))
+		#mort_df[sp, "Future_OFL_Score"] <-
+		#  ifelse(mort_df[sp, "OFL_Score"] >= 9 & mort_df$Future_OFL_Attainment[sp] < 1.0, -2, 
+		#  ifelse(mort_df[sp, "OFL_Score"] >= 9 & mort_df$Future_OFL_Attainment[sp] > 1.0, 2, 
+		#  ifelse(mort_df$Future_OFL_Attainment[sp] > 0.80, 1, 0)))
 	}
 	
 	mort_df$Average_ACL_Attainment <- (mort_df$Average_Removals / mort_df$Average_ACL)
-	mort_df$Factor_Score <- mort_df[, "OFL_Score"] + mort_df[, "Future_OFL_Score"]
+	mort_df$Factor_Score <- mort_df[, "OFL_Score"] #+ mort_df[, "Future_OFL_Score"]
 	mort_df[, c("Average_Removals", "Average_OFL", "Average_ACL")] <- 
 	  round(mort_df[, c("Average_Removals", "Average_OFL", "Average_ACL")], 1)
-	mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment", "Future_OFL_Attainment", "Future_ACL_Attainment")] <-
-	  round(100 * mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment", "Future_OFL_Attainment", "Future_ACL_Attainment")], 1)
-	
-	# Future spex rule
-	# If you are not exceeding the future OFL = -2 (this is likely due to a new assessment)
-	# If you are exceeding the future OFL and current = +2 (this is already top ranking)
-	# If you are between 80-100% of future OFL = +1
-	# If you are less than 80% of the future OFL = 0 
-
-	mort_df$Factor_Score <- round(10 * (mort_df$OFL_Score + mort_df$Future_OFL_Score) / max(mort_df$OFL_Score + mort_df$Future_OFL_Score), 1)
+	mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment")] <- #, "Future_OFL_Attainment", "Future_ACL_Attainment"
+	  round(100 * mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment")], 1)
+	#mort_df$Factor_Score <- round(10 * (mort_df$OFL_Score + mort_df$Future_OFL_Score) / max(mort_df$OFL_Score + mort_df$Future_OFL_Score), 1)
 	
 	mort_df <- 
 		mort_df[order(mort_df[,"Factor_Score"], decreasing = TRUE), ]
