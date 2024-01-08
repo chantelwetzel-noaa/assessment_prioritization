@@ -16,7 +16,6 @@
 #' @export
 #' @md
 #' 
-#' @examples
 #' 
 #'
 summarize_const_demand <- function(
@@ -175,22 +174,22 @@ summarize_const_demand <- function(
   const_importance <- data.frame(
     Species = species[,1],
     Rank = NA,
-    Score = choke_df$Choke_Stock_Score + com_importance_df$Commercial_Importance_Modifier + rec_importance_df$Recreational_Importance_Modifier,
+    Factor_Score = choke_df$Choke_Stock_Score + com_importance_df$Commercial_Importance_Modifier + rec_importance_df$Recreational_Importance_Modifier,
     Choke_Stock_Score = choke_df$Choke_Stock_Score,
     Commerical_Importance_Score = com_importance_df$Commercial_Importance_Modifier,
     Recreational_Importance_Score = rec_importance_df$Recreational_Importance_Modifier,
-    Futue_ACL_Attainment = round(100 * choke_df$Future_ACL_Attainment, 0)
+    Future_ACL_Attainment = round(100 * choke_df$Future_ACL_Attainment, 0)
   )
   
-  const_importance <- const_importance[order(const_importance[,"Score"], decreasing = TRUE), ]
+  const_importance <- const_importance[order(const_importance[,"Factor_Score"], decreasing = TRUE), ]
   
   zz <- 1
-  max_range <- ifelse(min(const_importance$Score) != 0, max(const_importance$Score), max(const_importance$Score) + 1)
+  max_range <- ifelse(min(const_importance$Factor_Score) != 0, max(const_importance$Factor_Score), max(const_importance$Factor_Score) + 1)
   for(i in max_range:1) {
-    if(min(const_importance$Score) == 0){
-      ties <- which(const_importance$Score == (i-1))
+    if(min(const_importance$Factor_Score) == 0){
+      ties <- which(const_importance$Factor_Score == (i-1))
     } else {
-      ties <- which(const_importance$Score == i)
+      ties <- which(const_importance$Factor_Score == i)
     }
     if(length(ties) > 0) {
       const_importance$Rank[ties] <- zz
@@ -206,5 +205,5 @@ summarize_const_demand <- function(
 	#write.csv(rec_score_df, file.path("tables", "const_demand_recreational_scores.csv"), row.names = FALSE)
 	#write.csv(rank_df, file.path("tables", "const_demand_commercial_ranks.csv"), row.names = FALSE)
 	#write.csv(rec_importance_df, file.path("tables", "const_demand_recreational_ranks.csv"), row.names = FALSE)
-
+  return(const_importance)
 }
