@@ -129,12 +129,10 @@ summarize_fishing_mortality <- function(
 	mort_df$Factor_Score <- mort_df[, "OFL_Score"] #+ mort_df[, "Future_OFL_Score"]
 	mort_df[, c("Average_Removals", "Average_OFL", "Average_ACL")] <- 
 	  round(mort_df[, c("Average_Removals", "Average_OFL", "Average_ACL")], 1)
-	mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment")] <- #, "Future_OFL_Attainment", "Future_ACL_Attainment"
+	mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment")] <-
 	  round(100 * mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment")], 1)
-	#mort_df$Factor_Score <- round(10 * (mort_df$OFL_Score + mort_df$Future_OFL_Score) / max(mort_df$OFL_Score + mort_df$Future_OFL_Score), 1)
 	
-	mort_df <- 
-		mort_df[order(mort_df[,"Factor_Score"], decreasing = TRUE), ]
+	mort_df <- mort_df[order(mort_df[,"Factor_Score"], decreasing = TRUE), ]
 
 	x <- 1
 	for(i in sort(unique(mort_df[, "Factor_Score"]), decreasing = TRUE)) {
@@ -151,6 +149,7 @@ summarize_fishing_mortality <- function(
 	write.csv(mort_df, file.path("data-processed", "1_fishing_mortality.csv"), row.names = FALSE)
 
 	fish_mort <- data.frame(Species = mort_df$Species,
-							Average_Removals = mort_df$Average_Removals)
+	                        Factor_Score = mort_df$Factor_Score,
+							            Average_Removals = mort_df$Average_Removals)
 	return(fish_mort)
 }
