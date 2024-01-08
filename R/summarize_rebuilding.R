@@ -3,7 +3,7 @@ summarize_rebuilding <- function(species, overfished_data, stock_status, assessm
   overfished_df <- data.frame(
     Species = species[,1], 
     Factor_Score = 0,
-    Rebuilding_Target = NA
+    Rebuilding_Target_Year = NA
   )
   
   for(a in 1:nrow(overfished_data)){
@@ -18,8 +18,10 @@ summarize_rebuilding <- function(species, overfished_data, stock_status, assessm
     
     score <- ifelse(stock_status[find, "Trend"] == -1, 10, score_based_on_time)
     overfished_df[find, "Factor_Score"] <- score
-    overfished_df[find, "Rebuilding_Target"] <- target
+    overfished_df[find, "Rebuilding_Target_Year"] <- target
   }
   
   write.csv(overfished_df, "data-processed/10_rebuilding.csv", row.names = FALSE)
+  
+  return(overfished_df)
 }
