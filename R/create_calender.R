@@ -1,6 +1,8 @@
 
 dir <- here::here("doc/figs")
 
+library(nmfspalette)
+
 range_dates <- c("2025-04-01", "2025-09-30") 
 mark_dates <- rep(NA, 365)
 mark_dates[c(
@@ -10,10 +12,10 @@ mark_dates[c(
 mark_dates[c(
   lubridate::yday(seq(as.Date("2025-04-09"), as.Date("2025-04-15"), by = "1 day")),
   lubridate::yday(seq(as.Date("2025-03-05"), as.Date("2025-03-11"), by = "1 day")),
-  lubridate::yday(c("2025-01-01", "2025-01-20", "2025-02-17", "2025-05-26", "2025-07-04", "2025-09-01", "2025-10-13", "2025-11-11", "2025-11-27", "2025-12-25"))
+  lubridate::yday(c("2025-01-01", "2025-01-20", "2025-02-17", "2025-05-26", "2025-06-19",  "2025-07-04", "2025-09-01", "2025-10-13", "2025-11-11", "2025-11-27", "2025-12-25"))
   )] <- "Council Meeting"
 mark_dates[
-  lubridate::yday(c("2025-01-01", "2025-01-20", "2025-02-17", "2025-05-26", "2025-07-04", "2025-09-01", "2025-10-13", "2025-11-11", "2025-11-27", "2025-12-25"))
+  lubridate::yday(c("2025-01-01", "2025-01-20", "2025-02-17", "2025-05-26", "2025-06-19", "2025-07-04", "2025-09-01", "2025-10-13", "2025-11-11", "2025-11-27", "2025-12-25"))
   ] <- "Federal Holiday"
 mark_dates[c(
   lubridate::yday(seq(as.Date("2025-04-28"), as.Date("2025-05-02"), by = "1 day"))
@@ -68,6 +70,6 @@ calendR::calendR(
   months.col = "white"
 )
 
-ggplot2::ggsave(filename = file.path(dir, "2025_calender.png"),
+ggplot2::ggsave(filename = file.path(dir, "2025_calendar.png"),
                 width = 10, height = 10)
 
