@@ -23,9 +23,12 @@ source("R/summarize_ecosystem.R")
 source("R/summarize_frequency.R")
 source("R/summarize_const_demand.R")
 source("R/summarize_rebuilding.R")
+source("R/summarize_new_information.R")
 source("R/filter_years.R")
 source("R/filter_revenue.R")
 source("R/filter_gemm.R")
+source("R/calculate_rank.R")
+source("R/move_files_to_sap.R")
 
 #source("R/functions.R")
 
@@ -40,25 +43,24 @@ list(
     tar_target(catage_years, 2000:2022),
     tar_target(assessment_year, 2025),
     # Fishing Mortality
-    #tar_target(harvest_spex_data, read.csv("data-raw/WOC_STOCK_SUMMARY11232021.csv")),
     tar_target(harvest_spex_data, read.csv("data-raw/GMT015-final specifications-2015 - 2023.csv")),
     tar_target(gemm_mortality_data, nwfscSurvey::pull_gemm(years = recent_5_years)),
     # Future Spex
     tar_target(future_spex_data, read.csv("data-raw/GMT008-harvest specifications_alt2-2025.csv")),
     # Revenue
     tar_target(revenue_data, read.csv("data-raw/pacfin_revenue.csv")),
-    #tar_target(commercial_revenue_data, read.csv("data-raw/revenue_summarized_12052021.csv")),
-    #tar_target(tribal_revenue_data, read.csv("data-raw/tribal_revenue_12062021.csv")),
-    tar_target(subsistence_score_data, read.csv("doc/tables/subsistence_score.csv")),
+    tar_target(tribal_score_data, read.csv("doc/tables/tribal_score.csv")),
     # Recreational Catches
-    #tar_target(recreational_catch_data, read.csv("data-raw/CTE002-2016---2020.csv")),
     tar_target(recreational_importance_scores, read.csv(file.path("doc", "tables", "recr_importance.csv"))),
     # Abundance and Assessment Frequency
     tar_target(abundance, read.csv("data-raw/abundance_historical.csv")), 
     tar_target(frequency, read.csv("data-raw/species_sigmaR_catage_main.csv")),
     tar_target(ecosystem_data, read.csv("data-raw/ecosystem_data.csv")),#, format = "file"),
     # Overfished data
-    tar_target(overfished_data, read.csv("data-raw/overfished_species.csv"))
+    tar_target(overfished_data, read.csv("data-raw/overfished_species.csv")),
+    # Survey data summary
+    tar_target(survey_data, read.csv("data-processed/all_nwfsc_survey_new_information.csv")),
+    tar_target(new_research, read.csv("data-raw/new_research.csv"))
   ),
   
   # Filter Data and Clean Model Files
@@ -95,17 +97,20 @@ list(
     # 2 Commercial Revenue
     tar_target(commercial, summarize_revenue(
       revenue = commercial_revenue_filtered, 
-      species = species)),
+      species = species,
+      frequency = frequency)),
     # 3 Tribal Importance
     tar_target(tribal, summarize_revenue(
       revenue = tribal_revenue_filtered, 
       species = species, 
-      subsistence_score = subsistence_score_data)),
+      tribal_score = tribal_score_data,
+      frequency = frequency)),
     # 4 Recreational Importance
     tar_target(recreational, summarize_rec_importance(
       rec_catch = rec_catch_filtered, 
       species = species, 
-      rec_importance = recreational_importance_scores)),
+      rec_importance = recreational_importance_scores,
+      frequency = frequency)),
     # 5 Ecosystem
     tar_target(ecosystem, summarize_ecosystem(
       ecosystem_data = ecosystem_data)),
@@ -132,15 +137,38 @@ list(
       future_spex = future_spex_data,
       species = species)),
     # 9 New Information
+    tar_target(bio_params, read.csv(here::here("data-processed/species_sigmaR_catage.csv"))),
+    tar_target(new_info, summarize_new_information(
+      species = species, 
+      survey_data = survey_data, 
+      bio_params = bio_params,
+      new_research = new_research)),
     # 10 Rebuilding
     tar_target(rebuilding, summarize_rebuilding(
       species = species, 
       overfished_data = overfished_data, 
       stock_status = stock_status, 
-      assessment_year = assessment_year))
+      assessment_year = assessment_year)),
+    # Calculate the overall ranks
+    tar_target(rank, calculate_rank(
+      fishing_mortality = fishing_mortality,
+      commercial_revenue = commercial,
+      tribal_importance = tribal,
+      recreational_importance = recreational,
+      ecosystem = ecosystem,
+      stock_status = stock_status,
+      assessment_frequency = assess_frequency,
+      constituent_demand = constituent_demand,
+      new_information = new_info,
+      rebuilding = rebuilding)),
+    tar_target(move_files, move_files_to_sap(
+      dir = here::here("data-processed"), 
+      move_to = "C:/Users/Chantel.Wetzel/Documents/GitHub/wcgfishSAP/tables"))
   )
 )
 
 # targets::tar_make()
 # targets::tar_glimpse()
 # targets::tar_visnetwork()
+# targets::tar_delete("rank")
+# targets::tar_load_everything()
