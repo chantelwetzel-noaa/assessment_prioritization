@@ -8,10 +8,7 @@
 #' @param rec_catch A csv file pulled from RecFIN with recreational catches.
 #' data. Found in the data folder in the assessment prioritization github repo.
 #' @param species_file A csv including all species to calculate values for.
-#' @param years A vector of years to calculate the average recreational catch
-#' across.
-#' @param max_exp A numerical value to apply as an exponent to the coastwide
-#' pseudo revenue score. Default value of 0.18.
+#' @param rec_importance A CSV file with the state-specific species importance scores
 #'
 #' @author Chantel Wetzel
 #' @export
@@ -26,7 +23,7 @@
 #' )
 #'
 #'
-summarize_rec_importance <- function(rec_catch, species, rec_importance, max_exp = 0.18) {
+summarize_rec_importance <- function(rec_catch, species, rec_importance, frequency) {
 
   data <- rec_catch
 	#data <- read.csv(paste0("data-raw/", file_name)) 
@@ -39,7 +36,7 @@ summarize_rec_importance <- function(rec_catch, species, rec_importance, max_exp
 		Species = species[,1], 
 		Rank = NA, 
 		Factor_Score = NA,
-		#Initial_Factor_Score = NA, 
+		Assessed_Last_Cycle = 0, 
 		Pseudo_Revenue_Coastwide = NA,
 		Pseudo_Revenue_CA = NA,
 		Pseudo_Revenue_OR = NA,
@@ -97,10 +94,16 @@ summarize_rec_importance <- function(rec_catch, species, rec_importance, max_exp
 
 	}
 
-	#rec_importance_df$Initial_Factor_Score <- rec_importance_df$Pseudo_Revenue_Coastwide ^ max_exp
 	rec_importance_df$Factor_Score <- log(rec_importance_df$Pseudo_Revenue_Coastwide + 1) * 10 / 
 		max(log(rec_importance_df$Pseudo_Revenue_Coastwide + 1))
-
+	
+	species_just_assessed <- frequency[which(frequency$Last_Assess == (as.numeric(format(Sys.Date(), "%Y")) - 1)), "Species"]
+	rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"] <- -2
+	rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Factor_Score"] <- 
+	  ifelse(rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Factor_Score"] + rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"] > 0,
+	         rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Factor_Score"] + rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"], 0)
+	rec_importance_df[, "Factor_Score"] <- 10 * rec_importance_df[, "Factor_Score"] / max(rec_importance_df[, "Factor_Score"])
+	
 	rec_importance_df <- 
 		rec_importance_df[order(rec_importance_df[,"Factor_Score"], decreasing = TRUE), ]
 

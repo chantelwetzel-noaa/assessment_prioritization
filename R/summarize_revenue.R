@@ -14,44 +14,27 @@
 #' data
 #' @param species_file A csv file will all species name to summarize
 #' @param years A vector of years to calculate the average revenue across (e.g. 2016:2020)
-#' @param max_exp Deprecated: A numerical value to assume as the exponent to create a reasonable
-#' spread across rankings by species.
+#' @param tribal_score CSV with the tribal importance score by species
 #'
 #' @author Chantel Wetzel
 #' @export
 #' @md
 #' 
-#' @examples
-#' summarize_revenue(
-#' 		file_name <- "revenue_summarized_12052021.csv",
-#' 		species_file <-  "species_names.csv",
-#' 		years <- 2016:2020
-#' )
 #'
-#' summarize_revenue(
-#' 		file_name <- "tribal_revenue_12062021.csv",
-#' 		species_file <-  "species_names.csv",
-#' 		years <- 2016:2020
-#' )
-#' 
-#'
-summarize_revenue <- function(revenue, species, subsistence_score = NULL, max_exp = 0.18) {
+summarize_revenue <- function(revenue, species, tribal_score = NULL, frequency) {
 
   data <- revenue
-	#data <- read.csv(paste0("data-raw/", file_name)) 
-	#species <-  read.csv(paste0("data-raw/", species_file))
-	#subsistence_score <- read.csv(file.path("doc", "tables", "subsistence_score.csv"))
-  
-  #data <- data[data$PACFIN_YEAR %in% years, ]
 
-	revenue_df <- data.frame(Species = species[,1], 
-							 Rank = NA, 
-							 Factor_Score = NA,
-							 Subsistence_Score = NA,
-							 Revenue = NA,
-							 CA_Revenue = NA,
-							 OR_Revenue = NA,
-							 WA_Revenue = NA)
+	revenue_df <- data.frame(
+	  Species = species[,1], 
+		Rank = NA, 
+		Factor_Score = NA,
+		Tribal_Score = NA,
+		Assessed_Last_Cycle = 0,
+		Revenue = NA,
+		CA_Revenue = NA,
+		OR_Revenue = NA,
+		WA_Revenue = NA)
 
 	denominator <- 1000
 	if (unique(data$FLEET_CODE)[1] == "TI") {
@@ -68,12 +51,12 @@ summarize_revenue <- function(revenue, species, subsistence_score = NULL, max_ex
 			)
 
 			ss <- c(ss, 
-				grep(species[sp,a], subsistence_score$Species, ignore.case = TRUE)
+				grep(species[sp,a], tribal_score$Species, ignore.case = TRUE)
 			)
 		}
 		
-    if(!is.null(subsistence_score)){
-      revenue_df$Subsistence_Score[sp] <- subsistence_score[ss[1], "Score"]
+    if(!is.null(tribal_score)){
+      revenue_df$Tribal_Score[sp] <- tribal_score[ss[1], "Score"]
     }
 		
 		if(length(key)>0){
@@ -105,12 +88,20 @@ summarize_revenue <- function(revenue, species, subsistence_score = NULL, max_ex
 		
 	}
 
-	if(is.null(subsistence_score)){
+	if(is.null(tribal_score)){
 	  revenue_df[, "Factor_Score"] <- 10 * log(as.numeric(revenue_df[, "Revenue"]) + 1) / max(log(as.numeric(revenue_df[, "Revenue"]) + 1))
 	} else {
-	  revenue_df[, "Factor_Score"] <- revenue_df[, "Subsistence_Score"] + 7 * log(as.numeric(revenue_df[, "Revenue"]) + 1) / 
+	  revenue_df[, "Factor_Score"] <- revenue_df[, "Tribal_Score"] + 7 * log(as.numeric(revenue_df[, "Revenue"]) + 1) / 
 	    max(log(as.numeric(revenue_df[, "Revenue"]) +  1))
 	}
+	
+	# Reduce the Factor Score by -1 for species that were assessed last cycle
+	species_just_assessed <- frequency[which(frequency$Last_Assess == (as.numeric(format(Sys.Date(), "%Y")) - 1)), "Species"]
+	revenue_df[which(revenue_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"] <- -2
+	revenue_df[which(revenue_df$Species %in% species_just_assessed), "Factor_Score"] <- 
+	  ifelse(revenue_df[which(revenue_df$Species %in% species_just_assessed), "Factor_Score"] + revenue_df[which(revenue_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"] > 0,
+	         revenue_df[which(revenue_df$Species %in% species_just_assessed), "Factor_Score"] + revenue_df[which(revenue_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"], 0)
+	revenue_df[, "Factor_Score"] <- 10 * revenue_df[, "Factor_Score"] / max(revenue_df[, "Factor_Score"])
 	
 	revenue_df <- revenue_df[order(revenue_df[,"Factor_Score"], decreasing = TRUE),]
 	revenue_df$Rank <- 1:nrow(revenue_df)
@@ -119,7 +110,7 @@ summarize_revenue <- function(revenue, species, subsistence_score = NULL, max_ex
 	revenue_df[, c("Revenue", "CA_Revenue", "OR_Revenue", "WA_Revenue")] <- round(revenue_df[, c("Revenue", "CA_Revenue", "OR_Revenue", "WA_Revenue")], 1)
 
 	if(!"TI" %in% unique(data$FLEET_CODE)) {
-		revenue_df <- revenue_df[, !colnames(revenue_df) %in% c("Subsistence_Score")]		
+		revenue_df <- revenue_df[, !colnames(revenue_df) %in% c("Tribal_Score")]		
 		write.csv(revenue_df, "data-processed/2_commercial_revenue.csv", row.names = FALSE)
 	} else {
 	  write.csv(revenue_df, "data-processed/3_tribal_revenue.csv", row.names = FALSE)
