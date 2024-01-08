@@ -104,6 +104,7 @@ summarize_stock_status <- function(abundance, frequency, species, model_loc = "m
 	# Thread the new values into existing files
 	new_abundance <- abundance
 	new_frequency <- frequency
+
 	for(b in 1:length(unique_species)) {
 
 		to_match <- gsub("_", " ", unique_species[b])
@@ -128,11 +129,11 @@ summarize_stock_status <- function(abundance, frequency, species, model_loc = "m
 
 	# Rank and score the stock status sheet, delete trend column, and remove NAs.
 	x <- new_abundance
-	x$Rank <- x$Score <- NA
+	x$Rank <- x$Factor_Score <- NA
 	for(sp in 1:length(x$Species)) {
 
 		if(!is.na(x$Estimate[sp])) {
-		x$Score[sp] <-
+		x$Factor_Score[sp] <-
 			ifelse(x$Estimate[sp]  > 2.0 * x$Target[sp],  1,
 			ifelse(x$Estimate[sp] <= 2.0 * x$Target[sp] & x$Estimate[sp] > 1.5 * x$Target[sp], 2,
 			ifelse(x$Estimate[sp] <= 1.5 * x$Target[sp] & x$Estimate[sp] > 1.1 * x$Target[sp], 3,
@@ -143,18 +144,18 @@ summarize_stock_status <- function(abundance, frequency, species, model_loc = "m
 			ifelse(x$Estimate[sp] <= x$MSST[sp] & x$Trend[sp] == 0, 9,
 			ifelse(x$Estimate[sp] <= x$MSST[sp] & x$Trend[sp] == -1 , 10)))))))))
 		} else {
-		x$Score[sp] <- 
+		x$Factor_Score[sp] <- 
 			ifelse(x$PSA[sp] < 1.8, 3,
 			ifelse(x$PSA[sp] >= 1.8 & x$PSA[sp] < 2, 4,
 			ifelse(x$PSA[sp] >= 2.0, 6)))	
 		}
 	}
 
-	x <- x[order(x[,"Score"], decreasing = TRUE), ]
+	x <- x[order(x[,"Factor_Score"], decreasing = TRUE), ]
 
 	zz <- 1
 	for(i in 10:1) {
-		ties <- which(x$Score == i)
+		ties <- which(x$Factor_Score == i)
 		if(length(ties) > 0) {
 			x$Rank[ties] <- zz
 		}
@@ -162,7 +163,8 @@ summarize_stock_status <- function(abundance, frequency, species, model_loc = "m
 	}
 
 	abundance_out <- with(x, x[order(x[,"Species"]), ])
-	stock_status <- abundance_out[, c("Species", "Rank", "Score", "Estimate", "Target", "MSST", "PSA", "Trend")]
+	abundance_out$Fraction_Unfished <- abundance_out$Estimate
+	stock_status <- abundance_out[, c("Species", "Rank", "Factor_Score", "Fraction_Unfished", "Target", "MSST", "PSA", "Trend")]
 
 	write.csv(stock_status, file.path("data-processed", "6_stock_status.csv"), row.names = FALSE)
 	write.csv(new_frequency, file.path("data-processed", "species_sigmaR_catage.csv"), row.names = FALSE)
