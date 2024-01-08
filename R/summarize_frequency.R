@@ -57,7 +57,7 @@ summarize_frequency <- function(
 	df <- data.frame(
 		Species = commercial$Species,
 		Rank = NA,
-		Score = NA,
+		Factor_Score = NA,
 		Recruit_Variation = frequency$Recruit_Var,
 		Mean_Catch_Age = round(frequency$Mean_Catch_Age, 1),
 		Mean_Maximum_Age = frequency$Mean_Max_Age,
@@ -171,7 +171,7 @@ summarize_frequency <- function(
 		#df$At_or_Beyond_Target_Frequency[sp] <- 
 		#	ifelse(df$Target_Assessment_Frequency[sp] <= df$Years_Since_Assessment[sp], 1, 0)
 
-		df$Score[sp] <- 
+		df$Factor_Score[sp] <- 
 			sum(
 			  df$Years_Past_Target_Frequency[sp], 
 				df$Ten_Years_or_Greater[sp], 
@@ -179,14 +179,14 @@ summarize_frequency <- function(
 				na.rm = TRUE)
 	}
 
-	if(max(df$Score) > 10){
-	  df$Score <- round(10 * df$Score / max(df$Score), 1)
+	if(max(df$Factor_Score) > 10){
+	  df$Factor_Score <- round(10 * df$Factor_Score / max(df$Factor_Score), 1)
 	} 
 	
-	df <- df[order(df[,"Score"], decreasing = TRUE), ]
+	df <- df[order(df[,"Factor_Score"], decreasing = TRUE), ]
 	x <- 1
-	for(i in sort(unique(df$Score), decreasing = TRUE)) {
-		ties <- which(df$Score == i)
+	for(i in sort(unique(df$Factor_Score), decreasing = TRUE)) {
+		ties <- which(df$Factor_Score == i)
 		if(length(ties) > 0) {
 			df$Rank[ties] <- x
 		}
@@ -196,4 +196,5 @@ summarize_frequency <- function(
 	df <- with(df, df[order(df[,"Species"]), ])
 	write.csv(df, file.path("data-processed", "7_assessment_frequency.csv"), row.names = FALSE)
 	
+	return(df)
 }
