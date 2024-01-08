@@ -1,11 +1,23 @@
-#ecosystem_data <- read.csv("data-raw/ecosystem.csv")
-
+#' 
+#' 
+#'
+#' @param ecosystem_data A csv file with ecosystem scores by species based on Atlantis/Ecosim
+#' 
+#' 
+#'
+#' @author Chantel Wetzel
+#' @export
+#' @md
+#' 
+#' @examples
+#' 
+#' 
 summarize_ecosystem <- function(ecosystem_data){
   
   colnames(ecosystem_data)[1] <- "Species"
   # Top Down is the consumption values and bottom up is the consumer values
-  ecosystem_data$Factor_Score <- 10 * (ecosystem_data$prop_consumption_scaled + ecosystem_data$prop_consumer_bio_scaled) /
-    max((ecosystem_data$prop_consumption_scaled + ecosystem_data$prop_consumer_bio_scaled))
+  ecosystem_data$Factor_Score <- round(10 * (ecosystem_data$prop_consumption_scaled + ecosystem_data$prop_consumer_bio_scaled) /
+    max((ecosystem_data$prop_consumption_scaled + ecosystem_data$prop_consumer_bio_scaled)), 2)
   
   ecosystem_data <- with(ecosystem_data, ecosystem_data[order(ecosystem_data[, "Factor_Score"], decreasing = TRUE), ])
   ecosystem_data$Rank <- 1:nrow(ecosystem_data)
