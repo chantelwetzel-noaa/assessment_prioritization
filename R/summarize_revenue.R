@@ -88,12 +88,15 @@ summarize_revenue <- function(revenue, species, tribal_score = NULL, frequency) 
 		
 	}
 
-	if(is.null(tribal_score)){
-	  revenue_df[, "Factor_Score"] <- 10 * log(as.numeric(revenue_df[, "Revenue"]) + 1) / max(log(as.numeric(revenue_df[, "Revenue"]) + 1))
-	} else {
-	  revenue_df[, "Factor_Score"] <- revenue_df[, "Tribal_Score"] + 7 * log(as.numeric(revenue_df[, "Revenue"]) + 1) / 
-	    max(log(as.numeric(revenue_df[, "Revenue"]) +  1))
-	}
+	#if(is.null(tribal_score)){
+	#  revenue_df[, "Factor_Score"] <- 10 * log(as.numeric(revenue_df[, "Revenue"]) + 1) / max(log(as.numeric(revenue_df[, "Revenue"]) + 1))
+	#} else {
+	#  revenue_df[, "Factor_Score"] <- revenue_df[, "Tribal_Score"] + 7 * log(as.numeric(revenue_df[, "Revenue"]) + 1) / 
+	#    max(log(as.numeric(revenue_df[, "Revenue"]) +  1))
+	#}
+	
+	revenue_df[, "Factor_Score"] <- log(as.numeric(revenue_df[, "Revenue"]) + 1)
+
 	
 	# Reduce the Factor Score by -1 for species that were assessed last cycle
 	species_just_assessed <- frequency[which(frequency$Last_Assess == (as.numeric(format(Sys.Date(), "%Y")) - 1)), "Species"]
@@ -101,7 +104,14 @@ summarize_revenue <- function(revenue, species, tribal_score = NULL, frequency) 
 	revenue_df[which(revenue_df$Species %in% species_just_assessed), "Factor_Score"] <- 
 	  ifelse(revenue_df[which(revenue_df$Species %in% species_just_assessed), "Factor_Score"] + revenue_df[which(revenue_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"] > 0,
 	         revenue_df[which(revenue_df$Species %in% species_just_assessed), "Factor_Score"] + revenue_df[which(revenue_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"], 0)
-	revenue_df[, "Factor_Score"] <- 10 * revenue_df[, "Factor_Score"] / max(revenue_df[, "Factor_Score"])
+	
+	if(is.null(tribal_score)){
+	  revenue_df[, "Factor_Score"] <- 10 * revenue_df[, "Factor_Score"] / max(revenue_df[, "Factor_Score"])
+	} else {
+	  revenue_df[, "Factor_Score"] <- revenue_df[, "Tribal_Score"] + revenue_df[, "Factor_Score"] 
+	  revenue_df[, "Factor_Score"] <- 10 * revenue_df[, "Factor_Score"] / max(revenue_df[, "Factor_Score"])
+	}
+	
 	
 	revenue_df <- revenue_df[order(revenue_df[,"Factor_Score"], decreasing = TRUE),]
 	revenue_df$Rank <- 1:nrow(revenue_df)

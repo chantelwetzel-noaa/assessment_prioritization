@@ -94,8 +94,8 @@ summarize_rec_importance <- function(rec_catch, species, rec_importance, frequen
 
 	}
 
-	rec_importance_df$Factor_Score <- log(rec_importance_df$Pseudo_Revenue_Coastwide + 1) * 10 / 
-		max(log(rec_importance_df$Pseudo_Revenue_Coastwide + 1))
+	rec_importance_df$Factor_Score <- log(rec_importance_df$Pseudo_Revenue_Coastwide + 1) #* 10 / 
+		#max(log(rec_importance_df$Pseudo_Revenue_Coastwide + 1))
 	
 	species_just_assessed <- frequency[which(frequency$Last_Assess == (as.numeric(format(Sys.Date(), "%Y")) - 1)), "Species"]
 	rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"] <- -2
