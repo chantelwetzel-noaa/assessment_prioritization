@@ -39,11 +39,11 @@ if(file.exists("00mod.Rdata")){
 library(dplyr)
 
 # Year the analysis is being conducted
-sum_yr = 2022
+sum_yr = 2024
 # The start_yr - end_yr period is typically 3 years
-start_yr = 2018 # The start year for averageing quantities (e.g. OFLs between start_yr - end_yr)
-end_yr = 2020
-# The next cycle year the assessment prioritizaiton is informing
-ass_yr = 2023
+start_yr = 2018 # The start year for averaging quantities (e.g. OFLs between start_yr - end_yr)
+end_yr = 2022
+# The next cycle year the assessment prioritization is informing
+ass_yr = 2025
 
 ```

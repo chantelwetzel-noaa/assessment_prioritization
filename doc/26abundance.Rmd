@@ -1,31 +1,27 @@
-## Stock Status Relative to Management Targets
+## Stock Status
 
-Holding other Factors constant, scheduling an assessment in the upcoming cycle will be a higher priority for a stock whose spawning biomass represents a lower percentage of that in an unfished condition, as estimated in the most recent assessment. Correspondingly, the highest scores for this Factor would be assigned to stocks that are below their Minimum Stock Size Thresholds (MSSTs, i.e., are overfished). Such cases are differentiated in the scoring by whether the spawning biomass trend is decreasing, stable, or increasing. As the ratio of current stock biomass to the unfished level increases, this Factor Score decreases. Where available, the percentage of unfished biomass estimated in the terminal year of the most recent assessment for each species is used as the basis for scoring. Scoring criteria for this factor by species are described in (Table \ref{tab:abund}).
+The Stock Status factor incorporates scoring based upon the estimated stock status (Table \ref{tab:abund}) or Productivity Susceptibility Analysis (PSA) values for unassessed species (Table \ref{tab:psa-score}). Species that either have been estimated to have low status or high PSA scores receive higher scores with species estimated to be below the Minimum Stock Size Threshold receiving the highest scores. Such cases are differentiated in the scoring by whether the spawning output trend is decreasing, stable, or increasing. As the ratio of current spawning output relative to the unfished level increases, this factor score decreases. Where available, the percentage of unfished output estimated in the terminal year of the most recent assessment for each species is used as the basis for scoring. The stock status for species with multiple assessment areas have use a coastwide stock status based on the summed spawning output in the final year of the most recent assessment. 
 
-However, not all groundfish species have not been assessed in a manner that provides an estimate of relative abundance. For those stocks, the Productivity Susceptibility Analysis (PSA) score, a measure of a species potential vulnerability to fishing pressures, has been used to assign a Factor Score (Table \ref{tab:psa-score})
-
-Rather than basing scores for these species solely on PSA scores, it may be useful in the future to also categorize them according to the average attainment of their OFL contributions (to assemblage OFLs) over the past 10 years. The scoring criteria show the stocks ordered by PSA score (with assessment-based fraction of unfished levels) and also by the fraction of unfished level, within each of the three PSA categories used in the analysis.
- 
 
 ```{r, results = 'asis', fig.pos = 'H'}
 
 abund = matrix(NA, 10, 2)
-col_names = c("Score", "Stock Status")
+col_names = c("Factor Score", "Stock Status")
 
-abund[1,]  = c(1, "Stock abundance is well above the target ($SB > 2*SB_{\\text{PROXY}}$)." )
-abund[2,]  = c(2, "Stock abundance is above the target ($2*SB_{\\text{PROXY}}$ $\\ge SB > 1.5*SB_{\\text{PROXY}}$).")
-abund[3,]  = c(3, "Stock abundance is above the target ($1.5*SB_{\\text{PROXY}} \\ge SB > 1.1*SB_{\\text{PROXY}}$) or abundance is unknown and vulnerability is low (1.8 $>$ PSA).")
-abund[4,]  = c(4, "Stock abundance is near the target ($1.1*SB_{\\text{PROXY}} \\ge SB > 0.9*SB_{\\text{PROXY}}$), or is unknown and vulnerability is intermediate (2 $>$ PSA $\\ge$ 1.8).")
-abund[5,]  = c(5, "Stock abundance is below the target ($0.9*SB_{\\text{PROXY}} \\ge SB > \\text{MSST}$) and is not declining.")
-abund[6,]  = c(6, "Stock abundance is unknown and the vulnerability is high (PSA $>$ 2).")
-abund[7,]  = c(7, "Stock abundance is below the target ($0.9*SB_{\\text{PROXY}} \\ge SB > \\text{MSST}$) and is declining or recent trend unknown.")
-abund[8,]  = c(8, "Stock is overfished ($SB \\le \\text{MSST}$) and increasing.")
-abund[9,]  = c(9, "Stock is overfished ($SB \\le \\text{MSST}$) and stable.")
-abund[10,] = c(10, "Stock is overfished ($SB \\le \\text{MSST}$) and decreasing.")
+abund[1,]  = c(1, "Species abundance is well above the target ($SO > 2*SO_{\\text{PROXY}}$)." )
+abund[2,]  = c(2, "Species abundance is above the target ($2*SO_{\\text{PROXY}}$ $\\ge SO > 1.5*SO_{\\text{PROXY}}$).")
+abund[3,]  = c(3, "Species abundance is above the target ($1.5*SO_{\\text{PROXY}} \\ge SO > 1.1*SO_{\\text{PROXY}}$) or abundance is unknown and vulnerability is low (1.8 $>$ PSA).")
+abund[4,]  = c(4, "Species abundance is near the target ($1.1*SO_{\\text{PROXY}} \\ge SO > 0.9*SO_{\\text{PROXY}}$), or is unknown and vulnerability is intermediate (2 $>$ PSA $\\ge$ 1.8).")
+abund[5,]  = c(5, "Species abundance is below the target ($0.9*SO_{\\text{PROXY}} \\ge SO > \\text{MSST}$) and is not declining.")
+abund[6,]  = c(6, "Species abundance is unknown and the vulnerability is high (PSA $>$ 2).")
+abund[7,]  = c(7, "Species abundance is below the target ($0.9*SO_{\\text{PROXY}} \\ge SO > \\text{MSST}$) and is declining or recent trend unknown.")
+abund[8,]  = c(8, "Species is overfished ($SO \\le \\text{MSST}$) and increasing.")
+abund[9,]  = c(9, "Species is overfished ($SO \\le \\text{MSST}$) and stable.")
+abund[10,] = c(10, "Species is overfished ($SO \\le \\text{MSST}$) and decreasing.")
 
 
 table_format(abund, 
-             caption = c('Scores applied based the estimated fraction of unfished relative to management targets from the most recent assessment or the PSA score for un-assessed stocks.'),
+             caption = c('Factor sores applied based the estimated fraction of unfished spawning output (SO) relative to management targets from the most recent assessment or the PSA score for un-assessed species.'),
              label = 'abund',
              align = 'l',
              escape = FALSE,
@@ -41,18 +37,17 @@ table_format(abund,
 
 tab = read.csv("tables/psa.csv", header = TRUE) 
 tab = tab[, -2]
-#col_names = c("Species", "PSA", "Species", "PSA")
 col_names = c("Species", "PSA Score")
 
 t = table_format(tab, 
-             caption = c('The estimated stock status and Productivity Susceptibility Analysis (PSA) scores by species.  Higher PSA values indicate higher vulnerability. Stocks that have area specific assessments a single stock status value is calculated by aggregating spawning biomass or output by area.'),
+             caption = c('The Productivity Susceptibility Analysis (PSA) scores by species.  Higher PSA values indicate higher vulnerability.'),
              label = 'psa-score',
              align = c('l', 'r', 'r'),
              col_names = col_names,
              digits = 2,
              custom_width = TRUE,
              col_to_adjust = 1:3, #1:4,
-             width = c("6cm","1cm", "1cm"))#,"6cm","0.5cm"))  
+             width = c("6cm","1cm", "1cm"))
 
 
 t %>%
@@ -63,3 +58,9 @@ t %>%
         alpha = 1, begin = 0.2, end = 0.8, option = 'D', direction = -1))
   
 ```
+
+### Reconsidering the use of Stock Status Measures
+
+Accounting for estimated stock status was one of attributes recommend for consideration by the national assessment prioritization guidance by @methot_prioritizing_2015. Generally, species with low abundance relative to historical abundance or declining trajectories may be subject to additional management concern that could justify increased assessment frequency. However, the large number of groundfish species within the PFMC FMP makes is challenging to maintain up-to-date assessments (e.g., conducting assessments based on a recommended assessment frequency for assessed species and ensuring that assessments are conducted at least every ten years) or assess previously unassessed species. Additionally, selecting to reassess or reconsider only assessments with low estimated abundance at a higher frequency compared to species with high abundance may introduce bias overfishing probabilities [@satterthwaite_reproducibility_2023]. Incorporating stock status measures within the stock assessment prioritization process may also contribute to species with low stock statuses being ranked higher compared to if stock status was not included as a factor.  
+
+If there is concern about the continued inclusion of this factor in future stock assessment prioritizations, there are a couple of potential pathways.  The simplest approach would be to eliminate this factor completely. The pfmc-stock-assessment-prioritization webpage allows for users to explore alternative weighting schemes for each of the factors.  Setting the stock status weight to 0 and adjusting other factor weights can allow users to explore the impact of this approach. An alternative approach would be to replace the stock status estimates with PSA scores for all species.  This approach could retain a measure of how vulnerable each species is the fishery and to apply higher weights to species with higher PSA scores. Feedback from PFMC advisory bodies is welcome on whether and how this factor should be revised for future stock assessment prioritizations.  
