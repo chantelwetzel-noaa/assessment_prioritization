@@ -1,39 +1,13 @@
-#' Comparison between recent average mortality, OFLs,
-#' and ACLs. The official recent average mortality should
-#' come from the GEMM rather than a pull from PacFIN. 
-#' The manage_file is a file containing management quantities
-#' provided in a special pull by Rob Ames from the GMT016 table.
-#' This special pull of all management quantities by species across years
-#' had some issues that had to be fixed by hand:
-#' 1) Many rockfish species were missing "Rockfish" in their names and
-#' I had to correct them by hand due to grep issues when only the first
-#' name were used (e.g., China changed to China Rockfish).
-#' 2) The file does not contain OFLs or ACLs for sablefish, longspine
-#' thornyhead, and shortspine thornyhead.
-#' 3) Quantities (OFLs,..) were duplicated for blue rockfish and rougheye/blackspotted
-#' rockfish and had to be corrected by hand.
 #' 
-#' 2023 Notes of GMT 015 correction
-#' 1) blue rockfish in Oregon - hand deleted the blue/deacon/black complex rows
-#' 2) cowcod - hand deleted the south of 4010 rows and add in the ACLs by area
-#' 3) lingcod - hand deleted WA-OR and 42-4010 rows
-#' 4) starry and kelp - add rockfish to each
 #' 
-#' 2023 future spex fixes
-#' 1) delete s4010 cowcod
-#' 
-#' @param gemm_mortality R object created by nwfscSurvey::pull_gemm()
-#' @param harvest_spex CSV file with OFLs, ABCs, and ACLs across years for West Coast groundfish
-#' @param species CSV file in the data folder called "species_names.csv" that includes
-#' all the species to include in this analysis.
-#' @param manage_quants The names of the management quantities in the manage_file to grep.
-#' This allows to easily shift between the ABC and the ACL if needed.
+#' @param species 
+#' @param survey_data 
+#' @param bio_params 
+#' @param new_research
 #'
 #' @author Chantel Wetzel
 #' @export
 #' @md
-#' 
-#' @examples
 #' 
 #'
 #'
@@ -48,7 +22,6 @@ summarize_new_information <- function(
     Rank = NA, 
     Factor_Score = NA,
     Last_Assessed = bio_params$Last_Assess,
-    Steepness_Prior = 0,
     New_Research = 0,
     Issues_Can_be_Addressed = 0,
     Survey_Abundance = 0,
@@ -63,13 +36,13 @@ summarize_new_information <- function(
     for(a in 1:length(name_list)){
       # Survey data
       key <- c(key, grep(species[sp,a], survey_data$Common_name, ignore.case = TRUE))
-      # Biological parameters
-      ss <- c(ss, grep(species[sp, a], bio_params$Species, ignore.case = TRUE))
+
       # New Research/Issues
       ff <- c(ff, grep(species[sp, a], new_research$Species, ignore.case = TRUE))
     }
     
     if(length(key) > 0){
+      # Add point for increase in the time series length
       # The only species where a NWFS HKL index would likely be viable are:
       # bocaccio, vermilion, greenspotted, and cowcod
       key <- unique(key)
@@ -85,6 +58,7 @@ summarize_new_information <- function(
           )                                                                                                     
         )
       
+      # Add point for lots of lengths/ages/otoliths available
       new_info_df[sp, "Survey_Composition"] <- 
         ifelse(
           survey_data[key, "total_lengths"] + survey_data[key, "total_ages"] + survey_data[key, "total_otoliths"] > 20000, 3, 
@@ -97,20 +71,22 @@ summarize_new_information <- function(
         )
     }
 
-    if(length(ss) > 0){
-      ss <- unique(ss)
-      new_info_df[sp, "Steepness_Prior"] <- ifelse(
-        !is.na(bio_params[ss, "h"]) & bio_params[ss, "h"] < 0.60, 2, 0)
-    }
+    # Incorporate in New Research for any rockfish with h < 0.60
+    #if(length(ss) > 0){
+    #  ss <- unique(ss)
+    #  new_info_df[sp, "Steepness_Prior"] <- ifelse(
+    #    !is.na(bio_params[ss, "h"]) & bio_params[ss, "h"] < 0.60, 2, 0)
+    #}
     
     if(length(ff) > 0){
-      new_info_df[sp, "New_Research"] <- 2
+      new_info_df[sp, "New_Research"] <- sum(new_research[ff, "Score"])
     }
     
     # Issues can be addressed to be added when there is a list available
+    # Assign a value of +5
   }
   
-  new_info_df[, "Factor_Score"] <- new_info_df[, "Steepness_Prior"] + new_info_df[, "New_Research"] +
+  new_info_df[, "Factor_Score"] <- new_info_df[, "New_Research"] +
     new_info_df[, "Issues_Can_be_Addressed"] + new_info_df[, "Survey_Abundance"] + new_info_df[, "Survey_Composition"]
    
   if(max(new_info_df$Factor_Score) > 10){
