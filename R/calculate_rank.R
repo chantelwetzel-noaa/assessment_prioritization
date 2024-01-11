@@ -1,7 +1,7 @@
 #'  
 #'
 #' @param fishing_mortality,
-#' @param commercial_revenue,
+#' @param commercial_importance,
 #' @param tribal_importance,
 #' @param recreational_importance,
 #' @param ecosystem,
@@ -18,7 +18,7 @@
 #'
 calculate_rank <- function(
   fishing_mortality,
-  commercial_revenue,
+  commercial_importance,
   tribal_importance,
   recreational_importance,
   ecosystem,
@@ -29,7 +29,7 @@ calculate_rank <- function(
   rebuilding) {
   
   # 1 Fishing Mortality
-  # 2 Commercial Revenue
+  # 2 Commercial Importance
   # 3 Tribal Importance
   # 4 Recreational Importance
   # 5 Ecosystem
@@ -44,7 +44,7 @@ calculate_rank <- function(
     Overall_Rank = NA,
     Total_Score = NA,
     fishing_mortality = fishing_mortality$Factor_Score,
-    commercial_revenue = commercial_revenue$Factor_Score,
+    commercial_importance = commercial_importance$Factor_Score,
     tribal_importance = tribal_importance$Factor_Score,
     recreational_importance = recreational_importance$Factor_Score,
     ecosystem = ecosystem$Factor_Score,
@@ -55,9 +55,11 @@ calculate_rank <- function(
     rebuilding = rebuilding$Factor_Score
   )
   
+  overall_rank_rm_stock_status_rebuild <- overall_rank
+  
   overall_rank$Total_Score <- round(
     fishing_mortality$Factor_Score * 0.08 +
-    commercial_revenue$Factor_Score * 0.21 +
+    commercial_importance$Factor_Score * 0.21 +
     tribal_importance$Factor_Score * 0.05 +
     recreational_importance$Factor_Score * 0.09 +
     ecosystem$Factor_Score * 0.05 +
@@ -78,6 +80,34 @@ calculate_rank <- function(
   }
   overall_rank <- with(overall_rank, overall_rank[order(overall_rank[, "Species"], decreasing = FALSE), ])
   
+  # Calculate rank with stock status and rebuilding removed
+  overall_rank_rm_stock_status_rebuild$Total_Score <- round(
+      fishing_mortality$Factor_Score * 0.08 +
+      commercial_importance$Factor_Score * 0.21 +
+      tribal_importance$Factor_Score * 0.05 +
+      recreational_importance$Factor_Score * 0.09 +
+      ecosystem$Factor_Score * 0.05 +
+      stock_status$Factor_Score * 0.0 +
+      assessment_frequency$Factor_Score * 0.18 +
+      constituent_demand$Factor_Score * 0.11 +
+      new_information$Factor_Score * 0.05 +
+      rebuilding$Factor_Score * 0.0, 2)
+  
+  overall_rank_rm_stock_status_rebuild <- 
+    with(overall_rank_rm_stock_status_rebuild, overall_rank_rm_stock_status_rebuild[order(overall_rank_rm_stock_status_rebuild[, "Total_Score"], decreasing = TRUE), ])
+  x <- 1
+  for(i in sort(unique(overall_rank_rm_stock_status_rebuild[, "Total_Score"]), decreasing = TRUE)) {
+    ties <- which(overall_rank_rm_stock_status_rebuild$Total_Score == i)
+    if(length(ties) > 0) {
+      overall_rank_rm_stock_status_rebuild$Overall_Rank[ties] <- x
+    }
+    x <- x + length(ties)
+  }
+  overall_rank_rm_stock_status_rebuild <- 
+    with(overall_rank_rm_stock_status_rebuild, overall_rank_rm_stock_status_rebuild[order(overall_rank_rm_stock_status_rebuild[, "Species"], decreasing = FALSE), ])
+  
+  
   write.csv(overall_rank, "data-processed/11_overall_rank.csv", row.names = FALSE)
+  write.csv(overall_rank_rm_stock_status_rebuild, "data-processed/11_overall_rank_rm_stock_status_rebuilding.csv", row.names = FALSE)
   return(overall_rank)
 }
