@@ -78,16 +78,16 @@ summarize_frequency <- function(
 	# Revise this because it does not make sense
 	#df$Transformed_Mean_Age <- (df$Mean_Catch_Age * max_age)^age_exp
 	#df$Transformed_Mean_Age <- df$Mean_Catch_Age / 2
-	age_metric <- quantile(
-	  df$Mean_Maximum_Age,
-	  seq(0, 1, 0.25)
-	)
-	df$Initial_Target_Frequency <- ifelse(
-	  df$Mean_Maximum_Age <= age_metric[2], 4,
-	  ifelse(
-	    df$Mean_Maximum_Age > age_metric[2] & df$Mean_Maximum_Age < age_metric[3], 6,
-	    ifelse(
-	      df$Mean_Maximum_Age >= age_metric[3] & df$Mean_Maximum_Age < age_metric[4], 8, 10)))
+	#age_metric <- quantile(
+	#  df$Mean_Maximum_Age,
+	#  seq(0, 1, 0.25)
+	#)
+	#df$Initial_Target_Frequency <- ifelse(
+	#  df$Mean_Maximum_Age <= age_metric[2], 4,
+	#  ifelse(
+	#    df$Mean_Maximum_Age > age_metric[2] & df$Mean_Maximum_Age < age_metric[3], 6,
+	#    ifelse(
+	#      df$Mean_Maximum_Age >= age_metric[3] & df$Mean_Maximum_Age < age_metric[4], 8, 10)))
 	
 	df$Years_Since_Assessment <- assessment_year - df$Last_Assessment
 
@@ -130,18 +130,18 @@ summarize_frequency <- function(
 		)
 	}
 	
-	age_metric_2 <- quantile(
+	age_metric <- quantile(
 	  df$Adjusted_Maximum_Age,
 	  seq(0, 1, 0.25)
 	)
 	
 	for(sp in 1:nrow(df)){	 
 	  df$Target_Assessment_Frequency[sp] <- ifelse(
-	    df$Adjusted_Maximum_Age[sp] <= age_metric_2[2], 4,
+	    df$Adjusted_Maximum_Age[sp] <= age_metric[2], 4,
 	    ifelse(
-	      df$Adjusted_Maximum_Age[sp] > age_metric_2[2] & df$Adjusted_Maximum_Age[sp] < age_metric_2[3], 6,
+	      df$Adjusted_Maximum_Age[sp] > age_metric[2] & df$Adjusted_Maximum_Age[sp] < age_metric[3], 6,
 	      ifelse(
-	        df$Adjusted_Maximum_Age[sp] >= age_metric_2[3] & df$Adjusted_Maximum_Age[sp] < age_metric_2[4], 8, 10 
+	        df$Adjusted_Maximum_Age[sp] >= age_metric[3] & df$Adjusted_Maximum_Age[sp] < age_metric[4], 8, 10 
 	      )
 	    )
 	  )
