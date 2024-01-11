@@ -152,7 +152,7 @@ list(
     # Calculate the overall ranks
     tar_target(rank, calculate_rank(
       fishing_mortality = fishing_mortality,
-      commercial_revenue = commercial,
+      commercial_importance = commercial,
       tribal_importance = tribal,
       recreational_importance = recreational,
       ecosystem = ecosystem,
