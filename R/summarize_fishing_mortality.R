@@ -50,9 +50,7 @@ summarize_fishing_mortality <- function(
 		Species = species[,1], 
 		Rank = NA, 
 		Factor_Score = NA,
-		OFL_Score = NA,
-		#Future_OFL_Score = NA,
-		Average_Removals = NA,
+		Average_Catches = NA,
 		Average_OFL = NA,
 		Average_OFL_Attainment = NA,
 		Average_ACL = NA,
@@ -89,7 +87,7 @@ summarize_fishing_mortality <- function(
 		#ff <- unique(ff)
 
 		sub_data <- data[key,]
-		mort_df[sp, "Average_Removals"] <- sum(sub_data$total_discard_with_mort_rates_applied_and_landings_mt) / length(unique(data$year))
+		mort_df[sp, "Average_Catches"] <- sum(sub_data$total_discard_with_mort_rates_applied_and_landings_mt) / length(unique(data$year))
 		
 		if (length(ss) > 0 ) {
 			temp_spex <- spex[ss,]
@@ -102,9 +100,9 @@ summarize_fishing_mortality <- function(
 			mort_df$Average_ACL[sp] <- value[ manage_quants[2]] / length(unique(temp_spex$SPEX_YEAR))
 		}
 		
-		mort_df$Average_OFL_Attainment[sp] <- mort_df$Average_Removals[sp] / mort_df$Average_OFL[sp]
+		mort_df$Average_OFL_Attainment[sp] <- mort_df$Average_Catches[sp] / mort_df$Average_OFL[sp]
 		
-		mort_df[sp, "OFL_Score"] <-
+		mort_df[sp, "Factor_Score"] <-
 			ifelse(mort_df$Average_OFL_Attainment[sp] <= 0.10, 1,
 			ifelse(mort_df$Average_OFL_Attainment[sp] > 0.10 & mort_df$Average_OFL_Attainment[sp] <= 0.25, 2,
 			ifelse(mort_df$Average_OFL_Attainment[sp] > 0.25 & mort_df$Average_OFL_Attainment[sp] <= 0.50, 3,
@@ -113,22 +111,12 @@ summarize_fishing_mortality <- function(
 			ifelse(mort_df$Average_OFL_Attainment[sp] > 0.90 & mort_df$Average_OFL_Attainment[sp] <= 1.00, 8,
 			ifelse(mort_df$Average_OFL_Attainment[sp] > 1.00 & mort_df$Average_OFL_Attainment[sp] <= 1.10, 9,
 			ifelse(mort_df$Average_OFL_Attainment[sp] > 1.10, 10))))))))
-		
-		# Future Attainment
-		#mort_df$Future_OFL_Attainment[sp] <- mort_df$Average_Removals[sp] / sum(future_spex[ff, "OFL"], na.rm = TRUE)
-		#mort_df$Future_ACL_Attainment[sp] <- mort_df$Average_Removals[sp] / sum(future_spex[ff, "ACL"], na.rm = TRUE)
-		
-		# Calculate the adjustment based on future spex limitations
-		#mort_df[sp, "Future_OFL_Score"] <-
-		#  ifelse(mort_df[sp, "OFL_Score"] >= 9 & mort_df$Future_OFL_Attainment[sp] < 1.0, -2, 
-		#  ifelse(mort_df[sp, "OFL_Score"] >= 9 & mort_df$Future_OFL_Attainment[sp] > 1.0, 2, 
-		#  ifelse(mort_df$Future_OFL_Attainment[sp] > 0.80, 1, 0)))
 	}
 	
-	mort_df$Average_ACL_Attainment <- (mort_df$Average_Removals / mort_df$Average_ACL)
-	mort_df$Factor_Score <- mort_df[, "OFL_Score"] #+ mort_df[, "Future_OFL_Score"]
-	mort_df[, c("Average_Removals", "Average_OFL", "Average_ACL")] <- 
-	  round(mort_df[, c("Average_Removals", "Average_OFL", "Average_ACL")], 1)
+	mort_df$Average_ACL_Attainment <- (mort_df$Average_Catches / mort_df$Average_ACL)
+
+	mort_df[, c("Average_Catches", "Average_OFL", "Average_ACL")] <- 
+	  round(mort_df[, c("Average_Catches", "Average_OFL", "Average_ACL")], 1)
 	mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment")] <-
 	  round(100 * mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment")], 1)
 	
@@ -150,6 +138,6 @@ summarize_fishing_mortality <- function(
 
 	fish_mort <- data.frame(Species = mort_df$Species,
 	                        Factor_Score = mort_df$Factor_Score,
-							            Average_Removals = mort_df$Average_Removals)
+							            Average_Catches = mort_df$Average_Catches)
 	return(fish_mort)
 }
