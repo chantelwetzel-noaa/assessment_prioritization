@@ -81,8 +81,8 @@ summarize_stock_status <- function(abundance, frequency, species, model_loc = "m
 		new_results[a, "M"] <- model$parameters[rownames(model$parameters) %in% c("NatM_p_1_Fem_GP_1", "NatM_uniform_Fem_GP_1", "NatM_break_1_Fem_GP_1"), "Value"]
 		new_results[a, "h"] <- model$parameters[rownames(model$parameters) %in% c("SR_BH_steep", "SR_surv_zfrac"), "Value"]
 		new_results[a, "Max_Age"] <- round(5.4 / new_results[a, "M"], 0)
-		new_results[a, "SB0"] <- model$SBzero
-		new_results[a, "SBfinal"] <- model$SBzero * model$current_depletion
+		new_results[a, "SB0"] <- model$derived_quants[model$derived_quants$Label == "SSB_Virgin", "Value"]
+		new_results[a, "SBfinal"] <- new_results[a, "SB0"] * model$current_depletion
 		new_results[a, "SBfinal_5"] <- model$derived_quants[model$derived_quants$Label == paste0("SSB_", model$endyr - 5), "Value"]
 		new_results[a, "Status"] <- model$current_depletion
 		new_results[a, "Status_5"] <- new_results[a, "SBfinal_5"] / new_results[a, "SB0"]
