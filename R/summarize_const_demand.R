@@ -136,8 +136,8 @@ summarize_const_demand <- function(
   # Rank the scores
   choke_df <- data.frame(
     Species = species[,1],
-    Average_Removals = fishing_mortality$Average_Removals,
-    Future_ACL_Attainment = NA,
+    Average_Catches = fishing_mortality$Average_Catches,
+    Projected_ACL_Attainment = NA,
     Choke_Stock_Score = 0
   )
   
@@ -159,15 +159,15 @@ summarize_const_demand <- function(
     ff <- unique(ff)
     
     # Future Attainment
-    choke_df$Future_ACL_Attainment[sp] <- choke_df$Average_Removals[sp] / sum(future_spex[ff, "ACL"], na.rm = TRUE)
+    choke_df$Projected_ACL_Attainment[sp] <- choke_df$Average_Catches[sp] / sum(future_spex[ff, "ACL"], na.rm = TRUE)
     
     # Calculate the adjustment based on future spex limitations
     choke_df[sp, "Choke_Stock_Score"] <-
-      ifelse(choke_df$Future_ACL_Attainment[sp] >= 1.25, 5,
-             ifelse(choke_df$Future_ACL_Attainment[sp] < 1.25 & choke_df$Future_ACL_Attainment[sp] >= 1, 4,
-             ifelse(choke_df$Future_ACL_Attainment[sp] < 1.0 & choke_df$Future_ACL_Attainment[sp] >= 0.90, 3,
-                    ifelse(choke_df$Future_ACL_Attainment[sp] < 0.9 & choke_df$Future_ACL_Attainment[sp] >= 0.80, 2, 
-                           ifelse(choke_df$Future_ACL_Attainment[sp] < 0.8 & choke_df$Future_ACL_Attainment[sp] >= 0.70, 1, 0)))))
+      ifelse(choke_df$Projected_ACL_Attainment[sp] >= 1.25, 5,
+             ifelse(choke_df$Projected_ACL_Attainment[sp] < 1.25 & choke_df$Projected_ACL_Attainment[sp] >= 1, 4,
+             ifelse(choke_df$Projected_ACL_Attainment[sp] < 1.0  & choke_df$Projected_ACL_Attainment[sp] >= 0.90, 3,
+                    ifelse(choke_df$Projected_ACL_Attainment[sp] < 0.9 & choke_df$Projected_ACL_Attainment[sp] >= 0.80, 2, 
+                           ifelse(choke_df$Projected_ACL_Attainment[sp] < 0.8 & choke_df$Projected_ACL_Attainment[sp] >= 0.70, 1, 0)))))
   }
   
   
@@ -178,7 +178,7 @@ summarize_const_demand <- function(
     Choke_Stock_Score = choke_df$Choke_Stock_Score,
     Commerical_Importance_Score = com_importance_df$Commercial_Importance_Modifier,
     Recreational_Importance_Score = rec_importance_df$Recreational_Importance_Modifier,
-    Future_ACL_Attainment = round(100 * choke_df$Future_ACL_Attainment, 0)
+    Projected_ACL_Attainment = round(100 * choke_df$Projected_ACL_Attainment, 0)
   )
   
   const_importance <- const_importance[order(const_importance[,"Factor_Score"], decreasing = TRUE), ]
