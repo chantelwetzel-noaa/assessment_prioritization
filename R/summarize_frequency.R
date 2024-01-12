@@ -61,7 +61,6 @@ summarize_frequency <- function(
 		Recruit_Variation = frequency$Recruit_Var,
 		Mean_Catch_Age = round(frequency$Mean_Catch_Age, 1),
 		Mean_Maximum_Age = frequency$Mean_Max_Age,
-		Initial_Target_Frequency = NA,
 		Recruit_Adjustment = NA,
 		Importance_Adjustment = NA,
 		Ecosystem_Adjustment = NA,
