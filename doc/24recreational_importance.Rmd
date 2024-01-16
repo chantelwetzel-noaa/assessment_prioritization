@@ -8,7 +8,7 @@ Recreational landings lack a measure of value that is equivalent to commercial e
 \text{Pseudo Revenue}_{s} = \sum_{a=1}^{A} \text{catch}_{s,a}*\text{importance score}_{s,a}  
 \end{equation}
 
-where catch is the recreational catch by species $s$ and state $a$ and importance score by species $s$ and state $a$. The catch data are pulled from the WCGOP GEMM report watch catches between `r start_yr`-`r end_yr` summed. The recreational importance score by species and state are shown in Table \ref{tab:recr-import}. These weights were initially developed in cooperation with the state recreational representatives to the Groundfish Management Team and reviewed by the Groundfish Advisory Panel in 2016 and updated in 2024 based on input from state representatives to reflect current recreational fishery conditions.
+where catch is the recreational catch by species $s$ and state $a$ and importance score by species $s$ and state $a$. The catch data are pulled from the WCGOP GEMM report with catches between `r start_yr`-`r end_yr` summed. The recreational importance score by species and state are shown in Table \ref{tab:recr-import}. These weights were initially developed in cooperation with the state recreational representatives to the Groundfish Management Team and reviewed by the Groundfish Advisory Panel in 2016 and updated in 2024 based on input from state representatives to reflect current recreational fishery conditions.
 
 The overall factor for recreational importance is then calculated as:
 
@@ -29,7 +29,7 @@ where the recently assessed penalty is -2 for species that were assesed in the m
 The transformed scores are then standardized to range between 0 and 10:
 
 \begin{equation}
-  c_{s} = \frac{10 * log(\text{Initial Score}_s + 1)}{\text{max}(log(\text{Initial Score}_s + 1))}
+  r_{s} = \frac{10 * log(\text{Initial Score}_s + 1)}{\text{max}(log(\text{Initial Score}_s + 1))}
 \end{equation}
 
 
