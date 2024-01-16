@@ -58,10 +58,10 @@ summarize_frequency <- function(
 		Species = commercial$Species,
 		Rank = NA,
 		Factor_Score = NA,
-		Recruit_Variation = frequency$Recruit_Var,
+		Recruitment_Variation = frequency$Recruit_Var,
 		Mean_Catch_Age = round(frequency$Mean_Catch_Age, 1),
 		Mean_Maximum_Age = frequency$Mean_Max_Age,
-		Recruit_Adjustment = NA,
+		Recruitment_Adjustment = NA,
 		Importance_Adjustment = NA,
 		Ecosystem_Adjustment = NA,
 		Total_Adjustment = NA,
@@ -99,13 +99,13 @@ summarize_frequency <- function(
 	  # SigmaR >= 1 = -1
 	  # SigmaR < 1 & >= 0.30 = 0 or never has been assessed
 	  # Sigma$ < 0.30 = +1
-		if(!is.na(df$Recruit_Variation[sp])) {
-			df$Recruit_Adjustment[sp] <-
-				ifelse(df$Recruit_Variation[sp] >= 1, -0.2, 
-				ifelse(df$Recruit_Variation[sp] < 1 & df$Recruit_Variation[sp] >= 0.35, 0, 
-				ifelse(df$Recruit_Variation[sp] < 0.35, 0.2))) 
+		if(!is.na(df$Recruitment_Variation[sp])) {
+			df$Recruitment_Adjustment[sp] <-
+				ifelse(df$Recruitment_Variation[sp] >= 1, -0.2, 
+				ifelse(df$Recruitment_Variation[sp] < 1 & df$Recruitment_Variation[sp] >= 0.35, 0, 
+				ifelse(df$Recruitment_Variation[sp] < 0.35, 0.2))) 
 		} else {
-			df$Recruit_Adjustment[sp] <-  0
+			df$Recruitment_Adjustment[sp] <-  0
 		}
     
 	  # Score based on rank of tribal+commercial+recreational importance
@@ -120,7 +120,7 @@ summarize_frequency <- function(
 			ifelse(ecosystem$Rank[sp] <= change, -0.2,
 			ifelse(ecosystem$Rank[sp] > change & ecosystem$Rank[sp] < 2 * change, 0, 0.2))
 
-		df$Total_Adjustment[sp] <- df$Recruit_Adjustment[sp] + 
+		df$Total_Adjustment[sp] <- df$Recruitment_Adjustment[sp] + 
 			df$Importance_Adjustment[sp] + df$Ecosystem_Adjustment[sp]
 		
 		df$Adjusted_Maximum_Age[sp] <- ifelse(
