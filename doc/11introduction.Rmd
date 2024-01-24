@@ -1,54 +1,36 @@
 # Introduction
 
-This document provides a detailed description of the analysis that is intended to provide the Pacific Fishery Management Council (Council) and advisory bodies guidance on species-specific assessment prioritization by synthesizing information from commercial fisheries, recreational fisheries, stock status, and other attributes defined as "Factors". The methodology presented here follows the general framework advanced in the 2015 National Marine Fisheries Service (NMFS) Technical Memorandum, ["Prioritizing Fish Stock Assessments"](https://www.st.nmfs.noaa.gov/Assets/stock/documents/PrioritizingFishStockAssessments_FinalWeb.pdf) [@methot_prioritizing_2015].  
+This document provides a detailed description of the analysis that is intended to provide the Pacific Fishery Management Council (Council) and advisory bodies guidance on species-specific assessment prioritization by synthesizing information from commercial fisheries, tribal fisheries, recreational fisheries, assessment frequency, and other attributes defined as "factors". The methodology presented here follows the general framework advanced in the 2015 National Marine Fisheries Service (NMFS) Technical Memorandum, ["Prioritizing Fish Stock Assessments"](https://www.st.nmfs.noaa.gov/Assets/stock/documents/PrioritizingFishStockAssessments_FinalWeb.pdf) [@methot_prioritizing_2015].  
 
-This process was envisioned as a way of synthesizing a broad range of relevant information in a manner that can, over time, provide improved guidance, primarily on which species should be considered for benchmark (i.e., full) assessments, or subsequent stock assessment updates. The ranking process provides a useful tool for focusing discussion on species where a new assessment may have the greatest impact, but it is not a replacement for the judgment of the Council and advisory bodies. An important consideration for selecting any species for assessment is whether the (potentially) available data (e.g., trend and length- and age-composition data) are adequate to conduct the desired level of assessment. This aspect of prioritization is not scored in the way other factors are, and so must be considered independently, at this time.  In that regard, the process is likely to help identify important data gaps and/or situations where a data-moderate approach should be undertaken with whatever data are available.
+This process is envisioned as a way of synthesizing a broad range of relevant information in a manner that can, over time, provide improved guidance, primarily on which species should be considered for benchmark (i.e., full) assessments, or subsequent stock assessment updates. The ranking process provides a useful tool for focusing discussion on species where a new assessment may have the greatest impact, but it is not a replacement for the judgment of the Council and advisory bodies. An important consideration for selecting any species for assessment is whether the (potentially) available data (e.g., trend and length- and age-composition data) are adequate to conduct the desired level of assessment. This aspect of prioritization is not scored in the way other factors are, and so must be considered independently, at this time. In that regard, the process is likely to help identify important data gaps and/or situations where a data-moderate approach should be undertaken with whatever data are available.
 
-The scoring and weighting of Factors in the associated webpage, "pfmc-stock-assessment-prioritization", remains a work in progress, particularly as we consider its ability, as currently configured, to provide useful insight into priorities in subsequent cycles, as requested by the Council. There may be important considerations that are not encompassed by any of the existing factors, or the methods by which Factor Scores are derived or weighted may be identified as needing improvement. As consideration of priorities for `r ass_yr` are considered this spring it will be important to identify any parts of the scoring that could be improved. As aspects of management change, this framework should adapt to reflect the manner in which those changes affect prioritization.  
+The scoring and weighting of Factors in the associated webpage, [pfmc-groundfish-assessment-prioritization](https://connect.fisheries.noaa.gov/pfmc-groundfish-assessment-prioritization/), remains a work in progress, particularly as we consider its ability, as currently configured, to provide useful insight into priorities in subsequent cycles, as requested by the Council. There may be important considerations that are not encompassed by any of the existing factors, or the methods by which factor scores are derived or weighted may be identified as needing improvement. As consideration of priorities for `r ass_yr` are considered this spring it will be important to identify any parts of the scoring that could be improved. As aspects of management change, this framework should adapt to reflect the manner in which those changes affect prioritization.  
 
 ## Revisions for 2024
 
-A number of revisions have been made to the Stock Assessment Prioritization this cycle aimed at simplifying the scoring, improving the scoring to better reflect the current fishery or biology, and how the material is presented.
-
-### New Webpage
-
-A new webpage tool, "pfmc-stock-assessment-prioritization", to present the overall scoring by species and for each factors has been developed. The webpage is replacing the Excel workbook provided in previous cycles.  The webpage allows the user to navigate between the overall ranking, ranking by each of the ten factors, and to access the methodology information.  
-
-The information available in the webtool are similar to the information provided in previous cycles.  The information available by tab are:
-
-* The Methodology tab on the webpage contains the same information provided in this stand alone document. 
-
-* The 2024 Stock Assessment Prioritization Ranking tab reflects the new rankings calculated.  The rankings are shown via an interactive plot that reflects the contributions from each factor in the overall rank by species but also shown below in the more traditional table format. The tool also allows the user to adjust weights assigned to each factor to explore alternative weighting approaches and how they impact the overall rankings. The overall ranking figure and table are each downloadable by the user.
-
-* Each of the ten factors are view-able under the Factor tab where users can select the specic columns to show by each factor, customize the coloring of the columns, sort by management group (e.g., complex), and search for specific species using the search bar. The scoring from each factor is available for download.
-
-### Factor Calculations
+A number of revisions have been made to the methodologies applied in the stock assessment prioritization this cycle that were aimed at simplifying the scoring, improving the scoring to better reflect the current fishery or biology, and how the material is presented.
 
 The following revisions were done by factor:
 
 * Commercial Importance
   + The ex-vessel revenues are transformed into log-space and then standardized to a maximum score of 10.
-  + A recently assessed penalty has been added to commercial, tribal, and recreational importance to reduce the overall scoring of species that a highly important to the fishery as a whole.  The new penalty reduces the log-transformed standardized score by -2 for all species assessed in the most recent assessment cycle (e.g., 2023), otherwise, the factor scores are not adjusted. Previously, the assessment frequency factor included a penalty for species assessed most recently by giving the overall factor a negative score.  The updated methodology has moved away from allowing negative factor scores and hence needed a revised approach to increase rotation for species that are highly important to the fishery.  
+  + A recently assessed penalty has been added to commercial, tribal, and recreational importance to reduce the overall scoring of species that a highly important to the fishery as a whole. The new penalty reduces the log-transformed standardized score by -2 for all species assessed in the most recent assessment cycle (e.g., `r ass_yr - 2``), otherwise, the factor scores are not adjusted. Previously, the assessment frequency factor included a penalty for species assessed most recently by giving the overall factor a negative score.  The updated methodology has moved away from allowing negative factor scores and hence needed a revised approach to increase rotation for species that are highly important to the fishery.  
 
 
 * Tribal Importance
   + The same revisions as described under Commercial Importance were applied to the Tribal Importance Factor.
-  + Revised species-specific tribal Importance scores were revised based on input from tribal representatives.
+  + Revised species-specific tribal importance scores were revised based on input from tribal representatives.
 
 * Recreational Importance
   + The same revisions as described under Commercial Importance were applied to the Recreational Importance Factor.
-  + Revised species-specific recreational Importance scores were revised based on input from state representatives.
+  + Revised species-specific recreational importance scores were revised based on input from state representatives.
 
 * Constituent Demand
   + Scoring for differences in species importance by state to the commercial or recreational fishery was revised to be quantitative based upon percent differences by state compared to coastwide importance.
-  + Scoring for potential choke species was simplified to be representative of projected future ACL attainment compared to current average catches.
-
-* Ecosystem
-
+  + Scoring for potential choke species was simplified to be representative of projected future Annual Catch Limits (ACLs) attainment compared to current average catches.
 
 * Assessment Frequency
-  + Maximum age is now used in calculation to determine target assessment frequency. The previous approach used the estimated mean age of the catch.
-
+  + Maximum age is now used in calculation to determine target assessment frequency. The previous approach used the estimated mean age of the catch. The new approach now more directly links biology to the determination of assessment frequency and can be applied to assessed and unassessed species.
 
 
 \newpage

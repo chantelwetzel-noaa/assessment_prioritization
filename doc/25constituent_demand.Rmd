@@ -6,7 +6,16 @@ The first element examines commercial importance by state and trawl or non-trawl
 
 The second element examines the recreational catches by state compared to the coastwide totals. Similar to commercial ex-vessel revenue, the catches are ranked and standardized by each state and compared to the ranked and standardized coastwide values. Any species that has a state-specific standardized score greater than 0.10 compared to the coastwide value is assigned a +1 for each state. The state-specific adjustments are then summed to determine the recreational importance modifier. 
 
-The third element accounts for species that currently are or could be choke stocks based on current average catches compared to expected future ACLs. Future ACLs may be constraining due to stock status, small unfished population sizes, or due to decreasing ACLs given increases in time-varying uncertainty for species with older assessments. Species are assigned a score ranging between 0 to 5 depending upon the projected ACL attainment given current average catches (Table \ref{tab:choke}). The current average catch from the fishing mortality factor was used to compare to `ass_yr` anticipated ACLs.
+The third element accounts for species that currently are or could be choke stocks based on current average catches compared to future ACLs. Future ACLs may be constraining due to stock status, population sizes, or due to decreasing ACLs given increases in time-varying uncertainty for species with older assessments. Species are assigned a score ranging between 0 to 5 depending upon the projected ACL attainment given current average catches (Table \ref{tab:choke}). The current average catch from the fishing mortality factor was used to compare to expected `r ass_yr` ACLs.
+
+The overall score for constituent demand factor is calculated as:
+
+$$
+\begin{aligned}
+d_s = \text{Choke Score}_s + \text{Commercial Importance Modifier}_s + 
+\text{Recreational Importance Modifier}_s 
+\end{aligned}
+$$
 
 
 ```{r, results = 'asis', fig.pos = 'H'}
@@ -22,7 +31,7 @@ mort[5,]  = c(4, "ACL $<$ Current Average Catch $\\le$ 1.1*ACL")
 mort[6,]  = c(5, "1.25*ACL $<$ Current Average Catch")
 
 table_format(mort, 
-             caption = c('Choke scores applied based the percent of the projected ACL attainment given current average catches by species.'),
+             caption = c('Choke scores applied based the percent of the projected ACL attainment given current average coastwide catches by species.'),
              label = 'choke',
              align = 'l',
              escape = FALSE,
@@ -34,11 +43,5 @@ table_format(mort,
 ```
 
 
-The overall score for constituent demand score is calculated as:
 
-\begin{centering}
-
-$d_s = \text{Choke Score}_s + \text{Commercial Importance Modifier}_s + \text{Recreational Importance Modifier}_s $
-
-\end{centering}
 
