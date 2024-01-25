@@ -50,9 +50,9 @@ summarize_new_information <- function(
         ifelse(
         survey_data[key, "years_since_assessment"] == max(survey_data[, "years_since_assessment"]) & survey_data[key, "ave_set_tows"] > 30, 3, 
         ifelse(
-         survey_data[key, "years_since_assessment"] > 10 & survey_data[key, "years_since_assessment"] < max(survey_data[, "years_since_assessment"]) & survey_data[key, "ave_set_tows"] > 30, 2, 
+         survey_data[key, "years_since_assessment"] >= 10 & survey_data[key, "years_since_assessment"] < max(survey_data[, "years_since_assessment"]) & survey_data[key, "ave_set_tows"] > 30, 2, 
          ifelse(
-            survey_data[key, "years_since_assessment"] > 5 & survey_data[key, "years_since_assessment"] < 10 &
+            survey_data[key, "years_since_assessment"] >= 5 & survey_data[key, "years_since_assessment"] < 10 &
             survey_data[key, "ave_set_tows"] > 30, 1, 0
             )
           )                                                                                                     
@@ -61,11 +61,13 @@ summarize_new_information <- function(
       # Add point for lots of lengths/ages/otoliths available
       new_info_df[sp, "Survey_Composition"] <- 
         ifelse(
-          survey_data[key, "total_lengths"] + survey_data[key, "total_ages"] + survey_data[key, "total_otoliths"] > 20000, 3, 
+          survey_data[key, "total_lengths"] + survey_data[key, "total_ages"] + survey_data[key, "total_otoliths"] >= 20000, 3, 
           ifelse(
-            survey_data[key, "total_lengths"] + survey_data[key, "total_ages"] + survey_data[key, "total_otoliths"] > 10000, 2, 
+            survey_data[key, "total_lengths"] + survey_data[key, "total_ages"] + survey_data[key, "total_otoliths"] >= 10000 & 
+            survey_data[key, "total_lengths"] + survey_data[key, "total_ages"] + survey_data[key, "total_otoliths"] < 20000, 2, 
             ifelse(
-              survey_data[key, "total_lengths"] + survey_data[key, "total_ages"] + survey_data[key, "total_otoliths"] > 5000, 1, 0
+              survey_data[key, "total_lengths"] + survey_data[key, "total_ages"] + survey_data[key, "total_otoliths"] >= 5000 &
+              survey_data[key, "total_lengths"] + survey_data[key, "total_ages"] + survey_data[key, "total_otoliths"] < 10000, 1, 0
             )
           )                                                                                                     
         )
