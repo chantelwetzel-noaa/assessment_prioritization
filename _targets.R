@@ -127,8 +127,7 @@ list(
       commercial = commercial, 
       tribal = tribal, 
       recreational = recreational,                             
-      assessment_year = assessment_year
-    )),
+      assessment_year = assessment_year)),
     # 8 Constituent Demand
     tar_target(constituent_demand, summarize_const_demand(
       revenue_data = revenue_data_filtered, 
