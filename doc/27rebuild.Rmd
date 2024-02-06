@@ -27,4 +27,4 @@ table_format(score,
 
 ### Reconsidering the use of Rebuilding Status Measures
 
-The inclusion of rebuilding status within the stock assessment prioritization process is subject to similar concerns as to the inclusion of stock status. Feedback from PFMC advisory bodies is welcome on whether and how this factor should be revised for future stock assessment prioritizations.  
+The inclusion of rebuilding status within the groundfish assessment prioritization process is subject to similar concerns as to the inclusion of stock status. Feedback from PFMC advisory bodies is welcome on whether and how this factor should be revised for future groundfish assessment prioritizations.  
