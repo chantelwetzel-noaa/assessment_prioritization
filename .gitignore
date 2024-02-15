@@ -11,3 +11,7 @@ proposal/
 archive/
 notes/
 presentations/
+
+.pdf
+.md
+.tex.log
