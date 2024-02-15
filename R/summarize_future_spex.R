@@ -30,12 +30,15 @@
 #'    species_file <-  "species_names.csv"
 #' )
 #'
-summarize_future_spex <- function(manage_file, fishing_mort_file, freq_file, species_file) {
+summarize_future_spex <- function(future_spex, fishing_mort, assessment_frequency, species) {
 
-	targets <- read.csv(file.path("data", manage_file)) 
-	fmort_data <- read.csv(file.path("tables", fishing_mort_file))
-	species <-  read.csv(paste0("data/", species_file))
-	freq_data <- read.csv(file.path("tables", freq_file))
+	#targets <- read.csv(file.path("data-raw", manage_file)) 
+	#fmort_data <- read.csv(file.path("data-processed", fishing_mort_file))
+	#species <-  read.csv(paste0("data/", species_file))
+	#freq_data <- read.csv(file.path("data-processed", freq_file))
+  target <- future_spex
+  fmort_data <- fishing_mort
+  freq_data <- assessment_frequency
 
 	fmort_data <- with(fmort_data, fmort_data[order(fmort_data[,"Species"]), ])
 	freq_data <- with(freq_data, freq_data[order(freq_data[,"Species"]), ])
@@ -45,7 +48,7 @@ summarize_future_spex <- function(manage_file, fishing_mort_file, freq_file, spe
 		Rank = NA, 
 		Factor_Score = NA,
 		Modifier = NA,
-		Fishing_Mortality = NA,
+		Average_Removals = NA,
 		OFL = NA,
 		ACL = NA,
 		ACL_Attain_Percent = NA,
@@ -71,10 +74,10 @@ summarize_future_spex <- function(manage_file, fishing_mort_file, freq_file, spe
 		mort_df[sp, "OFL"] <- sum(targets[ss, "OFL"], na.rm = TRUE)
 		mort_df[sp, "ACL"] <- sum(targets[ss, "ACL"], na.rm = TRUE) 
 
-		mort_df[sp, "Fishing_Mortality"] <- fmort_data[key[1], "Fishing_Mortality"]
+		mort_df[sp, "Average_Removals"] <- fmort_data[key[1], "Average_Removals"]
 	}
 
-	mort_df[, "ACL_Attain_Percent"] <- mort_df[, "Fishing_Mortality"] / mort_df[, "ACL"]
+	mort_df[, "ACL_Attain_Percent"] <- mort_df[, "Average_Removals"] / mort_df[, "ACL"]
 	mort_df[, "Last_Assessed"] <- freq_data[, "Last_Assess"]
 
 	for(sp in 1:nrow(species)){
@@ -116,5 +119,5 @@ summarize_future_spex <- function(manage_file, fishing_mort_file, freq_file, spe
 
 	mort_df <- with(mort_df, mort_df[order(mort_df[,"Species"]), ])
 
-	write.csv(mort_df, file.path("tables", "future_spex.csv"), row.names = FALSE)
+	write.csv(mort_df, file.path("data-processed", "future_spex.csv"), row.names = FALSE)
 }

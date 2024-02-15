@@ -5,13 +5,10 @@
 #' this should be modified in the future to use a stand-alone file containing the recreational
 #' species weights by state that should be saved in the "data" folder.
 #'
-#' @param file_name A csv file pulled from RecFIN with recreational catches.
+#' @param rec_catch A csv file pulled from RecFIN with recreational catches.
 #' data. Found in the data folder in the assessment prioritization github repo.
 #' @param species_file A csv including all species to calculate values for.
-#' @param years A vector of years to calculate the average recreational catch
-#' across.
-#' @param max_exp A numerical value to apply as an exponent to the coastwide
-#' pseudo revenue score. Default value of 0.18.
+#' @param rec_importance A CSV file with the state-specific species importance scores
 #'
 #' @author Chantel Wetzel
 #' @export
@@ -26,17 +23,20 @@
 #' )
 #'
 #'
-summarize_rec_importance <- function(file_name, species_file, years, max_exp = 0.18) {
+summarize_rec_importance <- function(rec_catch, species, rec_importance, frequency) {
 
-	data <- read.csv(paste0("data/", file_name)) 
-	species <-  read.csv(paste0("data/", species_file))
-	rec_score <- read.csv(file.path("doc", "tables", "recr_importance.csv"))
+  data <- rec_catch
+	#data <- read.csv(paste0("data-raw/", file_name)) 
+	#species <-  read.csv(paste0("data/", species_file))
+	#rec_score <- read.csv(file.path("doc", "tables", "recr_importance.csv"))
+	rec_score <- rec_importance
+	rec_score[is.na(rec_score)] <- 0
 
 	rec_importance_df <- data.frame(
 		Species = species[,1], 
 		Rank = NA, 
 		Factor_Score = NA,
-		Initial_Factor_Score = NA, 
+		Assessed_Last_Cycle = 0, 
 		Pseudo_Revenue_Coastwide = NA,
 		Pseudo_Revenue_CA = NA,
 		Pseudo_Revenue_OR = NA,
@@ -44,14 +44,16 @@ summarize_rec_importance <- function(file_name, species_file, years, max_exp = 0
 		Species_Importance_CA = NA,
 		Species_Importance_OR = NA, 
 		Species_Importance_WA = NA,  
-		Retained_Catch_Coastwide = NA, 
-		Retained_Catch_CA = NA,
-		Retained_Catch_OR = NA, 
-		Retained_Catch_WA = NA
+		Catch_Coastwide = NA, 
+		California_Recreational = NA,
+		Oregon_Recreational = NA, 
+		Washington_Recreational = NA
 	)
 
 	# Remove "Dogfish Shark Family" so it does not get lumped with dogfish 
-	data <- data[data$SPECIES != "Dogfish Shark Family", ]
+	# data <- data[data$SPECIES != "Dogfish Shark Family", ]
+	# Filter the data
+	# data <- data[data$RECFIN_YEAR %in% years, ]
 	
 	for(sp in 1:nrow(species)) {
 
@@ -59,7 +61,7 @@ summarize_rec_importance <- function(file_name, species_file, years, max_exp = 0
 		name_list <- species[sp, species[sp,] != -99]
 		for(a in 1:length(name_list)){
 			key = c(key,
-				grep(species[sp,a], data$SPECIES, ignore.case = TRUE)
+				grep(species[sp,a], data$species, ignore.case = TRUE)
 			)
 
 			ss <- c(ss, 
@@ -67,41 +69,56 @@ summarize_rec_importance <- function(file_name, species_file, years, max_exp = 0
 			)
 		}
 
-		sub_data <- data[key,]
-		find <- which(sub_data$RECFIN_YEAR %in% years) 
-		sub_data <- sub_data[find, ]
+		rec_importance_df[sp, c("California_Recreational", "Oregon_Recreational", "Washington_Recreational")] <- 0
+		
+		if(length(key) > 0){
+		  sub_data <- data[key,]
+		  catch_sum <- aggregate(total_discard_with_mort_rates_applied_and_landings_mt ~ sector, sub_data, sum)
+      state_vector <- gsub(" ", "_", catch_sum[,1])
+		  rec_importance_df[sp, state_vector] <-
+		    aggregate(total_discard_with_mort_rates_applied_and_landings_mt ~ sector, sub_data, sum)[,2]
+		} 
+		  
+		rec_importance_df[sp, "Catch_Coastwide"] <- 
+			sum(rec_importance_df[sp, c("California_Recreational", "Oregon_Recreational", "Washington_Recreational")], na.rm = TRUE)
 
-		rec_importance_df[sp, c("Retained_Catch_CA", "Retained_Catch_OR", "Retained_Catch_WA")] <-
-			c(sum(sub_data[, "CALIFORNIA_RETAINED_MT"], na.rm = TRUE), 
-			  sum(sub_data[, "OREGON_RETAINED_MT"], na.rm = TRUE), 
-			  sum(sub_data[, "WASHINGTON_RETAINED_MT"], na.rm = TRUE) )
-
-		rec_importance_df[sp, "Retained_Catch_Coastwide"] <- 
-			sum(rec_importance_df[sp, c("Ret_Catch_CA", "Ret_Catch_OR", "Ret_Catch_WA")], na.rm = TRUE)
-
-		rec_importance_df[sp, c("Rel_Weight_CA", "Rel_Weight_OR", "Rel_Weight_WA")] <- 
+		rec_importance_df[sp, c("Species_Importance_CA", "Species_Importance_OR", "Species_Importance_WA")] <- 
 			rec_score[ss[1], c("CA", "OR", "WA")]
 
 		rec_importance_df[sp, c("Pseudo_Revenue_CA", "Pseudo_Revenue_OR", "Pseudo_Revenue_WA")] <- 
 			rec_score[ss[1], c("CA", "OR", "WA")] * 
-			rec_importance_df[sp, c("Retained_Catch_CA", "Retained_Catch_OR", "Retained_Catch_WA")] 
+			rec_importance_df[sp, c(c("California_Recreational", "Oregon_Recreational", "Washington_Recreational"))] 
 
 		rec_importance_df[sp, "Pseudo_Revenue_Coastwide"] <- 
 			sum(rec_importance_df[sp, c("Pseudo_Revenue_CA", "Pseudo_Revenue_OR", "Pseudo_Revenue_WA")], na.rm = TRUE)
 
 	}
 
-	rec_importance_df$Initial_Factor_Score <- rec_importance_df$Pseudo_Revenue_Coastwide ^ max_exp
-	rec_importance_df$Factor_Score <- rec_importance_df$Initial_Factor_Score * 10 / 
-		max(rec_importance_df$Initial_Factor_Score)
-
+	rec_importance_df$Factor_Score <- log(rec_importance_df$Pseudo_Revenue_Coastwide + 1) #* 10 / 
+		#max(log(rec_importance_df$Pseudo_Revenue_Coastwide + 1))
+	
+	species_just_assessed <- frequency[which(frequency$Last_Assess == (as.numeric(format(Sys.Date(), "%Y")) - 1)), "Species"]
+	rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"] <- -2
+	rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Factor_Score"] <- 
+	  ifelse(rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Factor_Score"] + rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"] > 0,
+	         rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Factor_Score"] + rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"], 0)
+	rec_importance_df[, "Factor_Score"] <- 10 * rec_importance_df[, "Factor_Score"] / max(rec_importance_df[, "Factor_Score"])
+	
 	rec_importance_df <- 
 		rec_importance_df[order(rec_importance_df[,"Factor_Score"], decreasing = TRUE), ]
 
 	rec_importance_df$Rank <- 1:nrow(rec_importance_df)
 	# Quick check to deal with 0 ties
-	ind <- which(rec_importance_df$Factor == 0)
+	ind <- which(rec_importance_df$Factor_Score == 0)
 	rec_importance_df$Rank[ind] = rec_importance_df$Rank[ind[1]] 
-
-	write.csv(rec_importance_df, paste0("tables/", "recreational_importance.csv"), row.names = FALSE)
+	rec_importance_df <- rec_importance_df[order(rec_importance_df[,"Species"], decreasing = FALSE),]
+	colnames(rec_importance_df)[colnames(rec_importance_df) %in% c("California_Recreational", "Oregon_Recreational", "Washington_Recreational")] <-
+	  c("Catch_CA", "Catch_OR", "Catch_WA")
+	
+	rec_importance_df[, c("Catch_Coastwide", "Catch_CA", "Catch_OR", "Catch_WA")] <- round(rec_importance_df[, c("Catch_Coastwide", "Catch_CA", "Catch_OR", "Catch_WA")], 1)
+	rec_importance_df[, c("Pseudo_Revenue_Coastwide", "Pseudo_Revenue_CA", "Pseudo_Revenue_OR", "Pseudo_Revenue_WA")] <- round(rec_importance_df[, c("Pseudo_Revenue_Coastwide", "Pseudo_Revenue_CA", "Pseudo_Revenue_OR", "Pseudo_Revenue_WA")], 1)
+	rec_importance_df[, "Factor_Score"] <- round(rec_importance_df[, "Factor_Score"], 2)
+	
+	write.csv(rec_importance_df, "data-processed/4_recreational_importance.csv", row.names = FALSE)
+	return(rec_importance_df)
 }

@@ -1,0 +1,33 @@
+## Fishing Mortality Relative to Overfishing Limits
+
+If attainment of a species is high relative to the Overfishing Limits (OFLs), depending upon the driving factors, there may be a need for a new assessment to determine if current exploitation is sustainable. The fishing mortality factor compares recent average coastwide fishing mortality relative to average coastwide OFLs or coastwide OFL-contributions for species managed within a complex. Estimates of fishing mortality from the West Coast Groundfish Observer Program (WCGOP) Groundfish Expanded Multiyear Mortality (GEMM) report were averaged over the `r start_yr`-`r end_yr` period.  The average OFLs or OFL-contributions for the same period are calculated and the attainment (e.g., the ratio of fishing mortality to the OFL) for each species is used to determine the factor score. Average Annual Catch Limits (ACLs) attainment is also presented for comparison, but are not used in scoring this factor.
+
+The scoring of this factor by species is shown in Table \ref{tab:mort}.
+
+```{r, results = 'asis', fig.pos = 'h!'}
+mort = matrix(NA, 10, 2)
+col_names = c("Score", "Stock Harvest Status")
+
+mort[1,]  = c(1, "Negligible fisheries impact on the stock (catch $\\le$  0.10*OFL)." )
+mort[2,]  = c(2, "Low fisheries impact on the stock (0.10*OFL $<$  catc $\\le$ 0.25*OFL).")
+mort[3,]  = c(3, "Moderately low fisheries impact on the stock (0.25*OFL $<$  catch $\\le$ 0.50*OFL).")
+mort[4,]  = c(4, "Caution OFL is unknown and catch $\\le$ 5 mt.")
+mort[5,]  = c(5, "Moderate fisheries impact on the stock (0.50*OFL $<$  catch $\\le$ 0.75*OFL).")
+mort[6,]  = c(6, "Caution because OFL is unknown and catch $>$ 5 mt.")
+mort[7,]  = c(7, "Moderately high fisheries impact on the stock (0.75*OFL $<$  catch $\\le$ 0.90*OFL).")
+mort[8,]  = c(8, "High fisheries impact, potential overfishing on the stock (0.90*OFL $<$  catch $\\le$ OFL).")
+mort[9,]  = c(9, "Mortality slightly above the OFL for the stock (OFL $<$  catch $\\le$ 1.1*OFL).")
+mort[10,] = c(10, "Mortality well above the OFL for the stock (1.1*OFL $<$  catch).")
+
+table_format(mort, 
+             caption = c('Factor scores applied based the percent of the OFL attainment by species. OFL either refers to the species-specific OFL or the species-species OFL contribution to a complex.'),
+             label = 'mort',
+             align = 'l',
+             escape = FALSE,
+             col_names = col_names,             
+             custom_width = TRUE,
+             col_to_adjust = 1:2,
+             width = c("1cm","12cm"))
+                          
+
+```

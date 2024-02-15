@@ -1,0 +1,29 @@
+\pagebreak
+
+# Appendices
+
+## Assumed Maximum Age 
+
+Table \ref{tab:max-age} reflects the assumed maximum age for each species that was used in combination of other data to determine the target assessment frequency. The maximum age for any assessed species were based upon the estimated female natural mortality ($M$) or weighted $M$ for species with multiple model areas with maximum age being equal to 5.4 / $M$.
+
+```{r, results = 'asis'}
+
+tab = read.csv("tables/maximum_age_sources.csv", header = TRUE) 
+col_names = c("Species", "Maximum Age", "Source(s)")
+  
+t = table_format(tab, 
+             caption = c('The assumed maximum age and source for each species..'),
+             label = 'max-age',
+             col_names = col_names,
+             digits = 0,
+             align = c('l','c', 'l'),
+             custom_width = TRUE,
+             col_to_adjust = 1:3,
+             width = c("5cm", "2cm", "7cm"))
+
+
+t
+
+```
+
+\pagebreak

@@ -11,3 +11,12 @@ proposal/
 archive/
 notes/
 presentations/
+
+_main*
+*.aux
+*.log
+*.png
+*.tex
+*.html
+*.js
+*.pdf
