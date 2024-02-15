@@ -12,6 +12,6 @@ archive/
 notes/
 presentations/
 
-.pdf
-.md
-.tex.log
+*.pdf
+*.md
+*.tex.log
