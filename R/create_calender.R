@@ -78,3 +78,22 @@ calendR::calendR(
 ggplot2::ggsave(filename = file.path(dir, "2025_calendar.png"),
                 width = 10, height = 10)
 
+calendR::calendR(
+  year = 2025, 
+  title = "2025",
+  subtitle = "STAR Panel Options",
+  title.size = 30,
+  subtitle.size = 20,
+  orientation = c("portrait", "landscape")[2],
+  #from = range_dates[1],
+  #to = range_dates[2],
+  weeknames = c("M", "T", "W", "TH", "F", "S", "S"),
+  special.days = mark_dates,
+  special.col = PNWColors::pnw_palette("Sailboat", 7)[2:6],
+  #scales::alpha(ordered_colors[2:(length(unique(na.omit(mark_dates))) + 1)], 0.75),
+  legend.pos = "bottom",
+  mbg.col = PNWColors::pnw_palette("Sailboat", 6)[1], #ordered_colors[1],
+  months.col = "white"
+)
+ggplot2::ggsave(filename = file.path(dir, "2025_calendar_wide.png"),
+                width = 10, height = 6)
