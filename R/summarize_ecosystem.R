@@ -25,15 +25,16 @@ summarize_ecosystem <- function(ecosystem_data){
   ecosystem_data <- ecosystem_data[,c("Species",
                                       "Rank",
                                       "Factor_Score",
-                                      "functional_groups",
+                                      #"functional_groups",
                                       "prop_consumption_scaled",
                                       "prop_consumer_bio_scaled")]
   colnames(ecosystem_data) <- c("Species",
                                 "Rank",
                                 "Factor_Score",
-                                "Ecosystem_Functional_Group",
+                                #"Ecosystem_Functional_Group",
                                 "Top_Down_Scaled",
                                 "Bottom_Up_Scaled")
+  ecosystem_data[, c("Top_Down_Scaled", "Bottom_Up_Scaled")] <- round(ecosystem_data[, c("Top_Down_Scaled", "Bottom_Up_Scaled")], 2)
   write.csv(ecosystem_data, "data-processed/5_ecosystem.csv", row.names = FALSE)
   return(ecosystem_data)
 }
