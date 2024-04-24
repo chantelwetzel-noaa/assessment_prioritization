@@ -3,7 +3,7 @@
 
 ## Overview
 
-This repository houses information and data processing for the creation of assessment prioritizaiton used by the Pacific Fishery Management Council to inform selection of stocks for assessment each cycle. Prioritization incorporates multiple quantitative and qualitative factors. 
+This repository houses information and data processing for the creation of assessment prioritizaiton used by the Pacific Fishery Management Council to inform the selection of stocks for assessment each cycle. Prioritization incorporates multiple quantitative and qualitative factors. The final results can be found [online](https://connect.fisheries.noaa.gov/pfmc-groundfish-assessment-prioritization/).
 
 
 ## Disclaimer
