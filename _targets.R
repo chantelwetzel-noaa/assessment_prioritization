@@ -30,7 +30,6 @@ source("R/filter_gemm.R")
 source("R/calculate_rank.R")
 source("R/move_files_to_sap.R")
 
-#source("R/functions.R")
 
 # End this file with a list of target objects.
 list(

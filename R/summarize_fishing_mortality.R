@@ -67,7 +67,6 @@ summarize_fishing_mortality <- function(
 		for(a in 1:length(name_list)){
 			key <- c(key, grep(species[sp,a], data$species, ignore.case = TRUE))
 			ss <- c(ss, grep(species[sp, a], spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
-			#ff <- c(ff, grep(species[sp, a], future_spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
 		}
 		if (length(ss) == 0){
 		  for(a in 1:length(name_list)){
@@ -75,16 +74,9 @@ summarize_fishing_mortality <- function(
 		    ss <- c(ss, grep(init_string, spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
 		  }
 		}
-		#if (length(ff) == 0){
-		#  for(a in 1:length(name_list)){
-		#    init_string <- tm::removeWords(species[sp, a], " rockfish")
-		#    ff <- c(ff, grep(init_string, future_spex$STOCK_OR_COMPLEX, ignore.case = TRUE))
-		#  }
-		#}
 		
 		ss <- unique(ss)
 		key <- unique(key)
-		#ff <- unique(ff)
 
 		sub_data <- data[key,]
 		mort_df[sp, "Average_Catches"] <- sum(sub_data$total_discard_with_mort_rates_applied_and_landings_mt) / length(unique(data$year))
@@ -95,7 +87,7 @@ summarize_fishing_mortality <- function(
 			temp_spex <- temp_spex[, ind]
 			
 			# Need to use sum rather than mean due to OFLs and ACLs under different names (e.g. Gopher and Black and Yellow)
-			value <- apply(temp_spex[,2:3], 2, sum, na.rm = TRUE) #aggregate(SPECIFICATION_VALUE ~ SPECIFICATION_NAME, temp_spex, sum)
+			value <- apply(temp_spex[,2:3], 2, sum, na.rm = TRUE) 
 			mort_df$Average_OFL[sp] <- value[ manage_quants[1]] / length(unique(temp_spex$SPEX_YEAR))
 			mort_df$Average_ACL[sp] <- value[ manage_quants[2]] / length(unique(temp_spex$SPEX_YEAR))
 		}
