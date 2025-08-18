@@ -1,0 +1,386 @@
+#V3.30.03.07
+#_data_and_control_files: B17.dat // B17.ctl
+#_SS-V3.30.03.07-safe;_2017_05_19;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_11.6
+#_SS-V3.30.03.07-safe;user_support_available_at:NMFS.Stock.Synthesis@noaa.gov
+#_SS-V3.30.03.07-safe;user_info_available_at:https://vlab.ncep.noaa.gov/group/stock-synthesis
+0  # 0 means do not read wtatage.ss; 1 means read and use wtatage.ss and also read and use growth parameters
+1  #_N_Growth_Patterns
+1 #_N_platoons_Within_GrowthPattern 
+#_Cond 1 #_Morph_between/within_stdev_ratio (no read if N_morphs=1)
+#_Cond  1 #vector_Morphdist_(-1_in_first_val_gives_normal_approx)
+#
+2 # recr_dist_method for parameters:  1=like 3.24; 2=main effects for GP, Settle timing, Area; 3=each Settle entity; 4=none when N_GP*Nsettle*pop==1
+1 # Recruitment: 1=global; 2=by area (future option)
+1 #  number of recruitment settlement assignments 
+0 # year_x_area_x_settlement_event interaction requested (only for recr_dist_method=1)
+#GPat month  area age (for each settlement assignment)
+ 1 7 1 0
+#
+#_Cond 0 # N_movement_definitions goes here if Nareas > 1
+#_Cond 1.0 # first age that moves (real age at begin of season, not integer) also cond on do_migration>0
+#_Cond 1 1 1 2 4 10 # example move definition for seas=1, morph=1, source=1 dest=2, age1=4, age2=10
+#
+2 #_Nblock_Patterns
+ 2 1 #_blocks_per_pattern 
+# begin and end years of blocks
+ 1899 1971 1972 1999
+ 1899 1999
+#
+# controls for all timevary parameters 
+1 #_env/block/dev_adjust_method for all time-vary parms (1=warn relative to base parm bounds; 3=no bound check)
+#  autogen
+1 1 1 1 1 # autogen
+# where: 0 = autogen all time-varying parms; 1 = read each time-varying parm line; 2 = read then autogen if min=-12345
+# 1st element for biology, 2nd for SR, 3rd for Q, 5th for selex, 4th reserved
+#
+# setup for M, growth, maturity, fecundity, recruitment distibution, movement 
+#
+0 #_natM_type:_0=1Parm; 1=N_breakpoints;_2=Lorenzen;_3=agespecific;_4=agespec_withseasinterpolate
+  #_no additional input for selected M option; read 1P per morph
+1 # GrowthModel: 1=vonBert with L1&L2; 2=Richards with L1&L2; 3=age_specific_K; 4=not implemented
+2 #_Growth_Age_for_L1
+30 #_Growth_Age_for_L2 (999 to use as Linf)
+0.13 #_exponential decay for growth above maxage (fixed at 0.2 in 3.24; value should approx initial Z; -999 replicates 3.24)
+0  #_placeholder for future growth feature
+0 #_SD_add_to_LAA (set to 0.1 for SS2 V1.x compatibility)
+1 #_CV_Growth_Pattern:  0 CV=f(LAA); 1 CV=F(A); 2 SD=F(LAA); 3 SD=F(A); 4 logSD=F(A)
+1 #_maturity_option:  1=length logistic; 2=age logistic; 3=read age-maturity matrix by growth_pattern; 4=read age-fecundity; 5=disabled; 6=read length-maturity
+2 #_First_Mature_Age
+2 #_fecundity option:(1)eggs=Wt*(a+b*Wt);(2)eggs=a*L^b;(3)eggs=a*Wt^b; (4)eggs=a+b*L; (5)eggs=a+b*W
+0 #_hermaphroditism option:  0=none; 1=female-to-male age-specific fxn; -1=male-to-female age-specific fxn
+2 #_parameter_offset_approach (1=none, 2= M, G, CV_G as offset from female-GP1, 3=like SS2 V1.x)
+#
+#_growth_parms
+#_ LO HI INIT PRIOR PR_SD PR_type PHASE env_var&link dev_link dev_minyr dev_maxyr dev_PH Block Block_Fxn
+ 0.001 0.4 0.119257 -2.0272 0.438 3 2 0 0 0 0 0 0 0 # NatM_p_1_Fem_GP_1
+ 10 30 17.357 21 1000 0 2 0 0 0 0 0 0 0 # L_at_Amin_Fem_GP_1
+ 25 45 37.3534 38 1000 0 2 0 0 0 0 0 0 0 # L_at_Amax_Fem_GP_1
+ 0.01 0.3 0.117662 0.12 1000 0 2 0 0 0 0 0 0 0 # VonBert_K_Fem_GP_1
+ 0.01 0.5 0.113875 0.1 1000 0 2 0 0 0 0 0 0 0 # CV_young_Fem_GP_1
+ 0.01 0.5 0.094701 0.1 1000 0 2 0 0 0 0 0 0 0 # CV_old_Fem_GP_1
+ 3.4e-005 3.4e-005 3.4e-005 3.4e-005 1000 0 -2 0 0 0 0 0 0 0 # Wtlen_1_Fem
+ 1 3 2.87 2.87 1000 0 -2 0 0 0 0 0 0 0 # Wtlen_2_Fem
+ 22 32 26 26 1000 0 -2 0 0 0 0 0 0 0 # Mat50%_Fem
+ -0.7 -0.5 -0.6 -0.6 1000 0 -2 0 0 0 0 0 0 0 # Mat_slope_Fem
+ 0 1 1.143e-008 1.143e-008 1000 0 -2 0 0 0 0 0 0 0 # Eggs_scalar_Fem
+ 2 5 4.816 4.816 1000 0 -2 0 0 0 0 0 0 0 # Eggs_exp_len_Fem
+ -3 3 0.31481 0 1000 0 2 0 0 0 0 0 0 0 # NatM_p_1_Mal_GP_1
+ -3 3 -0.0343206 0 1000 0 2 0 0 0 0 0 0 0 # L_at_Amin_Mal_GP_1
+ -3 3 -0.199115 0 1000 0 2 0 0 0 0 0 0 0 # L_at_Amax_Mal_GP_1
+ -3 3 -0.0033885 0 1000 0 2 0 0 0 0 0 0 0 # VonBert_K_Mal_GP_1
+ -3 3 0.0907208 0 1000 0 2 0 0 0 0 0 0 0 # CV_young_Mal_GP_1
+ -3 3 0.762216 0 1000 0 2 0 0 0 0 0 0 0 # CV_old_Mal_GP_1
+ 0 1 2.9e-005 2.9e-005 1000 0 -2 0 0 0 0 0 0 0 # Wtlen_1_Mal
+ 1 3 2.89 2.89 1000 0 -2 0 0 0 0 0 0 0 # Wtlen_2_Mal
+ 0 0 0 0 0 0 -1 0 0 0 0 0 0 0 # RecrDist_GP_1
+ 0 0 0 0 0 0 -1 0 0 0 0 0 0 0 # RecrDist_Area_1
+ 0 0 0 0 0 0 -1 0 0 0 0 0 0 0 # RecrDist_settle_1
+ 1 1 1 1 1000 0 -1 0 0 0 0 0 0 0 # CohortGrowDev
+ 0.001 0.999 0.5 0.5 1000 0 -1 0 0 0 0 0 0 0 # FracFemale_GP_1
+#
+#_no timevary MG parameters
+#
+#_seasonal_effects_on_biology_parms
+ 0 0 0 0 0 0 0 0 0 0 #_femwtlen1,femwtlen2,mat1,mat2,fec1,fec2,Malewtlen1,malewtlen2,L1,K
+#_ LO HI INIT PRIOR PR_SD PR_type PHASE
+#_Cond -2 2 0 0 -1 99 -2 #_placeholder when no seasonal MG parameters
+#
+#_Spawner-Recruitment
+3 #_SR_function: 2=Ricker; 3=std_B-H; 4=SCAA; 5=Hockey; 6=B-H_flattop; 7=survival_3Parm; 8=Shepard_3Parm
+0  # 0/1 to use steepness in initial equ recruitment calculation
+0  #  future feature:  0/1 to make realized sigmaR a function of SR curvature
+#_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn #  parm_name
+             5            12        8.4376            10            10             0          1          0          0          0          0          0          0          0 # SR_LN(R0)
+         0.201         0.999      0.644599         0.718         0.158             2          2          0          0          0          0          0          0          0 # SR_BH_steep
+           0.1             1           0.5           0.5          1000             0         -1          0          0          0          0          0          0          0 # SR_sigmaR
+            -5             5             0             0          1000             0         -1          0          0          0          0          0          0          0 # SR_regime
+             0           0.5             0             0          1000             0         -1          0          0          0          0          0          0          0 # SR_autocorr
+1 #do_recdev:  0=none; 1=devvector; 2=simple deviations
+1960 # first year of main recr_devs; early devs can preceed this era
+2015 # last year of main recr_devs; forecast devs start in following year
+3 #_recdev phase 
+1 # (0/1) to read 13 advanced options
+ 1950 #_recdev_early_start (0=none; neg value makes relative to recdev_start)
+ 4 #_recdev_early_phase
+ 0 #_forecast_recruitment phase (incl. late recr) (0 value resets to maxphase+1)
+ 1 #_lambda for Fcast_recr_like occurring before endyr+1
+ 1966 #_last_early_yr_nobias_adj_in_MPD
+ 1969.8 #_first_yr_fullbias_adj_in_MPD
+ 2013.7 #_last_yr_fullbias_adj_in_MPD
+ 2017.8 #_first_recent_yr_nobias_adj_in_MPD
+ 0.462 #_max_bias_adj_in_MPD (-1 to override ramp and set biasadj=1.0 for all estimated recdevs)
+ 0 #_period of cycles in recruitment (N parms read below)
+ -5 #min rec_dev
+ 5 #max rec_dev
+ 0 #_read_recdevs
+#_end of advanced SR options
+#
+#_placeholder for full parameter lines for recruitment cycles
+# read specified recr devs
+#_Yr Input_value
+#
+# all recruitment deviations
+#  1950E 1951E 1952E 1953E 1954E 1955E 1956E 1957E 1958E 1959E 1960R 1961R 1962R 1963R 1964R 1965R 1966R 1967R 1968R 1969R 1970R 1971R 1972R 1973R 1974R 1975R 1976R 1977R 1978R 1979R 1980R 1981R 1982R 1983R 1984R 1985R 1986R 1987R 1988R 1989R 1990R 1991R 1992R 1993R 1994R 1995R 1996R 1997R 1998R 1999R 2000R 2001R 2002R 2003R 2004R 2005R 2006R 2007R 2008R 2009R 2010R 2011R 2012R 2013R 2014R 2015R 2016F 2017F
+#  0.0258845 -0.0809546 -0.178685 -0.244712 -0.256068 -0.189404 -0.0168379 0.292167 0.658768 0.502743 0.421705 0.520936 0.641419 0.786116 0.790817 0.663957 0.430175 0.182818 0.00771743 -0.0634933 -0.20463 -0.448322 -0.521709 -0.486721 -0.330938 -0.447399 -0.786863 -0.815463 -0.944255 -0.769389 -0.471949 0.0169402 0.0599188 -0.130664 -0.0254398 0.0973858 0.00713563 -0.128084 -0.127758 -0.0419558 0.0758347 0.332906 0.528286 0.266263 -0.00477908 -0.119752 -0.185325 -0.166839 -0.250664 -0.390874 -0.451148 -0.255109 0.0495485 0.0664213 0.503951 -0.489999 -0.636717 1.06534 0.785921 0.753176 -0.152504 -0.0547299 -0.280379 0.995345 0.143606 -0.0097906 -0.0576331 0
+# implementation error by year in forecast:  0
+#
+#Fishing Mortality info 
+0.5 # F ballpark
+-2002 # F ballpark year (neg value to disable)
+3 # F_Method:  1=Pope; 2=instan. F; 3=hybrid (hybrid is recommended)
+4 # max F or harvest rate, depends on F_Method
+# no additional F input needed for Fmethod 1
+# if Fmethod=2; read overall start F value; overall phase; N detailed inputs to read
+# if Fmethod=3; read N iterations for tuning for Fmethod 3
+4  # N iterations for tuning F in hybrid method (recommend 3 to 7)
+#
+#_initial_F_parms; count = 0
+#_ LO HI INIT PRIOR PR_SD  PR_type  PHASE
+#2017 2037
+# F rates by fleet
+# Yr:  1900 1901 1902 1903 1904 1905 1906 1907 1908 1909 1910 1911 1912 1913 1914 1915 1916 1917 1918 1919 1920 1921 1922 1923 1924 1925 1926 1927 1928 1929 1930 1931 1932 1933 1934 1935 1936 1937 1938 1939 1940 1941 1942 1943 1944 1945 1946 1947 1948 1949 1950 1951 1952 1953 1954 1955 1956 1957 1958 1959 1960 1961 1962 1963 1964 1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 1979 1980 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017
+# seas:  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+# REC_CPFV_N 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.000176597 0.000352666 0.000406229 0.000543818 0.000682193 0.00082097 0.000960683 0.00110246 0.00124642 0.00148855 0.00147389 0.00129359 0.0018682 0.0017328 0.000921517 0.000880672 0.000722822 0.000965534 0.00167164 0.00132785 0.00266194 0.00348207 0.00429635 0.00650897 0.00575109 0.00494969 0.00621777 0.00752261 0.00858236 0.00859613 0.0146491 0.0127636 0.0101378 0.00770237 0.00999875 0.0112689 0.0100531 0.014127 0.0152747 0.0154536 0.0161117 0.0167645 0.0191612 0.0171347 0.0241746 0.0288181 0.0317833 0.0337099 0.0395264 0.0408616 0.0423231 0.0492063 0.0543895 0.153583 0.143279 0.14476 0.108667 0.0761944 0.0189125 0.0281958 0.0622671 0.0455448 0.0459301 0.0477662 0.0538614 0.0657109 0.0745619 0.0742877 0.07044 0.163052 0.0858116 0.0747475 0.0717427 0.0504895 0.0446998 0.0307466 0.063724 0.139208 0.122597 0.0678986 0.0322651 0.0136358 0.0167091 0.018315 0.0141912 0.0283389 0.0248131 0.0325839 0.0269168 0.046553
+# REC_PRIV_N_MRFSS 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.000726888 0.0014554 0.00167782 0.00224322 0.00281315 0.00338476 0.00396026 0.00454435 0.00514276 0.00614098 0.00607813 0.00533474 0.00770864 0.00715121 0.00380078 0.00363134 0.00297894 0.00398195 0.00689484 0.00547822 0.010987 0.0143694 0.0177289 0.0205845 0.0181928 0.01566 0.0196722 0.0238016 0.0271498 0.0272852 0.0470339 0.0403163 0.0321667 0.0239696 0.0269931 0.0280715 0.018778 0.0294394 0.0286471 0.0264334 0.0276626 0.0275832 0.0328581 0.0246801 0.0339519 0.0412636 0.0458263 0.0429711 0.0518521 0.0461174 0.0395802 0.0467287 0.0544652 0.0669367 0.0679404 0.0658442 0.0821314 0.0573737 0.0452012 0.101134 0.0943947 0.0711783 0.107525 0.148053 0.205844 0.294665 0.116435 0.0706594 0.0469676 0.0486343 0.0791994 0.0523003 0.0434895 0.0322139 0.0629544 0.135022 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+# REC_PRIV_N_CRFS 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0403235 0.0500585 0.0935093 0.0346436 0.024076 0.0131417 0.0152975 0.0151797 0.010792 0.0188632 0.0235066 0.0279047 0.0169016 0.0292316
+# REC_DISC_N 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.35698e-005 6.49642e-005 7.6262e-005 0.000101082 0.000125956 0.000150847 0.000175817 0.000200958 0.000228649 0.000270255 0.000266373 0.000234746 0.000337671 0.00031072 0.000164474 0.000157465 0.000130029 0.000173579 0.000300104 0.000236412 0.000473907 0.00061697 0.00075776 0.000925052 0.000807643 0.000692269 0.000872849 0.00106705 0.00123287 0.00124619 0.00212141 0.00174301 0.00126926 0.000870039 0.000947563 0.000957101 0.000678941 0.00099431 0.000975609 0.000922174 0.000980503 0.00103714 0.00129569 0.00112435 0.00158993 0.00207224 0.00246021 0.00255991 0.00316553 0.00306069 0.00290962 0.00344494 0.0039391 0.00765753 0.00681926 0.00590578 0.00454127 0.00268158 0.00119765 0.00235629 0.00272724 0.00205147 0.00280534 0.0036581 0.00469378 0.00581798 0.00260251 0.00183661 0.0014994 0.00275966 0.00245034 0.00204258 0.00160967 0.00127667 0.00173621 0.00267452 0.00182763 0.00324474 0.00317185 0.00143948 0.000784621 0.000348549 0.000395842 0.000398729 0.000305561 0.000627289 0.000694847 0.000906462 0.000694111 0.00120047
+# COM_HKL_N 0 0.00024008 0.000482476 0.000722948 0.000963801 0.00120515 0.00144928 0.00169192 0.00193534 0.00217963 0.00242705 0.00267328 0.00292057 0.00316898 0.00342078 0.00367159 0.0039237 0.00613891 0.00733061 0.0049868 0.00512007 0.00429249 0.00368526 0.00392385 0.00235954 0.0031171 0.00482657 0.00439961 0.00502438 0.00430341 0.00615974 0.00540714 0.00454197 0.00252526 0.00408146 0.00503271 0.00894932 0.00838474 0.00587398 0.00274913 0.00300689 0.00195951 0.000974018 0.00153483 0.00447068 0.0100105 0.0103228 0.00373015 0.0062425 0.00417002 0.00719994 0.00676807 0.00486853 0.00191474 0.00296134 0.00252409 0.00813108 0.0077751 0.00601004 0.00316431 0.00149603 0.00104387 0.000736528 0.000874849 0.000585359 0.00100218 0.00138766 0.00125381 0.00094479 0.00260326 0.00311153 0.00224337 0.00343148 0.00539976 0.00446331 0.00474343 0.00692846 0.00602567 0.00160747 0.013052 0.0204071 0.0171414 0.0337147 0.0499565 0.0209936 0.0428567 0.00321047 0.0091537 0.0094856 0.0216892 0.0345019 0.0472306 0.27476 0.253218 0.158234 0.0629808 0.0929386 0.128606 0.095432 0.0669234 0.0215383 0.0250462 0.0217486 0.00910756 0.0163097 0.0239939 0.0269086 0.01936 0.037147 0.00972273 0.00601588 0.00793036 0.00670945 0.00555838 0.00491237 0.00698151 0.00496616 0.00858905
+# COM_NET_N 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00412468 0.00531647 0.0304707 0.0373624 0.0868692 0.126021 0.144564 0.0485668 0.0664544 0.0216807 0.0179193 0.00329715 0.00188866 0.000921467 0.00199325 0.00383742 0.499108 0.0533385 0.00188675 0.000628685 0.07634 0.00902732 0.00945592 7.284e-005 0.00360867 0.000360925 0 0.00116388 0.000316045 0.000250797 0.000907502 0 0 0 0 0 0 0 0.00135463 0 0 0 0 0 0 0 0 0 0
+# COM_OTH_N 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.78135e-005 5.79984e-005 6.71917e-005 4.71937e-005 4.73037e-005 4.0623e-005 3.38927e-005 3.61854e-005 2.03604e-005 2.71445e-005 4.30135e-005 3.62667e-005 4.54079e-005 3.64117e-005 5.25108e-005 2.29213e-005 5.75224e-005 5.77071e-005 3.93785e-005 2.3278e-005 3.28243e-005 5.91474e-005 5.00827e-005 3.59521e-005 1.92595e-005 2.66106e-005 2.42293e-006 4.84175e-006 2.42051e-006 4.85591e-006 2.44558e-006 2.95068e-005 2.22593e-005 0.000132501 0.000504858 0.00103229 0.001469 0.00188532 0.00121922 0.000702667 0.00117527 0.00127897 0.00223762 0.00286609 0.00169074 0.00132554 0.00110647 0.00119824 0.000809974 0.000846961 0.000860618 0.000519155 0.000408986 0.000757369 0.00103916 0.000822569 0.00125699 0.00141642 0.00188997 0.00290784 0.0033738 0.00377265 0.00864804 0.00367429 0.000123554 0.0142694 0.00166269 0.000128057 0.000272644 0.00354838 0.000319904 5.88284e-005 1.2303e-005 0.000265582 8.99491e-005 1.33457e-005 6.05831e-005 1.89209e-005 0.000923674 0.0138407 6.33384e-005 0.00205212 0.000702739 0.000320388 0.000516506 0.000124608 0.000100555 8.2796e-005 1.34791e-005 0.000135789 5.74662e-005 0.000117869 0.000442566 9.34878e-005 1.22274e-005 2.23391e-005 2.02702e-005 4.5937e-005 1.67087e-005 2.28902e-005 4.19675e-005 7.25835e-005
+# COM_DISC_N 0 7.8873e-005 0.000157775 0.000235323 0.000314358 0.00039349 0.000472736 0.000552113 0.000631631 0.00070989 0.000789727 0.000869738 0.000949934 0.00103032 0.00111091 0.00119028 0.00128411 0.00200635 0.00238994 0.00162394 0.00166589 0.00139463 0.00119706 0.00127344 0.000765119 0.00101029 0.00156342 0.00142374 0.00162657 0.00139143 0.00198911 0.0017366 0.00146802 0.000824068 0.00131225 0.00160548 0.00284685 0.00266661 0.00186369 0.000873927 0.000947319 0.000619691 0.000304648 0.000480151 0.00139312 0.0031161 0.0032056 0.00116433 0.00183764 0.00127611 0.00235325 0.00236986 0.00188454 0.00113453 0.00120381 0.000961777 0.00277538 0.00270618 0.00245454 0.00178099 0.000916921 0.000655706 0.000481996 0.000500962 0.000322627 0.000404141 0.00047659 0.000362937 0.000270463 0.000888613 0.00111826 0.00221809 0.00302585 0.0064314 0.00898949 0.0110594 0.00606327 0.00759305 0.0046709 0.0064647 0.00649493 0.00964197 0.0104621 0.0141215 0.00574831 0.0426513 0.00360956 0.00178026 0.00164392 0.00645327 0.0057909 0.00769673 0.0414295 0.0350954 0.0200022 0.00910569 0.0107325 0.0148896 0.0111633 0.00833278 0.00297658 0.00372753 0.00352927 0.00158567 0.00294991 0.00443737 0.00478007 0.0033385 0.00620312 0.00158602 0.00095558 0.00122739 0.00102109 0.000853841 0.000775014 0.0011453 0.000854696 0.00147821
+#
+#_Q_setup
+#_   fleet      link link_info  extra_se   biasadj     float  #  fleetname
+         1         1         0         1         0         1  #  REC_CPFV_N
+         3         1         0         1         0         1  #  REC_PRIV_N_CRFS
+         9         1         0         1         0         1  #  ONBOARD_CPFV_88_98_N
+        10         1         0         1         0         1  #  JUV_SWFSC_N
+        11         1         0         1         0         1  #  ONBOARD_CPFV_01_16_N
+        14         1         0         0         0         0  #  SSB_Survey_2017
+-9999 0 0 0 0 0
+#
+#_Q_parms(if_any);Qunits_are_ln(q)
+#_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
+           -15            15      -7.90639             0             1             0         -1          0          0          0          0          0          0          0  #  LnQ_base_REC_CPFV_N(1)
+             0          0.75       0.22307          0.05             1             0          2          0          0          0          0          0          0          0  #  Q_extraSD_REC_CPFV_N(1)
+           -15            15      -8.03316             0             1             0         -1          0          0          0          0          0          0          0  #  LnQ_base_REC_PRIV_N_CRFS(3)
+             0          0.75      0.555308          0.05             1             0          2          0          0          0          0          0          0          0  #  Q_extraSD_REC_PRIV_N_CRFS(3)
+           -15            15      -7.00904             0             1             0         -1          0          0          0          0          0          0          0  #  LnQ_base_ONBOARD_CPFV_88_98_N(9)
+             0          0.75      0.175114          0.05             1             0          2          0          0          0          0          0          0          0  #  Q_extraSD_ONBOARD_CPFV_88_98_N(9)
+           -15            15      -6.44977             0             1             0         -1          0          0          0          0          0          0          0  #  LnQ_base_JUV_SWFSC_N(10)
+             0          0.75       0.19694          0.05             1             0          2          0          0          0          0          0          0          0  #  Q_extraSD_JUV_SWFSC_N(10)
+           -15            15      -8.52137             0             1             0         -1          0          0          0          0          0          0          0  #  LnQ_base_ONBOARD_CPFV_01_16_N(11)
+             0          0.75      0.689428          0.05             1             0          2          0          0          0          0          0          0          0  #  Q_extraSD_ONBOARD_CPFV_01_16_N(11)
+           -15            15             0             0             1             0         -1          0          0          0          0          0          0          0  #  LnQ_base_SSB_Survey_2017(14)
+#_no timevary Q parameters
+#
+#_size_selex_types
+#discard_options:_0=none;_1=define_retention;_2=retention&mortality;_3=all_discarded_dead
+#_Pattern Discard Male Special
+ 24 0 0 0 # 1 REC_CPFV_N
+ 24 0 0 0 # 2 REC_PRIV_N_MRFSS
+ 5 0 0 2 # 3 REC_PRIV_N_CRFS
+ 24 0 0 0 # 4 REC_DISC_N
+ 24 0 0 0 # 5 COM_HKL_N
+ 24 0 0 0 # 6 COM_NET_N
+ 5 0 0 5 # 7 COM_OTH_N
+ 24 0 0 0 # 8 COM_DISC_N
+ 24 0 0 0 # 9 ONBOARD_CPFV_88_98_N
+ 0 0 0 0 # 10 JUV_SWFSC_N
+ 5 0 0 1 # 11 ONBOARD_CPFV_01_16_N
+ 24 0 0 0 # 12 SCHMIDT_N
+ 24 0 0 0 # 13 ABRAMS_N
+ 0 0 0 0 # 14 SSB_Survey_2017
+#
+#_age_selex_types
+#_Pattern Discard Male Special
+ 10 0 0 0 # 1 REC_CPFV_N
+ 10 0 0 0 # 2 REC_PRIV_N_MRFSS
+ 10 0 0 0 # 3 REC_PRIV_N_CRFS
+ 10 0 0 0 # 4 REC_DISC_N
+ 10 0 0 0 # 5 COM_HKL_N
+ 10 0 0 0 # 6 COM_NET_N
+ 10 0 0 0 # 7 COM_OTH_N
+ 10 0 0 0 # 8 COM_DISC_N
+ 10 0 0 0 # 9 ONBOARD_CPFV_88_98_N
+ 11 0 0 0 # 10 JUV_SWFSC_N
+ 10 0 0 0 # 11 ONBOARD_CPFV_01_16_N
+ 10 0 0 0 # 12 SCHMIDT_N
+ 10 0 0 0 # 13 ABRAMS_N
+ 10 0 0 0 # 14 SSB_Survey_2017
+#
+#_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
+            20            50       33.9001            35           0.5             0          4          0          0          0          0          0          1          2  #  SizeSel_P1_REC_CPFV_N(1)
+           -12             0            -9            -9           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P2_REC_CPFV_N(1)
+             1            10       3.98626             4           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P3_REC_CPFV_N(1)
+             1            10            10            10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P4_REC_CPFV_N(1)
+           -11            -9           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P5_REC_CPFV_N(1)
+           -11            -9            10            10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P6_REC_CPFV_N(1)
+            20            50       35.5859            35           0.5             0          4          0          0          0          0          0          2          2  #  SizeSel_P1_REC_PRIV_N_MRFSS(2)
+           -12             0            -9            -9           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P2_REC_PRIV_N_MRFSS(2)
+             1            10       4.01319             4           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P3_REC_PRIV_N_MRFSS(2)
+             1            10            10            10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P4_REC_PRIV_N_MRFSS(2)
+           -11            -9           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P5_REC_PRIV_N_MRFSS(2)
+           -11            -9            10            10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P6_REC_PRIV_N_MRFSS(2)
+            -2             0            -1             1           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P1_REC_PRIV_N_CRFS(3)
+            -2             0            -1            31           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P2_REC_PRIV_N_CRFS(3)
+            14            30       22.4743            21           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P1_REC_DISC_N(4)
+           -12             0           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P2_REC_DISC_N(4)
+             1            10       3.61668           3.5           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P3_REC_DISC_N(4)
+             1            10       3.75151           3.5           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P4_REC_DISC_N(4)
+           -11            -9           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P5_REC_DISC_N(4)
+           -11            -9           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P6_REC_DISC_N(4)
+            20            50       39.2226            39           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P1_COM_HKL_N(5)
+           -12             0            -9            -9           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P2_COM_HKL_N(5)
+             1            10        4.0627             4           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P3_COM_HKL_N(5)
+             1            10            10            10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P4_COM_HKL_N(5)
+           -11            -9           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P5_COM_HKL_N(5)
+           -11            -9            10            10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P6_COM_HKL_N(5)
+            20            50        42.389            41           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P1_COM_NET_N(6)
+           -12             0           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P2_COM_NET_N(6)
+             1            10       3.05645             3           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P3_COM_NET_N(6)
+             1            10            10            10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P4_COM_NET_N(6)
+           -11            -9           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P5_COM_NET_N(6)
+           -11            -9            10            10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P6_COM_NET_N(6)
+            -2             0            -1             1           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P1_COM_OTH_N(7)
+            -2             0            -1            31           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P2_COM_OTH_N(7)
+            14            50       27.5605            25           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P1_COM_DISC_N(8)
+           -12             0           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P2_COM_DISC_N(8)
+          0.01            10       3.74777             4           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P3_COM_DISC_N(8)
+          0.01            10       4.42589             4           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P4_COM_DISC_N(8)
+           -11            -9           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P5_COM_DISC_N(8)
+           -11            -9           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P6_COM_DISC_N(8)
+            20            50       29.9721            29           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P1_ONBOARD_CPFV_88_98_N(9)
+           -12             0            -9            -9           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P2_ONBOARD_CPFV_88_98_N(9)
+             1            10       3.51849             4           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P3_ONBOARD_CPFV_88_98_N(9)
+             1            10            10            10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P4_ONBOARD_CPFV_88_98_N(9)
+           -11            -9           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P5_ONBOARD_CPFV_88_98_N(9)
+           -11            -9            10            10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P6_ONBOARD_CPFV_88_98_N(9)
+            -2             0            -1             1           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P1_ONBOARD_CPFV_01_16_N(11)
+            -2             0            -1            31           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P2_ONBOARD_CPFV_01_16_N(11)
+            20            50        33.102            31           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P1_SCHMIDT_N(12)
+           -12             0            -9            -9           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P2_SCHMIDT_N(12)
+             1            10       4.76655             5           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P3_SCHMIDT_N(12)
+             1            10            10            10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P4_SCHMIDT_N(12)
+           -11            -9           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P5_SCHMIDT_N(12)
+           -11            -9            10            10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P6_SCHMIDT_N(12)
+            20            50       34.0894            31           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P1_ABRAMS_N(13)
+           -12             0            -9            -9           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P2_ABRAMS_N(13)
+             1            10        4.5578             5           0.5             0          4          0          0          0          0          0          0          0  #  SizeSel_P3_ABRAMS_N(13)
+          0.01            10             8             8           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P4_ABRAMS_N(13)
+           -11            -9           -10           -10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P5_ABRAMS_N(13)
+           -10            10            10            10           0.5             0         -4          0          0          0          0          0          0          0  #  SizeSel_P6_ABRAMS_N(13)
+             0             0             0             0            10             0         -4          0          0          0          0          0          0          0  #  AgeSel_P1_JUV_SWFSC_N(10)
+             0             0             0             0            10             0         -4          0          0          0          0          0          0          0  #  AgeSel_P2_JUV_SWFSC_N(10)
+# timevary selex parameters 
+#_          LO            HI          INIT         PRIOR         PR_SD       PR_type    PHASE  #  parm_name
+            20            50       31.4062            35           0.5             0      4  # SizeSel_P1_REC_CPFV_N(1)_BLK1repl_1899
+            20            50       33.3442            35           0.5             0      4  # SizeSel_P1_REC_CPFV_N(1)_BLK1repl_1972
+            20            50       31.8609            35           0.5             0      4  # SizeSel_P1_REC_PRIV_N_MRFSS(2)_BLK2repl_1899
+# info on dev vectors created for selex parms are reported with other devs after tag parameter section 
+#
+0   #  use 2D_AR1 selectivity(0/1):  experimental feature
+#_no 2D_AR1 selex offset used
+#
+# Tag loss and Tag reporting parameters go next
+0  # TG_custom:  0=no read; 1=read if tags exist
+#_Cond -6 6 1 1 2 0.01 -4 0 0 0 0 0 0 0  #_placeholder if no parameters
+#
+# deviation vectors for timevary parameters
+#  base   base first block   block  env  env   dev   dev   dev   dev   dev
+#  type  index  parm trend pattern link  var  vectr link _mnyr  mxyr phase  dev_vector
+#      5     1     1     1     2     0     0     0     0     0     0     0
+#      5     7     3     2     2     0     0     0     0     0     0     0
+     #
+# Input variance adjustments factors: 
+ #_1=add_to_survey_CV
+ #_2=add_to_discard_stddev
+ #_3=add_to_bodywt_CV
+ #_4=mult_by_lencomp_N
+ #_5=mult_by_agecomp_N
+ #_6=mult_by_size-at-age_N
+ #_7=mult_by_generalized_sizecomp
+#_Factor  Fleet  Value
+      4      1      0.13
+      4      2      0.07
+      4      3     0.035
+      4      4     0.199
+      4      5     0.326
+      4      6         1
+      4      7         1
+      4      8      0.35
+      4      9      0.62
+      4     10         1
+      4     11         1
+      4     12      0.27
+      4     13      0.81
+      5      1      0.24
+      5     12      0.32
+      5     13      0.21
+ -9999   1    0  # terminator
+#
+1 #_maxlambdaphase
+1 #_sd_offset
+# read 1 changes to default Lambdas (default value is 1.0)
+# Like_comp codes:  1=surv; 2=disc; 3=mnwt; 4=length; 5=age; 6=SizeFreq; 7=sizeage; 8=catch; 9=init_equ_catch; 
+# 10=recrdev; 11=parm_prior; 12=parm_dev; 13=CrashPen; 14=Morphcomp; 15=Tag-comp; 16=Tag-negbin; 17=F_ballpark
+#like_comp fleet  phase  value  sizefreq_method
+ 1 14 1 0 1
+-9999  1  1  1  1  #  terminator
+#
+# lambdas (for info only; columns are phases)
+#  1 #_CPUE/survey:_1
+#  0 #_CPUE/survey:_2
+#  1 #_CPUE/survey:_3
+#  0 #_CPUE/survey:_4
+#  0 #_CPUE/survey:_5
+#  0 #_CPUE/survey:_6
+#  0 #_CPUE/survey:_7
+#  0 #_CPUE/survey:_8
+#  1 #_CPUE/survey:_9
+#  1 #_CPUE/survey:_10
+#  1 #_CPUE/survey:_11
+#  0 #_CPUE/survey:_12
+#  0 #_CPUE/survey:_13
+#  0 #_CPUE/survey:_14
+#  1 #_lencomp:_1
+#  1 #_lencomp:_2
+#  1 #_lencomp:_3
+#  1 #_lencomp:_4
+#  1 #_lencomp:_5
+#  1 #_lencomp:_6
+#  0 #_lencomp:_7
+#  1 #_lencomp:_8
+#  1 #_lencomp:_9
+#  0 #_lencomp:_10
+#  0 #_lencomp:_11
+#  1 #_lencomp:_12
+#  1 #_lencomp:_13
+#  0 #_lencomp:_14
+#  1 #_agecomp:_1
+#  0 #_agecomp:_2
+#  0 #_agecomp:_3
+#  0 #_agecomp:_4
+#  0 #_agecomp:_5
+#  0 #_agecomp:_6
+#  0 #_agecomp:_7
+#  0 #_agecomp:_8
+#  0 #_agecomp:_9
+#  0 #_agecomp:_10
+#  0 #_agecomp:_11
+#  1 #_agecomp:_12
+#  1 #_agecomp:_13
+#  0 #_agecomp:_14
+#  1 #_init_equ_catch
+#  1 #_recruitments
+#  1 #_parameter-priors
+#  1 #_parameter-dev-vectors
+#  1 #_crashPenLambda
+#  0 # F_ballpark_lambda
+0 # (0/1) read specs for more stddev reporting 
+ # 0 1 -1 5 1 5 1 -1 5 # placeholder for selex type, len/age, year, N selex bins, Growth pattern, N growth ages, NatAge_area(-1 for all), NatAge_yr, N Natages
+ # placeholder for vector of selex bins to be reported
+ # placeholder for vector of growth ages to be reported
+ # placeholder for vector of NatAges ages to be reported
+999
+

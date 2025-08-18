@@ -1,0 +1,10 @@
+Warning 1 : parameter init value is greater than parameter max 15 > 10 for parm: 4; search for <now check> in echoinput.sso for parm_type
+Warning 2 : parameter init value is greater than parameter max 15 > 10 for parm: 19; search for <now check> in echoinput.sso for parm_type
+Warning 3 Adjustment: setting positive forecast relF for forecast only fleet: 2
+Warning 4 Adjustment: setting positive forecast relF for forecast only fleet: 2
+Warning 5 : Final gradient: 0.00295615 is larger than final_conv: 0.0001
+Warning 6 Adjustment: setting positive forecast relF for forecast only fleet: 2
+Warning 7 Adjustment: setting positive forecast relF for forecast only fleet: 2
+Warning 8 : Time-vary parms not bound checked
+Note 1 Information:  N parameters that are on or within 1% of min-max bound: 2; check results, variance may be suspect
+ 8 warnings  and 1 note 

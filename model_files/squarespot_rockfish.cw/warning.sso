@@ -1,0 +1,10 @@
+#V3.30.16.00;_2020_09_03;_safe;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_12.2
+#Stock Synthesis (SS) is a work of the U.S. Government and is not subject to copyright protection in the United States.
+#Foreign copyrights may apply. See copyright.txt for more information.
+Tue Apr 06 21:44:29 2021
+
+survey fleet: 2 surveytime read as: -1 SS resets to 1 for all survey fleets, and always overridden by indiv. obs. month
+setting in starter does not request all priors, and 3 parameters have priors and are not estimated, so their prior not included in obj_fun.
+ warning: poor convergence in Fmsy, final dy/dy2= -0.0365758
+ Fmsy is >3x of Fspr are you sure?  check for convergence 
+ N warnings: 4

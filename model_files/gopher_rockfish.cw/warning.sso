@@ -1,0 +1,11 @@
+#V3.30.13.09-opt;_2019_06_30;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_12.0
+#Stock Synthesis (SS) is a work of the U.S. Government and is not subject to copyright protection in the United States.
+#Foreign copyrights may apply. See copyright.txt for more information.
+Mon Aug 05 13:43:16 2019
+
+ 
+ warning: poor convergence in Fmsy, final dy/dy2= -0.0223193
+ Fmsy is >3x of Fspr are you sure?  check for convergence 
+Final gradient: 0.000801087 is larger than final_conv: 0.0001
+ N warnings: 4
+Number_of_active_parameters_on_or_near_bounds: 0

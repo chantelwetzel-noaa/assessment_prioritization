@@ -1,0 +1,11 @@
+SS-V3.30.06.02-safe;_2017_07_26;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_11.6
+Tue Oct 03 09:59:29 2017
+
+fleet: 4 surveytime read for fishing fleet as: 1004 normally is -1 for fishing fleet; can override by month>1000
+fleet: 5 surveytime read for fishing fleet as: 1007 normally is -1 for fishing fleet; can override by month>1000
+fleet: 6 surveytime read for fishing fleet as: 1010 normally is -1 for fishing fleet; can override by month>1000
+fleet: 7 surveytime read for fishing fleet as: 1008 normally is -1 for fishing fleet; can override by month>1000
+fleet: 8 surveytime read for fishing fleet as: 1007 normally is -1 for fishing fleet; can override by month>1000
+ N warnings: 0
+Reminder: Number of lamdas !=0.0 and !=1.0:  9
+Number_of_active_parameters_on_or_near_bounds: 1

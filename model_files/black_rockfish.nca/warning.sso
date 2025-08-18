@@ -1,0 +1,3 @@
+Note 1 Information: Max data length bin: 60  < max pop len bins: 70; so will accumulate larger pop len bins
+Warning 1 : Final gradient: 8.0276e-05 is larger than final_conv: 1e-05
+ 1 warning  and 1 note 
