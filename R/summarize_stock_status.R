@@ -1,3 +1,5 @@
+#' Calculate ranking by stock status
+#' 
 #' Function that will read output from all models in 
 #' the model_loc ("model_files") folder. The unfished
 #' spawning biomass, final spawning biomass, sigma R,
@@ -8,37 +10,37 @@
 #' and assessment frequency sheets in the "data" folder. The 
 #' updated stock status and assessment frequency csv files are 
 #' then saved to the tables folder.  
-#' 
-#' 
-#' 
-#' 
 #'
 #' @param abundance A csv file containing the existing abundance by species that the 
-#' newly assessed species abundance estimates will be added to or old abundance values replaced. The
-#' csv file to be read is found in the data folder.
+#'   newly assessed species abundance estimates will be added to or old abundance values replaced. The
+#'   csv file to be read is found in the data folder.
 #' @param frequency A csv file from the previous assessment prioritization assessment
-#' frequency tab. The csv file to be read is found in the data folder.
+#'   frequency tab. The csv file to be read is found in the data folder.
+#' @param species CSV file in the data folder called "species_names.csv" that includes
+#'   all the species to include in this analysis.
 #' @param model_loc Folder name to look for model files. The default is "model_files" in the 
-#' assessment prioritization github.
+#'   assessment prioritization github.
 #' @param years Vector of specific years to calculate the mean age of the catches by species.
 #' 
-#' 
-#'
 #' @author Chantel Wetzel
 #' @export
-#' @md
 #' 
 #' @examples
+#' \dontrun{
+#'   summarize_stock_status(
+#'   		abundance = abundance, #abundance_historical.csv 
+#'   		frequency = frequency, #species_sigma_sigmaR.csv 
+#'   		species = species,
+#'   		model_loc = "model_files",
+#'   		years = 2000:2020 # Catch-at-Age range
+#'   )
+#' }
 #' 
-#' summarize_stock_status(
-#' 		abundance = abundance, #abundance_historical.csv 
-#' 		frequency = frequency, #species_sigma_sigmaR.csv 
-#' 		species = species,
-#' 		model_loc = "model_files",
-#' 		years = 2000:2020 # Catch-at-Age range
-#' )
-#' 
-summarize_stock_status <- function(abundance, frequency, species, model_loc = "model_files", 
+summarize_stock_status <- function(
+  abundance, 
+  frequency, 
+  species, 
+  model_loc = "model_files", 
 	years) {
 	
 	new_models <- list.files(model_loc)
@@ -71,8 +73,7 @@ summarize_stock_status <- function(abundance, frequency, species, model_loc = "m
 		find <- which(model$catage$Yr %in% years)
 		ncols <- dim(model$catage)[2] 
 		age <- 0:(ncols - 12)
-		new_results[a, "Mean_Catch_Age"] <- round(sum(age * apply(model$catage[find, 12:ncols], 2, sum)) / 
-											sum(model$catage[find, 12:ncols]), 1)
+		new_results[a, "Mean_Catch_Age"] <- round(sum(age * apply(model$catage[find, 12:ncols], 2, sum)) / sum(model$catage[find, 12:ncols]), 1)
 		if(sum(model$recruitpars[, "Value"]) != 0){
 		  new_results[a, "SigmaR"] <- model$sigma_R_in
 		} else {
@@ -166,9 +167,9 @@ summarize_stock_status <- function(abundance, frequency, species, model_loc = "m
 	abundance_out$Fraction_Unfished <- abundance_out$Estimate
 	stock_status <- abundance_out[, c("Species", "Rank", "Factor_Score", "Fraction_Unfished", "Target", "MSST", "PSA", "Trend")]
 
-	write.csv(stock_status, file.path("data-processed", "6_stock_status.csv"), row.names = FALSE)
-	write.csv(new_frequency, file.path("data-processed", "species_sigmaR_catage.csv"), row.names = FALSE)
-	write.csv(new_results,   file.path("data-processed", "model_results_processed.csv"), row.names = FALSE)
+	utils::write.csv(stock_status, file.path("data-processed", "6_stock_status.csv"), row.names = FALSE)
+	utils::write.csv(new_frequency, file.path("data-processed", "species_sigmaR_catage.csv"), row.names = FALSE)
+	utils::write.csv(new_results,   file.path("data-processed", "model_results_processed.csv"), row.names = FALSE)
 	
 	return(stock_status)
 }

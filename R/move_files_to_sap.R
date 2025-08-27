@@ -1,21 +1,16 @@
-#'
-#' 
-#' 
+#'Copy and move csv file by factor to the shiny repo
 #' 
 #'
 #' @param dir Directory of saved factor file
-#' @param mov_to Directory of the shiny app
+#' @param move_to Directory of the shiny app
 #'
 #' @author Chantel Wetzel
 #' @export
-#' @md
-#' 
 #' 
 #'
 move_files_to_sap <- function(
   dir = here::here("data-processed"), 
-  move_to = "C:/Users/Chantel.Wetzel/Documents/GitHub/wcgfishSAP/tables"){
-  
+  move_to = "C:/Users/Chantel.Wetzel/Documents/gitHub/prioritization/wcgfishSAP/tables"){
   
   file.copy(from = file.path(dir, "1_fishing_mortality.csv"),
             to = file.path(move_to, "1_fishing_mortality.csv"), overwrite = TRUE)
@@ -37,5 +32,4 @@ move_files_to_sap <- function(
             to = file.path(move_to, "9_new_information.csv"), overwrite = TRUE)
   file.copy(from = file.path(dir, "10_rebuilding.csv"), 
             to = file.path(move_to, "10_rebuilding.csv"), overwrite = TRUE)
-  
 }

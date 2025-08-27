@@ -1,4 +1,4 @@
-Package: assessment_prioritization
+Package: wcsap
 Type: Package
 Title: West Coast Groundfish Assessment Prioritization
 Version: 1.0
@@ -8,15 +8,32 @@ Authors@R:
              role = c("aut", "cre"),
              email = "chantel.wetzel@noaa.gov"))
 Maintainer: chantel.wetzel <chantel.wetzel@noaa.gov>
-Description: West Coast Groundfish Assessment Prioritization
+Description: Code and methodology used to calculate West Coast Groundfish Assessment Prioritization.
 License: GPL (>=3)
 Suggests:
 Imports:
-    nwfscSurvey
+    calendR,
+    dplyr,
+    here,
+    ggplot2,
+    knitr,
+    lubridate,
+    nmfspalette,
+    nwfscSurvey,
+    PNWColors,
+    rmarkdown,
+    stats,
+    targets,
+    tm, 
+    utils
 Depends:
-    dplyr (>= 1.0.0),
     R (>= 4.0)
+Remotes:
+    github::pfmc-assessments/nwfscSurvey,
+    github::r4ss/r4ss
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
-VignetteBuilder: knitr
-RoxygenNote: 7.1.1
 LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2

@@ -2,49 +2,34 @@
 % Please edit documentation in R/summarize_const_demand.R
 \name{summarize_const_demand}
 \alias{summarize_const_demand}
-\title{Calculations used for the "Const Demand" tab for assessment prioritization.
-The values used in the constituent demand tab are primarily scored qualitatively.
-This function will provied the state, gear, and sector (commercial vs. recreational)
-differences across the states and coastwide which then can be qualitatively
-used to input modifiers.}
+\title{Calculations used for the "Const Demand" tab for assessment prioritization.}
 \usage{
 summarize_const_demand(
-  commercial_name,
-  rec_file,
-  species_file,
-  years,
-  max_exp = 0.18
+  revenue_data,
+  rec_importance_data,
+  fishing_mortality,
+  future_spex,
+  species = species
 )
 }
 \arguments{
-\item{rec_file}{A csv file with recreational importance factor calculation}
+\item{revenue_data}{Filtered revenue by year (filter_years) from PacFIN that
+includes both commercial and tribal revenue (data-raw/pacfin_revenue.csv).}
 
-\item{species_file}{A csv file with species names to summarize}
+\item{rec_importance_data}{Data object created by summarize_rec_importance function}
 
-\item{years}{Years to average the commercial revenue across.}
+\item{fishing_mortality}{Data object created by summarize_fishing_mortality function}
 
-\item{max_exp}{Numeric value that will be applied to create a spread across ranked
-species calculated as: value ^ max_exp}
+\item{future_spex}{Data objected created from the data-raw/GMT008-harvest specifications_alt2-2025.csv}
 
-\item{commercial_file}{A csv file with commercial revenue and gear codes downloaded
-from PacFIN (via login account).}
+\item{species}{Data object read from the data folder called "species_names.csv" that includes
+all the species to include in this analysis..}
 }
 \description{
-Calculations used for the "Const Demand" tab for assessment prioritization.
 The values used in the constituent demand tab are primarily scored qualitatively.
-This function will provied the state, gear, and sector (commercial vs. recreational)
+This function will provide the state, gear, and sector (commercial vs. recreational)
 differences across the states and coastwide which then can be qualitatively
 used to input modifiers.
-}
-\examples{
-
-summarize_const_demand(
-		commercial_file <- "commercial_revenue_with_gear_code.csv"
-		rec_file <- "recreational_importance.csv"
-		species_file <-  "species_names.csv"
-		years <- 2016:2020
-)
-
 }
 \author{
 Chantel Wetzel

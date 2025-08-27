@@ -1,0 +1,28 @@
+---
+title: "Data and process to conduct assessment prioritization for West Coast groundfish"
+author: "Chantel Wetzel"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{assessment_prioritization}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+
+## Functions
+
+A list of all functions in the packages can be viewed by:
+
+```r
+ls("package:assessment_prioritization")
+```

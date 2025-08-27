@@ -1,4 +1,5 @@
 #' Function to compare future ACLs to existing fishing mortality averages. 
+#' 
 #' This function uses output from the summarize_fishing_mortality and the summarize_frequency
 #' functions and hence should be only run after these two functions. The manage_file
 #' is downloaded from PacFIN APEX future harvest specifications
@@ -10,35 +11,29 @@
 #' the year of the last assessment will be found to be appending in this output file.
 #' 
 #'
-#' @param manage_file A csv file with OFLs and ACLs from the draft harvest 
-#' specifications table in PacFIN APEX reporting online.
-#' @param fishing_mort_file A csv file created by the summarize_fishing_mortality function.
-#' @param freq_file A csv file created by the summarize_frequency function.
-#' @param species_file A csv file in the data folder called "species_names.csv" to summarize across.
+#' @param future_spex A csv file with OFLs and ACLs from the draft harvest 
+#'   specifications table in PacFIN APEX reporting online.
+#' @param fishing_mort A csv file created by the summarize_fishing_mortality function.
+#' @param frequency Suggested assessment frequency based upon biology. A csv file from 
+#'   the previous assessment prioritization assessment
+#'   frequency tab. The csv file to be read is found in the data folder:
+#'   data-raw/species_sigmaR_catage_main.csv
+#' @param species CSV file in the data folder called "species_names.csv" that includes
+#'   all the species to include in this analysis.
 #'
 #' @author Chantel Wetzel
 #' @export
-#' @md
 #' 
-#' @examples
 #'
-#' Example call including all species:
-#' summarize_future_spex(
-#'    manage_file <- "GMT008-harvest specifications-2024.csv",
-#'    fishing_mort_file <- "fishing_mortality.csv",
-#'    freq_file <- "assessment_frequency.csv",
-#'    species_file <-  "species_names.csv"
-#' )
-#'
-summarize_future_spex <- function(future_spex, fishing_mort, assessment_frequency, species) {
+summarize_future_spex <- function(
+  future_spex, 
+  fishing_mort, 
+  frequency, 
+  species) {
 
-	#targets <- read.csv(file.path("data-raw", manage_file)) 
-	#fmort_data <- read.csv(file.path("data-processed", fishing_mort_file))
-	#species <-  read.csv(paste0("data/", species_file))
-	#freq_data <- read.csv(file.path("data-processed", freq_file))
-  target <- future_spex
+  targets <- future_spex
   fmort_data <- fishing_mort
-  freq_data <- assessment_frequency
+  freq_data <- frequency
 
 	fmort_data <- with(fmort_data, fmort_data[order(fmort_data[,"Species"]), ])
 	freq_data <- with(freq_data, freq_data[order(freq_data[,"Species"]), ])
@@ -56,7 +51,6 @@ summarize_future_spex <- function(future_spex, fishing_mort, assessment_frequenc
 	)
 	
 	for(sp in 1:nrow(species)) {
-
 		key <- ss <- NULL
 		name_list <- species[sp, species[sp,] != -99]
 		for(a in 1:length(name_list)){
@@ -116,8 +110,6 @@ summarize_future_spex <- function(future_spex, fishing_mort, assessment_frequenc
 			ifelse(mort_df$Factor_Score[sp] == 5, 0,
 			ifelse(mort_df$Factor_Score[sp] >  4 & mort_df$Factor_Score[sp] <= 2, -1, -2))))))
 	}
-
 	mort_df <- with(mort_df, mort_df[order(mort_df[,"Species"]), ])
-
-	write.csv(mort_df, file.path("data-processed", "future_spex.csv"), row.names = FALSE)
+	utils::write.csv(mort_df, file.path("data-processed", "future_spex.csv"), row.names = FALSE)
 }

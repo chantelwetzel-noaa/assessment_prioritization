@@ -1,3 +1,5 @@
+#' Calculate importance by revenue
+#' 
 #' Summarize and format commercial revenue data for insert
 #' into the assessment prioritizaiton. Data are pulled from 
 #' PacFIN filtering for only "P" Council records and removing
@@ -11,17 +13,24 @@
 #' are output in the 1,000s.  
 #'
 #' @param revenue CSV file pulled from PacFIN with commerical revenue
-#' data
-#' @param species_file A csv file will all species name to summarize
-#' @param years A vector of years to calculate the average revenue across (e.g. 2016:2020)
+#'   data
+#' @param species Data object read from the data folder called "species_names.csv" that includes
+#'   all the species to include in this analysis.
 #' @param tribal_score CSV with the tribal importance score by species
+#' @param frequency Suggested assessment frequency based upon biology. A csv file from 
+#'   the previous assessment prioritization assessment
+#'   frequency tab. The csv file to be read is found in the data folder:
+#'   data-raw/species_sigmaR_catage_main.csv
 #'
 #' @author Chantel Wetzel
 #' @export
-#' @md
 #' 
 #'
-summarize_revenue <- function(revenue, species, tribal_score = NULL, frequency) {
+summarize_revenue <- function(
+  revenue, 
+  species, 
+  tribal_score = NULL, 
+  frequency) {
 
   data <- revenue
 
@@ -61,8 +70,7 @@ summarize_revenue <- function(revenue, species, tribal_score = NULL, frequency) 
 		
 		if(length(key)>0){
 		  sub_data <- data[key,]
-		  #find <- which(sub_data$PACFIN_YEAR %in% years) 
-		  rev_tmp <- aggregate(AFI_EXVESSEL_REVENUE~AGENCY_CODE, sub_data, function(x) sum(x) / denominator)
+		  rev_tmp <- stats::aggregate(AFI_EXVESSEL_REVENUE~AGENCY_CODE, sub_data, function(x) sum(x) / denominator)
 		  revenue_df[sp, "Revenue"] <- sum(rev_tmp[, 2])
 		  if(is.na(revenue_df[sp, "Revenue"])) { 
 		    revenue_df[sp, "Revenue"] <- 0 
@@ -87,17 +95,8 @@ summarize_revenue <- function(revenue, species, tribal_score = NULL, frequency) 
 		}
 		
 	}
-
-	#if(is.null(tribal_score)){
-	#  revenue_df[, "Factor_Score"] <- 10 * log(as.numeric(revenue_df[, "Revenue"]) + 1) / max(log(as.numeric(revenue_df[, "Revenue"]) + 1))
-	#} else {
-	#  revenue_df[, "Factor_Score"] <- revenue_df[, "Tribal_Score"] + 7 * log(as.numeric(revenue_df[, "Revenue"]) + 1) / 
-	#    max(log(as.numeric(revenue_df[, "Revenue"]) +  1))
-	#}
-	
 	revenue_df[, "Factor_Score"] <- log(as.numeric(revenue_df[, "Revenue"]) + 1)
 
-	
 	# Reduce the Factor Score by -1 for species that were assessed last cycle
 	species_just_assessed <- frequency[which(frequency$Last_Assess == (as.numeric(format(Sys.Date(), "%Y")) - 1)), "Species"]
 	revenue_df[which(revenue_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"] <- -2
@@ -112,7 +111,6 @@ summarize_revenue <- function(revenue, species, tribal_score = NULL, frequency) 
 	  revenue_df[, "Factor_Score"] <- 10 * revenue_df[, "Factor_Score"] / max(revenue_df[, "Factor_Score"])
 	}
 	
-	
 	revenue_df <- revenue_df[order(revenue_df[,"Factor_Score"], decreasing = TRUE),]
 	revenue_df$Rank <- 1:nrow(revenue_df)
 	revenue_df <- revenue_df[order(revenue_df[,"Species"], decreasing = FALSE),]
@@ -121,9 +119,9 @@ summarize_revenue <- function(revenue, species, tribal_score = NULL, frequency) 
 
 	if(!"TI" %in% unique(data$FLEET_CODE)) {
 		revenue_df <- revenue_df[, !colnames(revenue_df) %in% c("Tribal_Score")]		
-		write.csv(revenue_df, "data-processed/2_commercial_revenue.csv", row.names = FALSE)
+		utils::write.csv(revenue_df, "data-processed/2_commercial_revenue.csv", row.names = FALSE)
 	} else {
-	  write.csv(revenue_df, "data-processed/3_tribal_revenue.csv", row.names = FALSE)
+	  utils::write.csv(revenue_df, "data-processed/3_tribal_revenue.csv", row.names = FALSE)
 	}
   return(revenue_df)
 }

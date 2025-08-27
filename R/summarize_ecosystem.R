@@ -1,18 +1,14 @@
-#' 
+#' Calculate ecosystem rank based upon Atlantis/Ecosim output
 #' 
 #'
 #' @param ecosystem_data A csv file with ecosystem scores by species based on Atlantis/Ecosim
-#' 
-#' 
 #'
 #' @author Chantel Wetzel
 #' @export
-#' @md
-#' 
-#' @examples
 #' 
 #' 
-summarize_ecosystem <- function(ecosystem_data){
+summarize_ecosystem <- function(
+  ecosystem_data){
   
   colnames(ecosystem_data)[1] <- "Species"
   # Top Down is the consumption values and bottom up is the consumer values
@@ -25,16 +21,14 @@ summarize_ecosystem <- function(ecosystem_data){
   ecosystem_data <- ecosystem_data[,c("Species",
                                       "Rank",
                                       "Factor_Score",
-                                      #"functional_groups",
                                       "prop_consumption_scaled",
                                       "prop_consumer_bio_scaled")]
   colnames(ecosystem_data) <- c("Species",
                                 "Rank",
                                 "Factor_Score",
-                                #"Ecosystem_Functional_Group",
                                 "Top_Down_Scaled",
                                 "Bottom_Up_Scaled")
   ecosystem_data[, c("Top_Down_Scaled", "Bottom_Up_Scaled")] <- round(ecosystem_data[, c("Top_Down_Scaled", "Bottom_Up_Scaled")], 2)
-  write.csv(ecosystem_data, "data-processed/5_ecosystem.csv", row.names = FALSE)
+  utils::write.csv(ecosystem_data, "data-processed/5_ecosystem.csv", row.names = FALSE)
   return(ecosystem_data)
 }

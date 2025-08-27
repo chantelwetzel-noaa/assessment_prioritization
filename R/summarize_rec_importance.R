@@ -1,3 +1,5 @@
+#' Calculate recreational importance
+#' 
 #' Summarize and format recreational catch data to be used along with recreational
 #' importance scores to calculate the 'pseudo revenue' by species for the recreational fishery.  
 #' The function currently uses an existing csv file with previously calculated recreational
@@ -5,25 +7,34 @@
 #' this should be modified in the future to use a stand-alone file containing the recreational
 #' species weights by state that should be saved in the "data" folder.
 #'
-#' @param rec_catch A csv file pulled from RecFIN with recreational catches.
-#' data. Found in the data folder in the assessment prioritization github repo.
-#' @param species_file A csv including all species to calculate values for.
+#' @param rec_catch A dataframe created by filter_gemm function with only recreational catches
+#'   by state.
+#' @param species Data object read from the data folder called "species_names.csv" that includes
+#'   all the species to include in this analysis.
 #' @param rec_importance A CSV file with the state-specific species importance scores
+#' @param frequency Suggested assessment frequency based upon biology. A csv file from 
+#'   the previous assessment prioritization assessment
+#'   frequency tab. The csv file to be read is found in the data folder:
+#'   data-raw/species_sigmaR_catage_main.csv
 #'
 #' @author Chantel Wetzel
 #' @export
-#' @md
 #' 
 #' @examples
-#' 
+#' \dontrun{
 #' summarize_rec_importance(
 #' 		file_name <- "CTE002-2016---2020.csv",
 #' 		years <- 2016:2020,
 #' 		species_file <-  "species_names.csv"
 #' )
+#' }
 #'
 #'
-summarize_rec_importance <- function(rec_catch, species, rec_importance, frequency) {
+summarize_rec_importance <- function(
+  rec_catch, 
+  species, 
+  rec_importance, 
+  frequency) {
 
   data <- rec_catch
 	#data <- read.csv(paste0("data-raw/", file_name)) 
@@ -73,7 +84,7 @@ summarize_rec_importance <- function(rec_catch, species, rec_importance, frequen
 		
 		if(length(key) > 0){
 		  sub_data <- data[key,]
-		  catch_sum <- aggregate(total_discard_with_mort_rates_applied_and_landings_mt ~ sector, sub_data, sum)
+		  catch_sum <- stats::aggregate(total_discard_with_mort_rates_applied_and_landings_mt ~ sector, sub_data, sum)
       state_vector <- gsub(" ", "_", catch_sum[,1])
 		  rec_importance_df[sp, state_vector] <-
 		    aggregate(total_discard_with_mort_rates_applied_and_landings_mt ~ sector, sub_data, sum)[,2]
@@ -119,6 +130,6 @@ summarize_rec_importance <- function(rec_catch, species, rec_importance, frequen
 	rec_importance_df[, c("Pseudo_Revenue_Coastwide", "Pseudo_Revenue_CA", "Pseudo_Revenue_OR", "Pseudo_Revenue_WA")] <- round(rec_importance_df[, c("Pseudo_Revenue_Coastwide", "Pseudo_Revenue_CA", "Pseudo_Revenue_OR", "Pseudo_Revenue_WA")], 1)
 	rec_importance_df[, "Factor_Score"] <- round(rec_importance_df[, "Factor_Score"], 2)
 	
-	write.csv(rec_importance_df, "data-processed/4_recreational_importance.csv", row.names = FALSE)
+	utils::write.csv(rec_importance_df, "data-processed/4_recreational_importance.csv", row.names = FALSE)
 	return(rec_importance_df)
 }

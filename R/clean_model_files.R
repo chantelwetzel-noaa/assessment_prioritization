@@ -7,13 +7,11 @@
 #'
 #' @author Chantel Wetzel
 #' @export
-#' @md
 #' 
-#' @examples
-#' clean_model_files(loc = "model_files/")
 #'
 #'
-clean_model_files <- function(loc = "model_files/") {
+clean_model_files <- function(
+  loc = "model_files/") {
 
 	dir_list <- list.dirs(loc)[-1]
 	remove <- grep("plots", dir_list)

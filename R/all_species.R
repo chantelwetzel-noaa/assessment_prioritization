@@ -4,7 +4,6 @@
 #' 
 #' @author Chantel Wetzel
 #' @export
-#' @md
 #' 
 #' 
 all_species <- function(){

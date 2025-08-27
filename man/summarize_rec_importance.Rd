@@ -2,26 +2,23 @@
 % Please edit documentation in R/summarize_rec_importance.R
 \name{summarize_rec_importance}
 \alias{summarize_rec_importance}
-\title{Summarize and format recreational catch data to be used along with recreational
-importance scores to calculate the 'pseudo revenue' by species for the recreational fishery.
-The function currently uses an existing csv file with previously calculated recreational
-importance to access existing relative weights for each species and state. In the future
-this should be modified in the future to use a stand-alone file containing the recreational
-species weights by state that should be saved in the "data" folder.}
+\title{Calculate recreational importance}
 \usage{
-summarize_rec_importance(file_name, species_file, years, max_exp = 0.18)
+summarize_rec_importance(rec_catch, species, rec_importance, frequency)
 }
 \arguments{
-\item{file_name}{A csv file pulled from RecFIN with recreational catches.
-data. Found in the data folder in the assessment prioritization github repo.}
+\item{rec_catch}{A dataframe created by filter_gemm function with only recreational catches
+by state.}
 
-\item{species_file}{A csv including all species to calculate values for.}
+\item{species}{Data object read from the data folder called "species_names.csv" that includes
+all the species to include in this analysis.}
 
-\item{years}{A vector of years to calculate the average recreational catch
-across.}
+\item{rec_importance}{A CSV file with the state-specific species importance scores}
 
-\item{max_exp}{A numerical value to apply as an exponent to the coastwide
-pseudo revenue score. Default value of 0.18.}
+\item{frequency}{Suggested assessment frequency based upon biology. A csv file from
+the previous assessment prioritization assessment
+frequency tab. The csv file to be read is found in the data folder:
+data-raw/species_sigmaR_catage_main.csv}
 }
 \description{
 Summarize and format recreational catch data to be used along with recreational
@@ -32,12 +29,13 @@ this should be modified in the future to use a stand-alone file containing the r
 species weights by state that should be saved in the "data" folder.
 }
 \examples{
-
+\dontrun{
 summarize_rec_importance(
 		file_name <- "CTE002-2016---2020.csv",
 		years <- 2016:2020,
 		species_file <-  "species_names.csv"
 )
+}
 
 
 }

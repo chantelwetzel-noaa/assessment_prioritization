@@ -1,29 +1,28 @@
 #' Calculations used for the "Const Demand" tab for assessment prioritization.
+#' 
 #' The values used in the constituent demand tab are primarily scored qualitatively.
-#' This function will provied the state, gear, and sector (commercial vs. recreational)
+#' This function will provide the state, gear, and sector (commercial vs. recreational)
 #' differences across the states and coastwide which then can be qualitatively
 #' used to input modifiers.
-#' 
-#' 
-#' 
 #'
-#' @param revenue_data Filtered revenue from PacFIN that includes both commercial 
-#' and tribal revenue.
-#' @param rec_file A csv file with recreational importance factor calculation
-#' @param species_file A csv file with species names to summarize
+#' @param revenue_data Filtered revenue by year (filter_years) from PacFIN that  
+#'   includes both commercial and tribal revenue (data-raw/pacfin_revenue.csv).
+#' @param rec_importance_data Data object created by summarize_rec_importance function
+#' @param fishing_mortality Data object created by summarize_fishing_mortality function
+#' @param future_spex Data objected created from the data-raw/GMT008-harvest specifications_alt2-2025.csv
+#' @param species Data object read from the data folder called "species_names.csv" that includes
+#'   all the species to include in this analysis..
 #'
 #' @author Chantel Wetzel
 #' @export
-#' @md
-#' 
 #' 
 #'
 summarize_const_demand <- function(
-    revenue_data, 
-    rec_importance_data, 
-    fishing_mortality,
-    future_spex,
-    species = species) {
+  revenue_data, 
+  rec_importance_data, 
+  fishing_mortality,
+  future_spex,
+  species = species) {
 
 	rec_data <- rec_importance_data 
 	revenue_data$gear <- "TWL"
@@ -65,7 +64,7 @@ summarize_const_demand <- function(
 		
 		sub_data <- revenue_data[key,]
 
-		tmp <- aggregate(AFI_EXVESSEL_REVENUE ~ AGENCY_CODE, sub_data, function(x) sum(x) / denominator )
+		tmp <- stats::aggregate(AFI_EXVESSEL_REVENUE ~ AGENCY_CODE, sub_data, function(x) sum(x) / denominator )
 		data[sp, "CW"] <- sum(tmp$AFI_EXVESSEL_REVENUE) 
 		for(aa in sort(unique(tmp$AGENCY_CODE))) {
 			data[sp, colnames(data) == aa] <- tmp[tmp$AGENCY_CODE == aa, "AFI_EXVESSEL_REVENUE"]
@@ -80,7 +79,6 @@ summarize_const_demand <- function(
 		data[sp, find] <- 0		
 	}
 
-	#int_value <- data[, -1] #^ max_exp
 	for(a in 3:ncol(score_rank_df)){
 		score_rank_df[, a] <- round(max_value * log(data[, a] + 1)  / max(log(data[, a] + 1)), 3)
 		tmp <- score_rank_df[order(score_rank_df[, a], decreasing = TRUE), c(1, a)]
@@ -105,8 +103,6 @@ summarize_const_demand <- function(
 	#===================================================  
   # Recreational importance
 	#===================================================
-  
-	#int_value <- rec_tmp ^ max_exp
 	for(a in 2:ncol(rec_score_df)){
 		rec_score_df[, a] <-  round(max_value * log(rec_tmp[, a] + 1)  / max(log(rec_tmp[, a] + 1)), 3)
 		tmp <- rec_score_df[order(rec_score_df[, a], decreasing = TRUE), c(1, a)]
@@ -198,12 +194,8 @@ summarize_const_demand <- function(
   }
 
   const_importance <- const_importance[order(const_importance[,"Species"], decreasing = FALSE), ]
-  write.csv(const_importance, file.path("data-processed", "8_constituent_demand.csv"), row.names = FALSE)
-  write.csv(rec_importance_df, file.path("data-processed", "_constituent_demand_rec_importance.csv"), row.names = FALSE)
-  write.csv(com_importance_df, file.path("data-processed", "_constituent_demand_com_importance.csv"), row.names = FALSE)
-	#write.csv(com_importance_df, file.path("tables", "const_demand_commercial_scores.csv"), row.names = FALSE)
-	#write.csv(rec_score_df, file.path("tables", "const_demand_recreational_scores.csv"), row.names = FALSE)
-	#write.csv(rank_df, file.path("tables", "const_demand_commercial_ranks.csv"), row.names = FALSE)
-	#write.csv(rec_importance_df, file.path("tables", "const_demand_recreational_ranks.csv"), row.names = FALSE)
+  utils::write.csv(const_importance, file.path("data-processed", "8_constituent_demand.csv"), row.names = FALSE)
+  utils::write.csv(rec_importance_df, file.path("data-processed", "_constituent_demand_rec_importance.csv"), row.names = FALSE)
+  utils::write.csv(com_importance_df, file.path("data-processed", "_constituent_demand_com_importance.csv"), row.names = FALSE)
   return(const_importance)
 }

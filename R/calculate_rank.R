@@ -1,19 +1,18 @@
-#'  
+#' Calculate the assessment prioritization rank by species based upon all the factors.
 #'
-#' @param fishing_mortality,
-#' @param commercial_importance,
-#' @param tribal_importance,
-#' @param recreational_importance,
-#' @param ecosystem,
-#' @param stock_status,
-#' @param assessment_frequency,
-#' @param constituent_demand,
-#' @param new_information,
-#' @param rebuilding
+#' @param fishing_mortality Output from summarize_fishing_mortality function
+#' @param commercial_importance Output from summarize_revenue for commercial fisheries
+#' @param tribal_importance Output from summarize_revenue for tribal fisheries 
+#' @param recreational_importance Output from summarize_rec_importance function
+#' @param ecosystem Output from summarize_ecosytem function
+#' @param stock_status Output from summarize_stock_status function
+#' @param assessment_frequency Output from summarize_frequency function
+#' @param constituent_demand Output from summarize_const_demand function
+#' @param new_information Output from summarize_new_information function
+#' @param rebuilding Output from summarize_rebuilding function
 #'
 #' @author Chantel Wetzel
 #' @export
-#' @md
 #' 
 #'
 calculate_rank <- function(
@@ -107,7 +106,7 @@ calculate_rank <- function(
     with(overall_rank_rm_stock_status_rebuild, overall_rank_rm_stock_status_rebuild[order(overall_rank_rm_stock_status_rebuild[, "Species"], decreasing = FALSE), ])
   
   
-  write.csv(overall_rank, "data-processed/11_overall_rank.csv", row.names = FALSE)
-  write.csv(overall_rank_rm_stock_status_rebuild, "data-processed/11_overall_rank_rm_stock_status_rebuilding.csv", row.names = FALSE)
+  utils::write.csv(overall_rank, "data-processed/11_overall_rank.csv", row.names = FALSE)
+  utils::write.csv(overall_rank_rm_stock_status_rebuild, "data-processed/11_overall_rank_rm_stock_status_rebuilding.csv", row.names = FALSE)
   return(overall_rank)
 }

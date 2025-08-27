@@ -1,21 +1,22 @@
+#' Calculate score based upon new information and research
 #' 
-#' 
-#' @param species 
-#' @param survey_data 
-#' @param bio_params 
-#' @param new_research
+#' @param species CSV file in the data folder called "species_names.csv" that includes
+#'   all the species to include in this analysis.
+#' @param survey_data Data frame of WCGBTS bds data from data-processed/all_nwfsc_survey_new_information.csv
+#' @param bio_params Data frame that includes the last year a species was assessed from
+#'   "data-processed/species_sigmaR_catage.csv"
+#' @param new_research Data frame of new research by species contained in data-raw/new_research.csv
 #'
 #' @author Chantel Wetzel
 #' @export
-#' @md
 #' 
 #'
 #'
 summarize_new_information <- function(
-    species = species, 
-    survey_data, 
-    bio_params,
-    new_research) {
+  species, 
+  survey_data, 
+  bio_params,
+  new_research) {
   
   new_info_df <- data.frame(
     Species = species[,1], 
@@ -104,10 +105,7 @@ summarize_new_information <- function(
     x <- x + length(ties)
   }
   
-  new_info_df <- 
-    new_info_df[order(new_info_df[,"Species"], decreasing = FALSE), ]
-  
-  write.csv(new_info_df, file.path("data-processed", "9_new_information.csv"), row.names = FALSE)
-
+  new_info_df <- new_info_df[order(new_info_df[,"Species"], decreasing = FALSE), ]
+  utils::write.csv(new_info_df, file.path("data-processed", "9_new_information.csv"), row.names = FALSE)
   return(new_info_df)
 }

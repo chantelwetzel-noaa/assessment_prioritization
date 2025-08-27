@@ -1,30 +1,19 @@
 #' Function to create the full assessment frequency tab. 
 #'
-#' @param frequency
-#' @param ecosystem
-#' @param frequency
-#' @param commercial
-#' @param tribal
-#' @param recreational
+#' @param frequency Suggested assessment frequency based upon biology. A csv file from 
+#'   the previous assessment prioritization assessment
+#'   frequency tab. The csv file to be read is found in the data folder:
+#'   data-raw/species_sigmaR_catage_main.csv
+#' @param ecosystem Dataframe created by summarize_ecosystem function
+#' @param commercial Dataframe created by summarize_revenue
+#' @param tribal Dataframe created by summarize_revenue for tribal catches
+#' @param recreational Dataframe created by summarize_rec_importance
 #' @param assessment_year A numerical value of the current year the assessment prioritization
-#' is being conducted. This value is compared to the last year assessed values to provide species
-#' rotation in the ranking based on time since the last assessment.
+#'   is being conducted. This value is compared to the last year assessed values to provide species
+#'   rotation in the ranking based on time since the last assessment.
 #'
 #' @author Chantel Wetzel
 #' @export
-#' @md
-#'  
-#' 
-#' @examples
-#' 
-#' summarize_frequency(
-#'   frequency = frequency, # read.csv("data-processed/species_sigmaR_catage.csv")
-#'   ecosystem = ecosystem, # output from the summarize_ecosystem()
-#'   commercial = commercial, # output from the summarize_revenue()
-#'   tribal = tribal, # output from the summarize_revenue()
-#'   recreational = recreational, # output from the summarize_rec_importance()                              
-#'   assessment_year = assessment_year
-#' )
 #' 
 summarize_frequency <- function(
   frequency, 
@@ -73,21 +62,6 @@ summarize_frequency <- function(
 		Ten_Years_or_Greater = NA,
 		Less_Than_6_Years_Update = NA
 	)
-
-	# Revise this because it does not make sense
-	#df$Transformed_Mean_Age <- (df$Mean_Catch_Age * max_age)^age_exp
-	#df$Transformed_Mean_Age <- df$Mean_Catch_Age / 2
-	#age_metric <- quantile(
-	#  df$Mean_Maximum_Age,
-	#  seq(0, 1, 0.25)
-	#)
-	#df$Initial_Target_Frequency <- ifelse(
-	#  df$Mean_Maximum_Age <= age_metric[2], 4,
-	#  ifelse(
-	#    df$Mean_Maximum_Age > age_metric[2] & df$Mean_Maximum_Age < age_metric[3], 6,
-	#    ifelse(
-	#      df$Mean_Maximum_Age >= age_metric[3] & df$Mean_Maximum_Age < age_metric[4], 8, 10)))
-	
 	df$Years_Since_Assessment <- assessment_year - df$Last_Assessment
 
 	# The point to calculate -1, 0, +1 for overall fishery and ecosystem importance
@@ -129,7 +103,7 @@ summarize_frequency <- function(
 		)
 	}
 	
-	age_metric <- quantile(
+	age_metric <- stats::quantile(
 	  df$Adjusted_Maximum_Age,
 	  seq(0, 1, 0.25)
 	)
@@ -193,7 +167,7 @@ summarize_frequency <- function(
 	}
 
 	df <- with(df, df[order(df[,"Species"]), ])
-	write.csv(df, file.path("data-processed", "7_assessment_frequency.csv"), row.names = FALSE)
+	utils::write.csv(df, file.path("data-processed", "7_assessment_frequency.csv"), row.names = FALSE)
 	
 	return(df)
 }

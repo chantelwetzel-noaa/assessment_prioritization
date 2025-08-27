@@ -1,5 +1,6 @@
-#' Comparison between recent average mortality, OFLs,
-#' and ACLs. The official recent average mortality should
+#' Comparison between recent average mortality, OFLs, and ACLs. 
+#' 
+#' The official recent average mortality should
 #' come from the GEMM rather than a pull from PacFIN. 
 #' The manage_file is a file containing management quantities
 #' provided in a special pull by Rob Ames from the GMT016 table.
@@ -25,17 +26,12 @@
 #' @param gemm_mortality R object created by nwfscSurvey::pull_gemm()
 #' @param harvest_spex CSV file with OFLs, ABCs, and ACLs across years for West Coast groundfish
 #' @param species CSV file in the data folder called "species_names.csv" that includes
-#' all the species to include in this analysis.
+#'   all the species to include in this analysis.
 #' @param manage_quants The names of the management quantities in the manage_file to grep.
-#' This allows to easily shift between the ABC and the ACL if needed.
+#'   This allows to easily shift between the ABC and the ACL if needed.
 #'
 #' @author Chantel Wetzel
 #' @export
-#' @md
-#' 
-#' @examples
-#' 
-#'
 #'
 summarize_fishing_mortality <- function(
   gemm_mortality,
@@ -126,7 +122,7 @@ summarize_fishing_mortality <- function(
 	mort_df <- 
 	  mort_df[order(mort_df[,"Species"], decreasing = FALSE), ]
 	
-	write.csv(mort_df, file.path("data-processed", "1_fishing_mortality.csv"), row.names = FALSE)
+	utils::write.csv(mort_df, file.path("data-processed", "1_fishing_mortality.csv"), row.names = FALSE)
 
 	fish_mort <- data.frame(Species = mort_df$Species,
 	                        Factor_Score = mort_df$Factor_Score,

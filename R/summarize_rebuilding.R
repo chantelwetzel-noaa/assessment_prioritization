@@ -1,4 +1,21 @@
-summarize_rebuilding <- function(species, overfished_data, stock_status, assessment_year){
+#' Calculate score based upon rebuilding
+#' 
+#' @param species CSV file in the data folder called "species_names.csv" that includes
+#'   all the species to include in this analysis.
+#' @param overfished_data Data frame of overfished species from data-raw/overfished_species.csv
+#' @param stock_status Data frame created by the summarize_stock_status function
+#' @param assessment_year The year for which species to be assessed are being selected based
+#'   upon the prioritization process
+#'
+#' @author Chantel Wetzel
+#' @export
+#'
+#'
+summarize_rebuilding <- function(
+  species, 
+  overfished_data, 
+  stock_status, 
+  assessment_year){
   
   overfished_df <- data.frame(
     Species = species[,1], 
@@ -34,7 +51,7 @@ summarize_rebuilding <- function(species, overfished_data, stock_status, assessm
   overfished_df <- 
     overfished_df[order(overfished_df[,"Species"], decreasing = FALSE), ]
   
-  write.csv(overfished_df, "data-processed/10_rebuilding.csv", row.names = FALSE)
+  utils::write.csv(overfished_df, "data-processed/10_rebuilding.csv", row.names = FALSE)
   
   return(overfished_df)
 }

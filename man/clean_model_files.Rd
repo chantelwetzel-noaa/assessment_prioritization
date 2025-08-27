@@ -7,7 +7,7 @@ This function only deletes extra Stock Synthesis files to reduce
 the number of files for each assessment. Not necessary to run to
 read or summarize model results.}
 \usage{
-clean_model_files(loc)
+clean_model_files(loc = "model_files/")
 }
 \arguments{
 \item{loc}{file location where folders needing cleaned up are}
@@ -17,11 +17,6 @@ Function to delete extraneous Stock Synthesis files.
 This function only deletes extra Stock Synthesis files to reduce
 the number of files for each assessment. Not necessary to run to
 read or summarize model results.
-}
-\examples{
-clean_model_files(loc = "model_files/")
-
-
 }
 \author{
 Chantel Wetzel
