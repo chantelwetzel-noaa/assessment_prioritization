@@ -5,27 +5,31 @@
 \title{Function to create the full assessment frequency tab.}
 \usage{
 summarize_frequency(
-  frequency,
+  abundance,
   ecosystem,
   commercial,
   tribal,
   recreational,
-  assessment_year
+  assessment_year = 2027
 )
 }
 \arguments{
-\item{frequency}{Suggested assessment frequency based upon biology. A csv file from
+\item{abundance}{R object of suggested assessment frequency based upon biology. A csv file from
 the previous assessment prioritization assessment
 frequency tab. The csv file to be read is found in the data folder:
-data-raw/species_sigmaR_catage_main.csv}
+data-processessed/previous_cycle/abundance_processed.csv}
 
-\item{ecosystem}{Dataframe created by summarize_ecosystem function}
+\item{ecosystem}{R data object created by \code{\link[=summarize_ecosystem]{summarize_ecosystem()}} for tribal catch
+data.}
 
-\item{commercial}{Dataframe created by summarize_revenue}
+\item{commercial}{R data object created by \code{\link[=summarize_revenue]{summarize_revenue()}} for commercial catch
+data.}
 
-\item{tribal}{Dataframe created by summarize_revenue for tribal catches}
+\item{tribal}{R data object created by \code{\link[=summarize_revenue]{summarize_revenue()}} for tribal catch
+data.}
 
-\item{recreational}{Dataframe created by summarize_rec_importance}
+\item{recreational}{R data object created by \code{\link[=summarize_rec_importance]{summarize_rec_importance()}} for tribal catch
+data.}
 
 \item{assessment_year}{A numerical value of the current year the assessment prioritization
 is being conducted. This value is compared to the last year assessed values to provide species

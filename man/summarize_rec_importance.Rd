@@ -4,21 +4,21 @@
 \alias{summarize_rec_importance}
 \title{Calculate recreational importance}
 \usage{
-summarize_rec_importance(rec_catch, species, rec_importance, frequency)
+summarize_rec_importance(rec_catch, species, rec_importance, assess_year)
 }
 \arguments{
-\item{rec_catch}{A dataframe created by filter_gemm function with only recreational catches
+\item{rec_catch}{R data object created by filter_gemm function with only recreational catches
 by state.}
 
-\item{species}{Data object read from the data folder called "species_names.csv" that includes
-all the species to include in this analysis.}
+\item{species}{R data object that contains a list of species names to calculate
+assessment prioritization.  The csv file with the list of species names should be
+stored in the data-raw folder ("species_names.csv")}
 
-\item{rec_importance}{A CSV file with the state-specific species importance scores}
+\item{rec_importance}{R data object with the species importance scoring by state.
+A CSV file with the state-specific species importance scores}
 
-\item{frequency}{Suggested assessment frequency based upon biology. A csv file from
-the previous assessment prioritization assessment
-frequency tab. The csv file to be read is found in the data folder:
-data-raw/species_sigmaR_catage_main.csv}
+\item{assess_year}{R data object with the assessment year by species from the
+data-processed/assess_year_ssc_rec.csv.}
 }
 \description{
 Summarize and format recreational catch data to be used along with recreational

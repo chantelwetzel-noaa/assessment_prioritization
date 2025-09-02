@@ -12,15 +12,15 @@
 #' records. Exvessel revenue is averaged over select years by species and dollar values
 #' are output in the 1,000s.  
 #'
-#' @param revenue CSV file pulled from PacFIN with commerical revenue
-#'   data
-#' @param species Data object read from the data folder called "species_names.csv" that includes
-#'   all the species to include in this analysis.
-#' @param tribal_score CSV with the tribal importance score by species
-#' @param frequency Suggested assessment frequency based upon biology. A csv file from 
-#'   the previous assessment prioritization assessment
-#'   frequency tab. The csv file to be read is found in the data folder:
-#'   data-raw/species_sigmaR_catage_main.csv
+#' @inheritParams summarize_stock_status
+#' @param revenue R data object filtered by [filter_revenue()] that contains ex-vessel
+#'   revenue from PacFIN. A csv file should be saved in data-raw that is from PacFIN 
+#'   containing catch information by species (data-raw/pacfin_revenue.csv).
+#' @param tribal_score R data object with tribal species importance by species if calculating
+#'   revenue for the tribal fishery. The CSV should be saved in data-raw. The default is NULL
+#'   which will calculate the revenue for the commercial fishery.
+#' @param assess_year R data object with the assessment year by species from the 
+#'   data-raw/assess_year_ssc_rec.csv.
 #'
 #' @author Chantel Wetzel
 #' @export
@@ -30,7 +30,7 @@ summarize_revenue <- function(
   revenue, 
   species, 
   tribal_score = NULL, 
-  frequency) {
+  assess_year) {
 
   data <- revenue
 
@@ -98,7 +98,7 @@ summarize_revenue <- function(
 	revenue_df[, "Factor_Score"] <- log(as.numeric(revenue_df[, "Revenue"]) + 1)
 
 	# Reduce the Factor Score by -1 for species that were assessed last cycle
-	species_just_assessed <- frequency[which(frequency$Last_Assess == (as.numeric(format(Sys.Date(), "%Y")) - 1)), "Species"]
+	species_just_assessed <- assess_year[which(assess_year$Last_Assess == (as.numeric(format(Sys.Date(), "%Y")) - 1)), "Species"]
 	revenue_df[which(revenue_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"] <- -2
 	revenue_df[which(revenue_df$Species %in% species_just_assessed), "Factor_Score"] <- 
 	  ifelse(revenue_df[which(revenue_df$Species %in% species_just_assessed), "Factor_Score"] + revenue_df[which(revenue_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"] > 0,

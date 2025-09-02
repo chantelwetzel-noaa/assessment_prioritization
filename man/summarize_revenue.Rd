@@ -4,21 +4,23 @@
 \alias{summarize_revenue}
 \title{Calculate importance by revenue}
 \usage{
-summarize_revenue(revenue, species, tribal_score = NULL, frequency)
+summarize_revenue(revenue, species, tribal_score = NULL, assess_year)
 }
 \arguments{
-\item{revenue}{CSV file pulled from PacFIN with commerical revenue
-data}
+\item{revenue}{R data object filtered by \code{\link[=filter_revenue]{filter_revenue()}} that contains ex-vessel
+revenue from PacFIN. A csv file should be saved in data-raw that is from PacFIN
+containing catch information by species (data-raw/pacfin_revenue.csv).}
 
-\item{species}{Data object read from the data folder called "species_names.csv" that includes
-all the species to include in this analysis.}
+\item{species}{R data object that contains a list of species names to calculate
+assessment prioritization.  The csv file with the list of species names should be
+stored in the data-raw folder ("species_names.csv")}
 
-\item{tribal_score}{CSV with the tribal importance score by species}
+\item{tribal_score}{R data object with tribal species importance by species if calculating
+revenue for the tribal fishery. The CSV should be saved in data-raw. The default is NULL
+which will calculate the revenue for the commercial fishery.}
 
-\item{frequency}{Suggested assessment frequency based upon biology. A csv file from
-the previous assessment prioritization assessment
-frequency tab. The csv file to be read is found in the data folder:
-data-raw/species_sigmaR_catage_main.csv}
+\item{assess_year}{R data object with the assessment year by species from the
+data-raw/assess_year_ssc_rec.csv.}
 }
 \description{
 Summarize and format commercial revenue data for insert

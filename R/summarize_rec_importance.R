@@ -7,15 +7,15 @@
 #' this should be modified in the future to use a stand-alone file containing the recreational
 #' species weights by state that should be saved in the "data" folder.
 #'
-#' @param rec_catch A dataframe created by filter_gemm function with only recreational catches
+#' @param rec_catch R data object created by filter_gemm function with only recreational catches
 #'   by state.
-#' @param species Data object read from the data folder called "species_names.csv" that includes
-#'   all the species to include in this analysis.
-#' @param rec_importance A CSV file with the state-specific species importance scores
-#' @param frequency Suggested assessment frequency based upon biology. A csv file from 
-#'   the previous assessment prioritization assessment
-#'   frequency tab. The csv file to be read is found in the data folder:
-#'   data-raw/species_sigmaR_catage_main.csv
+#' @param species R data object that contains a list of species names to calculate
+#'   assessment prioritization.  The csv file with the list of species names should be 
+#'   stored in the data-raw folder ("species_names.csv")
+#' @param rec_importance R data object with the species importance scoring by state.
+#'   A CSV file with the state-specific species importance scores
+#' @param assess_year R data object with the assessment year by species from the 
+#'   data-processed/assess_year_ssc_rec.csv.
 #'
 #' @author Chantel Wetzel
 #' @export
@@ -34,7 +34,7 @@ summarize_rec_importance <- function(
   rec_catch, 
   species, 
   rec_importance, 
-  frequency) {
+  assess_year) {
 
   data <- rec_catch
 	#data <- read.csv(paste0("data-raw/", file_name)) 
@@ -108,7 +108,7 @@ summarize_rec_importance <- function(
 	rec_importance_df$Factor_Score <- log(rec_importance_df$Pseudo_Revenue_Coastwide + 1) #* 10 / 
 		#max(log(rec_importance_df$Pseudo_Revenue_Coastwide + 1))
 	
-	species_just_assessed <- frequency[which(frequency$Last_Assess == (as.numeric(format(Sys.Date(), "%Y")) - 1)), "Species"]
+	species_just_assessed <- assess_year[which(assess_year$Last_Assess == (as.numeric(format(Sys.Date(), "%Y")) - 1)), "Species"]
 	rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"] <- -2
 	rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Factor_Score"] <- 
 	  ifelse(rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Factor_Score"] + rec_importance_df[which(rec_importance_df$Species %in% species_just_assessed), "Assessed_Last_Cycle"] > 0,

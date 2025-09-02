@@ -1,13 +1,17 @@
 #' Function to create the full assessment frequency tab. 
 #'
-#' @param frequency Suggested assessment frequency based upon biology. A csv file from 
+#' @param abundance R object of suggested assessment frequency based upon biology. A csv file from 
 #'   the previous assessment prioritization assessment
 #'   frequency tab. The csv file to be read is found in the data folder:
-#'   data-raw/species_sigmaR_catage_main.csv
-#' @param ecosystem Dataframe created by summarize_ecosystem function
-#' @param commercial Dataframe created by summarize_revenue
-#' @param tribal Dataframe created by summarize_revenue for tribal catches
-#' @param recreational Dataframe created by summarize_rec_importance
+#'   data-processessed/previous_cycle/abundance_processed.csv
+#' @param ecosystem R data object created by [summarize_ecosystem()] for tribal catch
+#'   data.
+#' @param commercial R data object created by [summarize_revenue()] for commercial catch
+#'   data.
+#' @param tribal R data object created by [summarize_revenue()] for tribal catch
+#'   data.
+#' @param recreational R data object created by [summarize_rec_importance()] for tribal catch
+#'   data.
 #' @param assessment_year A numerical value of the current year the assessment prioritization
 #'   is being conducted. This value is compared to the last year assessed values to provide species
 #'   rotation in the ranking based on time since the last assessment.
@@ -16,22 +20,22 @@
 #' @export
 #' 
 summarize_frequency <- function(
-  frequency, 
+  abundance, 
   ecosystem, 
   commercial, 
   tribal, 
   recreational,                             
-	assessment_year) {
+	assessment_year = 2027) {
 
 	ecosystem <- with(ecosystem, ecosystem[order(ecosystem[, "Species"]), ])
-	frequency <- with(frequency, frequency[order(frequency[, "Species"]), ])
+	abunandce <- with(abunandce, abunandce[order(abunandce[, "Species"]), ])
 
 	# Loop over files to use in scoring overall importance
 	commercial <- with(commercial, commercial[order(commercial[, "Species"]), ])
 	tribal <- with(tribal, tribal[order(tribal[, "Species"]), ])
 	recreational <- with(recreational, recreational[order(recreational[, "Species"]), ])
 	fishery_importance <- data.frame(
-	  Species = frequency$Species,
+	  Species = abunandce$Species,
 	  Rank = NA,
 	  Commercial = commercial$Factor_Score,
 	  Tribal = tribal$Factor_Score,
@@ -47,16 +51,16 @@ summarize_frequency <- function(
 		Species = commercial$Species,
 		Rank = NA,
 		Factor_Score = NA,
-		Recruitment_Variation = frequency$Recruit_Var,
-		Mean_Catch_Age = round(frequency$Mean_Catch_Age, 1),
-		Mean_Maximum_Age = frequency$Mean_Max_Age,
+		Recruitment_Variation = abunandce$Recruit_Var,
+		Mean_Catch_Age = round(abundance$Mean_Catch_Age, 1),
+		Mean_Maximum_Age = abundance$Mean_Max_Age,
 		Recruitment_Adjustment = NA,
 		Importance_Adjustment = NA,
 		Ecosystem_Adjustment = NA,
 		Total_Adjustment = NA,
 		Adjusted_Maximum_Age = NA,
 		Target_Assessment_Frequency = NA, 
-		Last_Assessment_Year = frequency$Last_Assess,
+		Last_Assessment_Year = abundance$Last_Assess,
 		Years_Since_Assessment = NA,
 		Years_Past_Target_Frequency = NA,
 		Ten_Years_or_Greater = NA,
@@ -119,12 +123,6 @@ summarize_frequency <- function(
 	    )
 	  )
 
-		# Removed to simplify the factor scoring
-		#df$Adj_Negative[sp] <- ifelse(df$Years_Past_Target_Frequency[sp] == 4, -1 * df$Ecosystem_Adjustment, 0)
-		#if(is.na(df$Last_Assessment_Year[sp])) {
-		#	df$Years_Past_Target_Frequency[sp] <- -1 * df$Total_Adjustment[sp]
-    #
-		#}
 	  df$Years_Past_Target_Frequency[sp] <- ifelse(
 	    is.na(df$Last_Assessment_Year[sp]), 4, ifelse(
 	      df$Years_Since_Assessment[sp] - df$Target_Assessment_Frequency[sp] > 0, 
@@ -138,11 +136,8 @@ summarize_frequency <- function(
 		# If we are less than 6 years & SSC said the next assessment could be an update minus -1 (changed to +1)
 		# Do we need this?
 		df$Less_Than_6_Years_Update[sp] <- 
-			ifelse(df$Years_Since_Assessment[sp] <= 6 & frequency$SSC_Rec[sp] == "Update", 1, 0)
+			ifelse(df$Years_Since_Assessment[sp] <= 6 & abundance$SSC_Rec[sp] == "Update", 1, 0)
 
-		# If we are at or past the target frequency add +1
-		#df$At_or_Beyond_Target_Frequency[sp] <- 
-		#	ifelse(df$Target_Assessment_Frequency[sp] <= df$Years_Since_Assessment[sp], 1, 0)
 
 		df$Factor_Score[sp] <- 
 			sum(
@@ -155,7 +150,7 @@ summarize_frequency <- function(
 	if(max(df$Factor_Score) > 10){
 	  df$Factor_Score <- round(10 * df$Factor_Score / max(df$Factor_Score), 1)
 	} 
-	
+	  
 	df <- df[order(df[,"Factor_Score"], decreasing = TRUE), ]
 	x <- 1
 	for(i in sort(unique(df$Factor_Score), decreasing = TRUE)) {
@@ -167,6 +162,7 @@ summarize_frequency <- function(
 	}
 
 	df <- with(df, df[order(df[,"Species"]), ])
+	df[is.na(df$Last_Assessment_Year),"Last_Assessment_Year"] <- "-"
 	utils::write.csv(df, file.path("data-processed", "7_assessment_frequency.csv"), row.names = FALSE)
 	
 	return(df)

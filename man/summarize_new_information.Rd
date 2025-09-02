@@ -4,12 +4,7 @@
 \alias{summarize_new_information}
 \title{Calculate score based upon new information and research}
 \usage{
-summarize_new_information(
-  species = species,
-  survey_data,
-  bio_params,
-  new_research
-)
+summarize_new_information(species, survey_data, assess_year, new_research)
 }
 \arguments{
 \item{species}{CSV file in the data folder called "species_names.csv" that includes
@@ -17,10 +12,11 @@ all the species to include in this analysis.}
 
 \item{survey_data}{Data frame of WCGBTS bds data from data-processed/all_nwfsc_survey_new_information.csv}
 
-\item{bio_params}{Data frame that includes the last year a species was assessed from
-"data-processed/species_sigmaR_catage.csv"}
+\item{assess_year}{R data object with the assessment year by species from the
+data-processed/assess_year_ssc_rec.csv}
 
-\item{new_research}{Data frame of new research by species contained in data-raw/new_research.csv}
+\item{new_research}{R data object that contains new research to be considered
+scoring. New research by species contained in data-raw/new_research.csv.}
 }
 \description{
 Calculate score based upon new information and research

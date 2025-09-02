@@ -4,29 +4,22 @@
 \alias{summarize_stock_status}
 \title{Calculate ranking by stock status}
 \usage{
-summarize_stock_status(
-  abundance,
-  frequency,
-  species,
-  model_loc = "model_files",
-  years
-)
+summarize_stock_status(abundance, species, years, model_loc = "model_files")
 }
 \arguments{
-\item{abundance}{A csv file containing the existing abundance by species that the
-newly assessed species abundance estimates will be added to or old abundance values replaced. The
-csv file to be read is found in the data folder.}
+\item{abundance}{R data object that contains the estimated abundance by species.
+This function takes the existing values and adds the estimated abundance from
+new assessments. The csv file to be read is found in the data-processessed folder
+called abundance_processed.csv}
 
-\item{frequency}{A csv file from the previous assessment prioritization assessment
-frequency tab. The csv file to be read is found in the data folder.}
-
-\item{species}{CSV file in the data folder called "species_names.csv" that includes
-all the species to include in this analysis.}
-
-\item{model_loc}{Folder name to look for model files. The default is "model_files" in the
-assessment prioritization github.}
+\item{species}{R data object that contains a list of species names to calculate
+assessment prioritization.  The csv file with the list of species names should be
+stored in the data-raw folder ("species_names.csv")}
 
 \item{years}{Vector of specific years to calculate the mean age of the catches by species.}
+
+\item{model_loc}{Directory location to locate model files. The default is "model_files" in the
+assessment prioritization github.}
 }
 \description{
 Function that will read output from all models in
@@ -43,8 +36,7 @@ then saved to the tables folder.
 \examples{
 \dontrun{
   summarize_stock_status(
-  		abundance = abundance, #abundance_historical.csv 
-  		frequency = frequency, #species_sigma_sigmaR.csv 
+  		abundance = abundance, 
   		species = species,
   		model_loc = "model_files",
   		years = 2000:2020 # Catch-at-Age range

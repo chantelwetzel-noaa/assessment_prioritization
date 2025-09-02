@@ -3,9 +3,10 @@
 #' @param species CSV file in the data folder called "species_names.csv" that includes
 #'   all the species to include in this analysis.
 #' @param survey_data Data frame of WCGBTS bds data from data-processed/all_nwfsc_survey_new_information.csv
-#' @param bio_params Data frame that includes the last year a species was assessed from
-#'   "data-processed/species_sigmaR_catage.csv"
-#' @param new_research Data frame of new research by species contained in data-raw/new_research.csv
+#' @param assess_year R data object with the assessment year by species from the 
+#'   data-processed/assess_year_ssc_rec.csv
+#' @param new_research R data object that contains new research to be considered 
+#'   scoring. New research by species contained in data-raw/new_research.csv.
 #'
 #' @author Chantel Wetzel
 #' @export
@@ -15,14 +16,14 @@
 summarize_new_information <- function(
   species, 
   survey_data, 
-  bio_params,
+  assess_year,
   new_research) {
   
   new_info_df <- data.frame(
     Species = species[,1], 
     Rank = NA, 
     Factor_Score = NA,
-    Last_Assessed = bio_params$Last_Assess,
+    Last_Assessed = assess_year$Last_Assess,
     New_Research = 0,
     Issues_Can_be_Addressed = 0,
     Survey_Abundance = 0,
@@ -73,13 +74,6 @@ summarize_new_information <- function(
           )                                                                                                     
         )
     }
-
-    # Incorporate in New Research for any rockfish with h < 0.60
-    #if(length(ss) > 0){
-    #  ss <- unique(ss)
-    #  new_info_df[sp, "Steepness_Prior"] <- ifelse(
-    #    !is.na(bio_params[ss, "h"]) & bio_params[ss, "h"] < 0.60, 2, 0)
-    #}
     
     if(length(ff) > 0){
       new_info_df[sp, "New_Research"] <- sum(new_research[ff, "Score"])
@@ -106,6 +100,7 @@ summarize_new_information <- function(
   }
   
   new_info_df <- new_info_df[order(new_info_df[,"Species"], decreasing = FALSE), ]
+  new_info_df <- replace(new_info_df, new_info_df == "", NA)
   utils::write.csv(new_info_df, file.path("data-processed", "9_new_information.csv"), row.names = FALSE)
   return(new_info_df)
 }

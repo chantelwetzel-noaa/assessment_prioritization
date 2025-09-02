@@ -4,15 +4,21 @@
 \alias{summarize_rebuilding}
 \title{Calculate score based upon rebuilding}
 \usage{
-summarize_rebuilding(species, overfished_data, stock_status, assessment_year)
+summarize_rebuilding(
+  species,
+  overfished_data,
+  stock_status,
+  assessment_year = 2027
+)
 }
 \arguments{
-\item{species}{CSV file in the data folder called "species_names.csv" that includes
-all the species to include in this analysis.}
+\item{species}{R data object that contains a list of species names to calculate
+assessment prioritization.  The csv file with the list of species names should be
+stored in the data-raw folder ("species_names.csv")}
 
-\item{overfished_data}{Data frame of overfished species from data-raw/overfished_species.csv}
+\item{overfished_data}{R data object of overfished species from data-raw/overfished_species.csv}
 
-\item{stock_status}{Data frame created by the summarize_stock_status function}
+\item{stock_status}{R data object by the \code{\link[=summarize_stock_status]{summarize_stock_status()}}}
 
 \item{assessment_year}{The year for which species to be assessed are being selected based
 upon the prioritization process}

@@ -23,11 +23,18 @@
 #' 2023 future spex fixes
 #' 1) delete s4010 cowcod
 #' 
-#' @param gemm_mortality R object created by nwfscSurvey::pull_gemm()
-#' @param harvest_spex CSV file with OFLs, ABCs, and ACLs across years for West Coast groundfish
-#' @param species CSV file in the data folder called "species_names.csv" that includes
-#'   all the species to include in this analysis.
-#' @param manage_quants The names of the management quantities in the manage_file to grep.
+#' @param gemm_mortality Groundfish expanded multiyear mortality by species. 
+#'   R object created by [nwfscSurvey::pull_gemm()].
+#' @param harvest_spex R data objected filetered by year using [filter_years()] 
+#'    containing historical groundfish harvest specifications OFLs, ABCs, and ACLs across 
+#'   years for West Coast groundfish. The data should be downloaded from PacFIN 
+#'   APEX report table 15 (or provided by Jason Edwards at PacStates) and should 
+#'   be stored in the data-raw folder (example: data-raw/GMT015-final specifications-2015 - 2023.csv)
+#' @param species R data object that contains a list of species names to calculate
+#'   assessment prioritization.  The csv file with the list of species names should be 
+#'   stored in the data-raw folder ("species_names.csv")
+#' @param manage_quants The names of the management quantities in the harvest_spex data
+#'   object that defines the OFL and ACL. This vector is used to grep those columns.
 #'   This allows to easily shift between the ABC and the ACL if needed.
 #'
 #' @author Chantel Wetzel
@@ -50,9 +57,7 @@ summarize_fishing_mortality <- function(
 		Average_OFL = NA,
 		Average_OFL_Attainment = NA,
 		Average_ACL = NA,
-		Average_ACL_Attainment = NA#,
-		#Future_OFL_Attainment = NA,
-		#Future_ACL_Attainment = NA
+		Average_ACL_Attainment = NA
 	)
 	
 	for(sp in 1:nrow(species)) {
@@ -106,10 +111,13 @@ summarize_fishing_mortality <- function(
 	mort_df[, c("Average_Catches", "Average_OFL", "Average_ACL")] <- 
 	  round(mort_df[, c("Average_Catches", "Average_OFL", "Average_ACL")], 1)
 	mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment")] <-
-	  round(100 * mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment")], 1)
+	  round(mort_df[, c("Average_OFL_Attainment", "Average_ACL_Attainment")], 2)
 	
 	mort_df <- mort_df[order(mort_df[,"Factor_Score"], decreasing = TRUE), ]
 
+	mort_df <- calculate_ties(
+	  data = mort_df, 
+	  column_name = "Factor_Score")
 	x <- 1
 	for(i in sort(unique(mort_df[, "Factor_Score"]), decreasing = TRUE)) {
 		ties <- which(mort_df$Factor_Score == i)

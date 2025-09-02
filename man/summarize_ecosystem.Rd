@@ -7,7 +7,8 @@
 summarize_ecosystem(ecosystem_data)
 }
 \arguments{
-\item{ecosystem_data}{A csv file with ecosystem scores by species based on Atlantis/Ecosim}
+\item{ecosystem_data}{R data objected created from a csv file with ecosystem
+scores by species based on Atlantis/Ecosim (data-raw/ecosystem_data.csv)}
 }
 \description{
 Calculate ecosystem rank based upon Atlantis/Ecosim output

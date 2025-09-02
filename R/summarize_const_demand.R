@@ -5,13 +5,19 @@
 #' differences across the states and coastwide which then can be qualitatively
 #' used to input modifiers.
 #'
-#' @param revenue_data Filtered revenue by year (filter_years) from PacFIN that  
+#' @param revenue_data R data object for revenue data that has been filtered by year 
+#'   using [filter_years()] from PacFIN that  
 #'   includes both commercial and tribal revenue (data-raw/pacfin_revenue.csv).
-#' @param rec_importance_data Data object created by summarize_rec_importance function
-#' @param fishing_mortality Data object created by summarize_fishing_mortality function
-#' @param future_spex Data objected created from the data-raw/GMT008-harvest specifications_alt2-2025.csv
-#' @param species Data object read from the data folder called "species_names.csv" that includes
-#'   all the species to include in this analysis..
+#' @param rec_importance_data R data object created by [summarize_rec_importance()] for tribal catch
+#'   data.
+#' @param fishing_mortality R data object created by [summarize_fishing_mortality()].
+#' @param future_spex R data objected created from the csv file downloaded from PacFIN
+#'   APEX report table 8 that provides potential harvest specifications for the upcoming
+#'   harvest specification cycle.  The csv file should be saved in the data-raw folder.
+#'   Example: data-raw/GMT008-harvest specifications_alt2-2025.csv
+#' @param species R data object that contains a list of species names to calculate
+#'   assessment prioritization.  The csv file with the list of species names should be 
+#'   stored in the data-raw folder ("species_names.csv")
 #'
 #' @author Chantel Wetzel
 #' @export
@@ -174,7 +180,7 @@ summarize_const_demand <- function(
     Choke_Stock_Score = choke_df$Choke_Stock_Score,
     Commerical_Importance_Score = com_importance_df$Commercial_Importance_Modifier,
     Recreational_Importance_Score = rec_importance_df$Recreational_Importance_Modifier,
-    Projected_ACL_Attainment = round(100 * choke_df$Projected_ACL_Attainment, 0)
+    Projected_ACL_Attainment = round(choke_df$Projected_ACL_Attainment, 2)
   )
   
   const_importance <- const_importance[order(const_importance[,"Factor_Score"], decreasing = TRUE), ]

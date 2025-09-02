@@ -12,14 +12,21 @@ summarize_fishing_mortality(
 )
 }
 \arguments{
-\item{gemm_mortality}{R object created by nwfscSurvey::pull_gemm()}
+\item{gemm_mortality}{Groundfish expanded multiyear mortality by species.
+R object created by \code{\link[nwfscSurvey:pull_gemm]{nwfscSurvey::pull_gemm()}}.}
 
-\item{harvest_spex}{CSV file with OFLs, ABCs, and ACLs across years for West Coast groundfish}
+\item{harvest_spex}{R data objected filetered by year using \code{\link[=filter_years]{filter_years()}}
+containing historical groundfish harvest specifications OFLs, ABCs, and ACLs across
+years for West Coast groundfish. The data should be downloaded from PacFIN
+APEX report table 15 (or provided by Jason Edwards at PacStates) and should
+be stored in the data-raw folder (example: data-raw/GMT015-final specifications-2015 - 2023.csv)}
 
-\item{species}{CSV file in the data folder called "species_names.csv" that includes
-all the species to include in this analysis.}
+\item{species}{R data object that contains a list of species names to calculate
+assessment prioritization.  The csv file with the list of species names should be
+stored in the data-raw folder ("species_names.csv")}
 
-\item{manage_quants}{The names of the management quantities in the manage_file to grep.
+\item{manage_quants}{The names of the management quantities in the harvest_spex data
+object that defines the OFL and ACL. This vector is used to grep those columns.
 This allows to easily shift between the ABC and the ACL if needed.}
 }
 \description{

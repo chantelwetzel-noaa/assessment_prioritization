@@ -13,17 +13,23 @@ summarize_const_demand(
 )
 }
 \arguments{
-\item{revenue_data}{Filtered revenue by year (filter_years) from PacFIN that
+\item{revenue_data}{R data object for revenue data that has been filtered by year
+using \code{\link[=filter_years]{filter_years()}} from PacFIN that
 includes both commercial and tribal revenue (data-raw/pacfin_revenue.csv).}
 
-\item{rec_importance_data}{Data object created by summarize_rec_importance function}
+\item{rec_importance_data}{R data object created by \code{\link[=summarize_rec_importance]{summarize_rec_importance()}} for tribal catch
+data.}
 
-\item{fishing_mortality}{Data object created by summarize_fishing_mortality function}
+\item{fishing_mortality}{R data object created by \code{\link[=summarize_fishing_mortality]{summarize_fishing_mortality()}}.}
 
-\item{future_spex}{Data objected created from the data-raw/GMT008-harvest specifications_alt2-2025.csv}
+\item{future_spex}{R data objected created from the csv file downloaded from PacFIN
+APEX report table 8 that provides potential harvest specifications for the upcoming
+harvest specification cycle.  The csv file should be saved in the data-raw folder.
+Example: data-raw/GMT008-harvest specifications_alt2-2025.csv}
 
-\item{species}{Data object read from the data folder called "species_names.csv" that includes
-all the species to include in this analysis..}
+\item{species}{R data object that contains a list of species names to calculate
+assessment prioritization.  The csv file with the list of species names should be
+stored in the data-raw folder ("species_names.csv")}
 }
 \description{
 The values used in the constituent demand tab are primarily scored qualitatively.
