@@ -21,6 +21,7 @@ Imports:
     nmfspalette,
     nwfscSurvey,
     PNWColors,
+    readr,
     rmarkdown,
     stats,
     targets,
@@ -29,6 +30,7 @@ Imports:
 Depends:
     R (>= 4.0)
 Remotes:
+    github::chantelwetzel-noaa/data_dummary,
     github::pfmc-assessments/nwfscSurvey,
     github::r4ss/r4ss
 VignetteBuilder: 
