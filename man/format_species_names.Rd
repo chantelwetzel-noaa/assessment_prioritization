@@ -4,12 +4,10 @@
 \alias{format_species_names}
 \title{Standardize species names}
 \usage{
-format_species_names(x, col_name = "speciesName")
+format_species_names(x)
 }
 \arguments{
 \item{x}{A factor data frame that contains species names to be renamed.}
-
-\item{col_names}{The species column name within the factor data frame}
 }
 \value{
 The factor data frame with the species renamed

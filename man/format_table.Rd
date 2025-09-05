@@ -4,12 +4,12 @@
 \alias{format_table}
 \title{Combine management group to tables based on species names}
 \usage{
-format_table(df1, df2)
+format_table(x, man_groups)
 }
 \arguments{
-\item{df1}{A factor dataframe}
+\item{x}{A factor dataframe}
 
-\item{df2}{A dataframe containing the species management groups}
+\item{man_groups}{A dataframe containing the species management groups}
 }
 \value{
 Joined dataframe with edited column names
