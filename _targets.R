@@ -10,8 +10,9 @@ library(targets)
 # Set target-specific options such as packages:
 targets::tar_option_set(packages = c(
   "dplyr",
-  "r4ss",
   "nwfscSurvey",
+  "r4ss",
+  "readr",
   "westcoastdatasummary")
 )
 # Source all functions in the R folder
