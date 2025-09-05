@@ -48,12 +48,8 @@ summarize_rebuilding <- function(
     }
     x <- x + length(ties)
   }
-  
-  overfished_df <- 
-    overfished_df[order(overfished_df[,"Species"], decreasing = FALSE), ]
   overfished_df <- replace(overfished_df, overfished_df == "", NA)
-  
-  utils::write.csv(overfished_df, "data-processed/10_rebuilding.csv", row.names = FALSE)
-  
-  return(overfished_df)
+  formatted_overfished <- format_all(x = overfished_df)
+  readr::write_csv(formatted_overfished, here::here("data-processed", "10_rebuilding.csv"))
+  return(formatted_overfished)
 }

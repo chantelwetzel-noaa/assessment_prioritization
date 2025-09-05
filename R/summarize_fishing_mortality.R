@@ -127,13 +127,10 @@ summarize_fishing_mortality <- function(
 		x <- x + length(ties)
 	}
 
-	mort_df <- 
-	  mort_df[order(mort_df[,"Species"], decreasing = FALSE), ]
-	
-	utils::write.csv(mort_df, file.path("data-processed", "1_fishing_mortality.csv"), row.names = FALSE)
-
-	fish_mort <- data.frame(Species = mort_df$Species,
-	                        Factor_Score = mort_df$Factor_Score,
-							            Average_Catches = mort_df$Average_Catches)
+	formatted_mort_df <- format_all(x = mort_df)
+	fish_mort <- data.frame(Species = formatted_mort_df$Species,
+	                        Factor_Score = formatted_mort_df$Factor_Score,
+	                        Average_Catches = formatted_mort_df$Average_Catches)
+	readr::write_csv(formatted_mort_df, here::here("data-processed", "1_fishing_mortality.csv"))
 	return(fish_mort)
 }

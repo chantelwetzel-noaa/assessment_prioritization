@@ -30,6 +30,7 @@ summarize_ecosystem <- function(
                                 "Top_Down_Scaled",
                                 "Bottom_Up_Scaled")
   ecosystem_data[, c("Top_Down_Scaled", "Bottom_Up_Scaled")] <- round(ecosystem_data[, c("Top_Down_Scaled", "Bottom_Up_Scaled")], 2)
-  utils::write.csv(ecosystem_data, "data-processed/5_ecosystem.csv", row.names = FALSE)
-  return(ecosystem_data)
+  formatted_ecosystem <- format_all(x = ecosystem_data)
+  readr::write_csv(formatted_ecosystem, here::here("data-processed", "5_ecosystem.csv"))
+  return(formatted_ecosystem)
 }

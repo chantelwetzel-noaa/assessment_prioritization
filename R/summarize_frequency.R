@@ -161,9 +161,8 @@ summarize_frequency <- function(
 		x <- x + length(ties)
 	}
 
-	df <- with(df, df[order(df[,"Species"]), ])
 	df[is.na(df$Last_Assessment_Year),"Last_Assessment_Year"] <- "-"
-	utils::write.csv(df, file.path("data-processed", "7_assessment_frequency.csv"), row.names = FALSE)
-	
-	return(df)
+	format_freq <- format_all(x = df)
+	readr::write_csv(format_freq, here::here("data-processed", "7_assessment_frequency.csv"))
+	return(format_freq)
 }

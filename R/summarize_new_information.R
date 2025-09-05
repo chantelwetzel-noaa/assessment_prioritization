@@ -99,8 +99,9 @@ summarize_new_information <- function(
     x <- x + length(ties)
   }
   
-  new_info_df <- new_info_df[order(new_info_df[,"Species"], decreasing = FALSE), ]
+
   new_info_df <- replace(new_info_df, new_info_df == "", NA)
-  utils::write.csv(new_info_df, file.path("data-processed", "9_new_information.csv"), row.names = FALSE)
-  return(new_info_df)
+  formatted_new_info <- format_all(x = new_info_df)
+  readr::write_csv(formatted_new_info, here::here("data-processed", "9_new_information.csv"))
+  return(formatted_new_info)
 }

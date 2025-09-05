@@ -110,6 +110,7 @@ summarize_future_spex <- function(
 			ifelse(mort_df$Factor_Score[sp] == 5, 0,
 			ifelse(mort_df$Factor_Score[sp] >  4 & mort_df$Factor_Score[sp] <= 2, -1, -2))))))
 	}
-	mort_df <- with(mort_df, mort_df[order(mort_df[,"Species"]), ])
-	utils::write.csv(mort_df, file.path("data-processed", "future_spex.csv"), row.names = FALSE)
+	formatted_mort_df <- format_all(x = mort_df)
+	readr::write_csv(formatted_mort_df, here::here("data-processed", "future_spex.csv"))
+	return(formatted_mort_df)
 }

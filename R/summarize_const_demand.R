@@ -199,9 +199,9 @@ summarize_const_demand <- function(
     zz <- zz + length(ties)
   }
 
-  const_importance <- const_importance[order(const_importance[,"Species"], decreasing = FALSE), ]
-  utils::write.csv(const_importance, file.path("data-processed", "8_constituent_demand.csv"), row.names = FALSE)
-  utils::write.csv(rec_importance_df, file.path("data-processed", "_constituent_demand_rec_importance.csv"), row.names = FALSE)
-  utils::write.csv(com_importance_df, file.path("data-processed", "_constituent_demand_com_importance.csv"), row.names = FALSE)
-  return(const_importance)
+  format_const_importance <- format_all(x = const_importance)
+  readr::write_csv(format_const_importance, here::here("data-processed", "8_constituent_demand.csv"))
+  readr::write_csv(rec_importance_df, here::here("data-processed", "_constituent_demand_rec_importance.csv"))
+  readr::write_csv(com_importance_df, here::here("data-processed", "_constituent_demand_com_importance.csv"))
+  return(format_const_importance)
 }

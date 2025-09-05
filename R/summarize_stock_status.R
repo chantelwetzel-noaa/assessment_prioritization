@@ -155,13 +155,12 @@ summarize_stock_status <- function(
 		}
 		zz <- zz + length(ties)
 	}
-	abundance_out <- with(x, x[order(x[,"Species"]), ])
 	abundance_out$Fraction_Unfished <- abundance_out$Estimate
 	stock_status <- abundance_out[, c("Species", "Rank", "Factor_Score", "Fraction_Unfished", "Target", "MSST", "PSA", "Trend")]
-
-	utils::write.csv(stock_status, file.path("data-processed", "6_stock_status.csv"), row.names = FALSE)
-	utils::write.csv(new_abundance, file.path("data-processed", "abundance_processed.csv"), row.names = FALSE)
-	utils::write.csv(new_results,   file.path("data-processed", "model_results.csv"), row.names = FALSE)
 	
-	return(stock_status)
+	formatted_stock_status <- format_all(x = stock_status)
+	readr::write_csv(formatted_stock_status, here::here("data-processed", "6_stock_status.csv"))
+	readr::write_csv(new_abundance, here::here("data-processed", "abundance_processed.csv"))
+	readr::write_csv(new_results,   here::here("data-processed", "model_results.csv"))
+	return(formatted_stock_status)
 }
