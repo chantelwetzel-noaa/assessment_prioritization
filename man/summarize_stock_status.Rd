@@ -4,7 +4,12 @@
 \alias{summarize_stock_status}
 \title{Calculate ranking by stock status}
 \usage{
-summarize_stock_status(abundance, species, years, model_loc = "model_files")
+summarize_stock_status(
+  abundance,
+  species,
+  catage_years,
+  model_loc = "model_files"
+)
 }
 \arguments{
 \item{abundance}{R data object that contains the estimated abundance by species.
@@ -16,7 +21,7 @@ called abundance_processed.csv}
 assessment prioritization.  The csv file with the list of species names should be
 stored in the data-raw folder ("species_names.csv")}
 
-\item{years}{Vector of specific years to calculate the mean age of the catches by species.}
+\item{catage_years}{Vector of specific years to calculate the mean age of the catches by species.}
 
 \item{model_loc}{Directory location to locate model files. The default is "model_files" in the
 assessment prioritization github.}
