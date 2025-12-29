@@ -8,115 +8,105 @@
 #'
 create_calender <- function(
   dir = here::here("doc/figs"),
-  year = 2025
+  year = 2027
 ) {
   range_dates <- c(paste0(year, "-04-01"), paste0(year, "-09-30"))
   mark_dates <- rep(NA, 365)
   mark_dates[c(
     lubridate::yday(seq(
-      as.Date("2025-01-04"),
-      as.Date("2025-12-27"),
+      as.Date("2027-01-02"),
+      as.Date("2027-12-25"),
       by = "7 days"
     )),
     lubridate::yday(seq(
-      as.Date("2025-01-05"),
-      as.Date("2025-12-28"),
+      as.Date("2027-01-03"),
+      as.Date("2027-12-26"),
       by = "7 days"
     ))
   )] <- "Weekend"
   mark_dates[c(
     lubridate::yday(seq(
-      as.Date("2025-03-05"),
-      as.Date("2025-03-11"),
+      as.Date("2027-03-03"),
+      as.Date("2027-03-10"),
       by = "1 day"
     )),
     lubridate::yday(seq(
-      as.Date("2025-04-09"),
-      as.Date("2025-04-15"),
+      as.Date("2027-04-06"),
+      as.Date("2027-04-12"),
       by = "1 day"
     )),
     lubridate::yday(seq(
-      as.Date("2025-06-12"),
-      as.Date("2025-06-18"),
+      as.Date("2027-06-16"),
+      as.Date("2027-06-22"),
       by = "1 day"
-    )),
-    lubridate::yday(seq(
-      as.Date("2025-09-18"),
-      as.Date("2025-09-24"),
-      by = "1 day"
-    )),
-    lubridate::yday(seq(
-      as.Date("2025-11-13"),
-      as.Date("2025-11-19"),
-      by = "1 day"
-    ))
+    )) #,
+    #lubridate::yday(seq(
+    #  as.Date("2027-09-17"),
+    #  as.Date("2027-09-22"),
+    #  by = "1 day"
+    #)),
+    #lubridate::yday(seq(
+    #  as.Date("2027-11-13"),
+    #  as.Date("2027-11-18"),
+    #  by = "1 day"
+    #))
   )] <- "Council Meeting"
   mark_dates[
     lubridate::yday(c(
-      "2025-01-01",
-      "2025-01-20",
-      "2025-02-17",
-      "2025-05-26",
-      "2025-06-19",
-      "2025-07-04",
-      "2025-09-01",
-      "2025-10-13",
-      "2025-11-11",
-      "2025-11-27",
-      "2025-12-25"
+      "2027-01-01",
+      "2027-01-18",
+      "2027-02-15",
+      "2027-05-31",
+      "2027-06-19",
+      "2027-07-05",
+      "2027-09-06",
+      "2027-10-11",
+      "2027-11-11",
+      "2027-11-25",
+      "2027-12-24"
     ))
   ] <- "Federal Holiday"
   mark_dates[c(
     lubridate::yday(seq(
-      as.Date("2025-04-28"),
-      as.Date("2025-05-02"),
+      as.Date("2027-04-26"),
+      as.Date("2027-04-30"),
       by = "1 day"
     ))
   )] <- "Potential STAR Panel - June Council Meeting"
   mark_dates[c(
     lubridate::yday(seq(
-      as.Date("2025-05-05"),
-      as.Date("2025-05-09"),
+      as.Date("2027-05-03"),
+      as.Date("2027-05-07"),
       by = "1 day"
     )),
     lubridate::yday(seq(
-      as.Date("2025-05-12"),
-      as.Date("2025-05-16"),
+      as.Date("2027-05-10"),
+      as.Date("2027-05-14"),
       by = "1 day"
     )),
     lubridate::yday(seq(
-      as.Date("2025-05-19"),
-      as.Date("2025-05-23"),
+      as.Date("2027-05-17"),
+      as.Date("2027-05-21"),
       by = "1 day"
     )),
     lubridate::yday(seq(
-      as.Date("2025-06-02"),
-      as.Date("2025-06-06"),
+      as.Date("2027-06-28"),
+      as.Date("2027-07-02"),
       by = "1 day"
     )),
     lubridate::yday(seq(
-      as.Date("2025-06-23"),
-      as.Date("2025-06-27"),
+      as.Date("2027-07-12"),
+      as.Date("2027-07-16"),
       by = "1 day"
     )),
     lubridate::yday(seq(
-      as.Date("2025-07-07"),
-      as.Date("2025-07-11"),
+      as.Date("2027-07-19"),
+      as.Date("2027-07-23"),
       by = "1 day"
     )),
     lubridate::yday(seq(
-      as.Date("2025-07-14"),
-      as.Date("2025-07-18"),
-      by = "1 day"
-    )),
-    lubridate::yday(seq(
-      as.Date("2025-07-21"),
-      as.Date("2025-07-25"),
-      by = "1 day"
-    )),
-    lubridate::yday(seq(
-      as.Date("2025-07-28"),
-      as.Date("2025-08-01"),
+      as.Date("2027-07-26"),
+      as.Date("2027-07-30"),
       by = "1 day"
     ))
   )] <- "Potential STAR Panel - Sept. Council Meeting"
@@ -177,9 +167,9 @@ create_calender <- function(
     mbg.col = PNWColors::pnw_palette("Sailboat", 6)[1], #ordered_colors[1],
     months.col = "white"
   )
-  ggplot2::ggsave(
-    filename = file.path(dir, paste0(year, "_calendar_wide.png")),
-    width = 10,
-    height = 6
-  )
+  #ggplot2::ggsave(
+  #  filename = file.path(dir, paste0(year, "_calendar_wide.png")),
+  #  width = 10,
+  #  height = 10
+  #)
 }
