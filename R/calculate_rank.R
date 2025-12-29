@@ -38,19 +38,40 @@ calculate_rank <- function(
   # 9 New Information
   # 10 Rebuilding
 
+  fishing_mortality_fs = fishing_mortality |>
+    dplyr::arrange(Species, .locale = "en")
+  commercial_importance_fs = commercial_importance |>
+    dplyr::arrange(Species, .locale = "en")
+  tribal_importance_fs = tribal_importance |>
+    dplyr::arrange(Species, .locale = "en")
+  recreational_importance_fs = recreational_importance |>
+    dplyr::arrange(Species, .locale = "en")
+  ecosystem_fs = as.data.frame(ecosystem) |>
+    dplyr::arrange(Species, .locale = "en")
+  stock_status_fs = as.data.frame(stock_status) |>
+    dplyr::arrange(Species, .locale = "en")
+  assessment_frequency_fs = assessment_frequency |>
+    dplyr::arrange(Species, .locale = "en")
+  constituent_demand_fs = constituent_demand |>
+    dplyr::arrange(Species, .locale = "en")
+  new_information_fs = new_information |>
+    dplyr::arrange(Species, .locale = "en")
+  rebuilding_fs = rebuilding |>
+    dplyr::arrange(Species, .locale = "en")
+
   overall_rank <- data.frame(
-    Species = fishing_mortality$Species,
+    Species = fishing_mortality_fs$Species,
     Total_Score = NA,
-    fishing_mortality = fishing_mortality$Factor_Score,
-    commercial_importance = commercial_importance$Factor_Score,
-    tribal_importance = tribal_importance$Factor_Score,
-    recreational_importance = recreational_importance$Factor_Score,
-    ecosystem = ecosystem$Factor_Score,
-    stock_status = stock_status$Factor_Score,
-    assessment_frequency = assessment_frequency$Factor_Score,
-    constituent_demand = constituent_demand$Factor_Score,
-    new_information = new_information$Factor_Score,
-    rebuilding = rebuilding$Factor_Score
+    fishing_mortality = fishing_mortality_fs$Factor_Score,
+    commercial_importance = commercial_importance_fs$Factor_Score,
+    tribal_importance = tribal_importance_fs$Factor_Score,
+    recreational_importance = recreational_importance_fs$Factor_Score,
+    ecosystem = ecosystem_fs$Factor_Score,
+    stock_status = stock_status_fs$Factor_Score,
+    assessment_frequency = assessment_frequency_fs$Factor_Score,
+    constituent_demand = constituent_demand_fs$Factor_Score,
+    new_information = new_information_fs$Factor_Score,
+    rebuilding = rebuilding_fs$Factor_Score
   )
 
   overall_rank <- overall_rank |>
@@ -69,11 +90,14 @@ calculate_rank <- function(
           rebuilding * 0.10,
         2
       ),
-      Rank = rank(-Total_Score, ties.method = "min")
+      Rank = rank(-Total_Score, ties.method = "min"),
+      commercial_importance = round(commercial_importance, 2),
+      tribal_importance = round(tribal_importance, 2),
+      recreational_importance = round(recreational_importance, 2)
     ) |>
     dplyr::arrange(dplyr::desc(Total_Score)) |>
     dplyr::relocate(Rank, .before = Total_Score) |>
-    dplyr::arrange(Species, .locale = "en")
+    dplyr::arrange(Rank)
 
   utils::write.csv(
     overall_rank,
