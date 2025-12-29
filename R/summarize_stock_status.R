@@ -21,7 +21,7 @@
 #'   stored in the data-raw folder ("species_names.csv")
 #' @param model_loc Directory location to locate model files. The default is "model_files" in the
 #'   assessment prioritization github.
-#' @param years Vector of specific years to calculate the mean age of the catches by species.
+#' @param catage_years Vector of specific years to calculate the mean age of the catches by species.
 #'
 #' @author Chantel Wetzel
 #' @export
@@ -32,14 +32,14 @@
 #'   		abundance = abundance,
 #'   		species = species,
 #'   		model_loc = "model_files",
-#'   		years = 2000:2020 # Catch-at-Age range
+#'   		catage_years = 2000:2020 # Catch-at-Age range
 #'   )
 #' }
 #'
 summarize_stock_status <- function(
   abundance,
   species,
-  years,
+  catage_years,
   model_loc = "model_files"
 ) {
   new_models <- list.files(model_loc)
@@ -73,7 +73,7 @@ summarize_stock_status <- function(
       verbose = FALSE,
       printstat = FALSE
     )
-    find <- which(model$catage$Yr %in% years)
+    find <- which(model$catage$Yr %in% catage_years)
     ncols <- dim(model$catage)[2]
     age <- 0:(ncols - 12)
     new_results[a, "Mean_Catch_Age"] <- round(
@@ -135,39 +135,35 @@ summarize_stock_status <- function(
 
   # Thread the new values into existing files
   new_abundance <- abundance
-  for (b in 1:length(unique_species)) {
-    to_match <- gsub("_", " ", unique_species[b])
-    species_key <- new_abundance_key <- new_results_key <- NULL
-    for (sp in 1:ncol(species)) {
-      species_key <- c(
-        species_key,
-        grep(to_match, as.matrix(species[, sp]), ignore.case = TRUE)
-      )
-    }
+  for (b in unique_species) {
     new_results_key <- which(
-      gsub("_", " ", new_results$Species) %in% tolower(species[species_key, ])
+      gsub("_", " ", new_results$Species) %in% tolower(gsub("_", " ", b))
     )[1]
     new_abundance_key <- which(
-      gsub("_", " ", new_abundance$Species) %in% tolower(species[species_key, ])
-    )
+      gsub("_", " ", new_abundance$Species) %in% tolower(gsub("_", " ", b))
+    )[1]
 
-    new_abundance[new_abundance_key, ] <- new_abundance[new_abundance_key, ] |>
-      dplyr::mutate(
-        Estimate = new_results[new_results_key, "WeightedStatus"],
-        Trend = dplyr::case_when(
-          new_abundance[new_abundance_key, "Estimate"] >=
-            new_abundance[new_abundance_key, "Target"] ~
-            0,
-          new_results[new_results_key, "WeightedStatus"] >
-            new_results[new_results_key, "WeightedStatus_5"] ~
-            1,
-          .default = -1
-        ),
-        Recruit_Var = new_results[new_results_key, "Mean_SigmaR"],
-        Mean_Catch_Age = new_results[new_results_key, "WeightedMeanCatchAge"],
-        Mean_Max_Age = new_results[new_results_key, "MeanMaxAge"],
-        Last_Assess = new_results[new_results_key, "AssessYear"]
-      )
+    if (!is.na(new_abundance_key)) {
+      new_abundance[new_abundance_key, ] <- new_abundance[
+        new_abundance_key,
+      ] |>
+        dplyr::mutate(
+          Estimate = new_results[new_results_key, "WeightedStatus"],
+          Trend = dplyr::case_when(
+            new_abundance[new_abundance_key, "Estimate"] >=
+              new_abundance[new_abundance_key, "Target"] ~
+              0,
+            new_results[new_results_key, "WeightedStatus"] >
+              new_results[new_results_key, "WeightedStatus_5"] ~
+              1,
+            .default = -1
+          ),
+          Recruit_Var = new_results[new_results_key, "Mean_SigmaR"],
+          Mean_Catch_Age = new_results[new_results_key, "WeightedMeanCatchAge"],
+          Mean_Max_Age = new_results[new_results_key, "MeanMaxAge"],
+          Last_Assess = new_results[new_results_key, "AssessYear"]
+        )
+    }
   }
 
   # Combine with the SSC recommendation
@@ -196,7 +192,7 @@ summarize_stock_status <- function(
         is.na(Estimate) & PSA >= 1.8 & PSA < 2 ~ 6,
         is.na(Estimate) & PSA >= 2.0 ~ 9
       ),
-      #Factor_Score = round(10 * Factor_Score / max(Factor_Score), 1),
+      Factor_Score = round(10 * Factor_Score / max(Factor_Score), 1),
       Rank = rank(-Factor_Score, ties.method = "min")
     ) |>
     dplyr::arrange(Species, .locale = "en")

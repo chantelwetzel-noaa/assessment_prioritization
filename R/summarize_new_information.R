@@ -101,7 +101,7 @@ summarize_new_information <- function(
     }
 
     if (length(ff) > 0) {
-      new_info_df[sp, "New_Research"] <- sum(new_research[ff, "Score"])
+      new_info_df[sp, "New_Research"] <- sum(new_research[unique(ff), "Score"])
     }
 
     # Issues can be addressed to be added when there is a list available
@@ -115,7 +115,7 @@ summarize_new_information <- function(
         Survey_Abundance +
         Survey_Composition,
       Factor_Score = round(10 * Factor_Score / max(Factor_Score), 1),
-      Rank = rank(Factor_Score, ties.method = "min")
+      Rank = rank(-Factor_Score, ties.method = "min")
     ) |>
     dplyr::arrange(Species, .locale = "en")
 

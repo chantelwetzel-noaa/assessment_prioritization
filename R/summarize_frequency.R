@@ -212,6 +212,8 @@ summarize_frequency <- function(
   df <- df[order(df[, "Factor_Score"], decreasing = TRUE), ]
 
   df[is.na(df$Last_Assessment_Year), "Last_Assessment_Year"] <- "-"
+  df <- df |>
+    dplyr::arrange(Species, .locale = "en")
   format_freq <- format_all(x = df)
   readr::write_csv(
     format_freq,

@@ -30,10 +30,8 @@ summarize_const_demand <- function(
   future_spex,
   species = species
 ) {
-  rec_data <- rec_importance_data
   revenue_data$gear <- "TWL"
-  revenue_data$gear[!revenue_data$PACFIN_GROUP_GEAR_CODE == "TWL"] <- "NTWL"
-  rec_data <- with(rec_data, rec_data[order(rec_data[, "Species"]), ])
+  revenue_data$gear[revenue_data$PACFIN_GROUP_GEAR_CODE != "TWL"] <- "NTWL"
 
   data <- data.frame(
     Species = species[, 1],
@@ -48,16 +46,6 @@ summarize_const_demand <- function(
     dplyr::rename(Species = speciesName)
 
   com_importance_df <- score_rank_df <- data
-
-  rec_tmp <- rec_data[, c(
-    "Species",
-    "Pseudo_Revenue_Coastwide",
-    "Pseudo_Revenue_CA",
-    "Pseudo_Revenue_OR",
-    "Pseudo_Revenue_WA"
-  )]
-  colnames(rec_tmp)[2:5] <- c("CW", "C", "O", "W")
-  rec_score_df <- rec_importance_df <- rec_tmp
 
   denominator <- 1000
   max_value <- 10
@@ -111,80 +99,128 @@ summarize_const_demand <- function(
     data[sp, find] <- 0
   }
 
-  for (a in 3:ncol(score_rank_df)) {
-    score_rank_df[, a] <- round(
-      max_value * log(data[, a] + 1) / max(log(data[, a] + 1)),
-      3
-    )
-    tmp <- score_rank_df[order(score_rank_df[, a], decreasing = TRUE), c(1, a)]
-    tmp$tmp_rank <- 1:nrow(tmp)
-    rank <- with(tmp, tmp[order(tmp[, "Species"]), ])
-    com_importance_df[, a] <- rank$tmp_rank
-
-    x <- 1
-    for (i in sort(unique(score_rank_df[, a]), decreasing = TRUE)) {
-      ties <- which(score_rank_df[, a] == i)
-      if (length(ties) > 0) {
-        com_importance_df[, a][ties] <- x
-      }
-      x <- x + length(ties)
-    }
-    com_importance_df[, a] <- round(
-      1 - com_importance_df[, a] / max(com_importance_df[, a]),
-      3
-    )
-    com_importance_df[, a] <- round(
-      com_importance_df[, a] / max(com_importance_df[, a]),
-      3
-    )
-  }
-
-  com_importance_df[, "Commercial_Importance_Modifier"] <- apply(
-    com_importance_df[, c("C", "O", "W")] - com_importance_df[, "CW"] > 0.10,
-    1,
-    sum
-  ) +
-    ifelse(
-      abs(com_importance_df[, "NTWL"] - com_importance_df[, "TWL"]) < 0.10,
-      1,
-      0
+  com_importance_df <- data |>
+    dplyr::mutate(
+      log_cw = round(max_value * log(CW + 1)) / max(log(CW + 1)),
+      log_c = round(max_value * log(C + 1)) / max(log(C + 1)),
+      log_o = round(max_value * log(O + 1)) / max(log(O + 1)),
+      log_w = round(max_value * log(W + 1)) / max(log(W + 1)),
+      log_twl = round(max_value * log(TWL + 1)) / max(log(TWL + 1)),
+      log_ntwl = round(max_value * log(NTWL + 1)) / max(log(NTWL + 1)),
+      rank_cw = rank(-log_cw, ties.method = "min"),
+      rank_c = rank(-log_c, ties.method = "min"),
+      rank_o = rank(-log_o, ties.method = "min"),
+      rank_w = rank(-log_w, ties.method = "min"),
+      rank_twl = rank(-log_twl, ties.method = "min"),
+      rank_ntwl = rank(-log_ntwl, ties.method = "min"),
+      scale_rank_cw = round(1 - rank_cw / max(rank_cw), 3),
+      scale_rank_c = round(1 - rank_c / max(rank_c), 3),
+      scale_rank_o = round(1 - rank_o / max(rank_o), 3),
+      scale_rank_w = round(1 - rank_w / max(rank_w), 3),
+      scale_rank_twl = round(1 - rank_twl / max(rank_twl), 3),
+      scale_rank_ntwl = round(1 - rank_ntwl / max(rank_ntwl), 3),
+      final_cw = round(scale_rank_cw / max(scale_rank_cw), 3),
+      final_c = round(scale_rank_c / max(scale_rank_c), 3),
+      final_o = round(scale_rank_o / max(scale_rank_o), 3),
+      final_w = round(scale_rank_w / max(scale_rank_w), 3),
+      final_twl = round(scale_rank_twl / max(scale_rank_twl), 3),
+      final_ntwl = round(scale_rank_ntwl / max(scale_rank_ntwl), 3),
+      modifier_c = dplyr::case_when(
+        final_c - final_cw > 0.10 ~ 1,
+        .default = 0
+      ),
+      modifier_o = dplyr::case_when(
+        final_c != 0 & final_o - final_cw > 0.10 ~ 1,
+        .default = 0
+      ),
+      modifier_w = dplyr::case_when(
+        final_c != 0 & final_w - final_cw > 0.10 ~ 1,
+        .default = 0
+      ),
+      modifier_twl = dplyr::case_when(
+        abs(final_twl - final_ntwl) < 0.10 ~ 1,
+        .default = 0
+      ),
+      Commercial_Importance_Modifier = modifier_c +
+        modifier_o +
+        modifier_w +
+        modifier_twl
+    ) |>
+    dplyr::select(
+      Species,
+      final_cw,
+      final_c,
+      final_o,
+      final_w,
+      final_twl,
+      final_ntwl,
+      modifier_c,
+      modifier_o,
+      modifier_w,
+      modifier_twl,
+      Commercial_Importance_Modifier
     )
 
   #===================================================
   # Recreational importance
   #===================================================
-  for (a in 2:ncol(rec_score_df)) {
-    rec_score_df[, a] <- round(
-      max_value * log(rec_tmp[, a] + 1) / max(log(rec_tmp[, a] + 1)),
-      3
-    )
-    tmp <- rec_score_df[order(rec_score_df[, a], decreasing = TRUE), c(1, a)]
-    tmp$tmp_rank <- 1:nrow(tmp)
-    rank <- with(tmp, tmp[order(tmp[, "Species"]), ])
-    rec_importance_df[, a] <- rank$tmp_rank
-
-    x <- 1
-    for (i in sort(unique(rec_score_df[, a]), decreasing = TRUE)) {
-      ties <- which(rec_score_df[, a] == i)
-      if (length(ties) > 0) {
-        rec_importance_df[, a][ties] <- x
-      }
-      x <- x + length(ties)
-    }
-    rec_importance_df[, a] <- round(
-      1 - rec_importance_df[, a] / max(rec_importance_df[, a]),
-      3
-    )
-    rec_importance_df[, a] <- round(
-      rec_importance_df[, a] / max(rec_importance_df[, a]),
-      3
-    )
-  }
-  rec_importance_df$Recreational_Importance_Modifier <- apply(
-    rec_importance_df[, c("C", "O", "W")] - rec_importance_df[, "CW"] > 0.10,
-    1,
-    sum
+  rec_tmp <- with(
+    rec_importance_data,
+    rec_importance_data[order(rec_importance_data[, "Species"]), ]
   )
+  rec_tmp <- rec_tmp |>
+    dplyr::rename(
+      CW = Pseudo_Revenue_Coastwide,
+      C = Pseudo_Revenue_CA,
+      O = Pseudo_Revenue_OR,
+      W = Pseudo_Revenue_WA
+    ) |>
+    dplyr::select(Species, CW, C, O, W)
+  #rec_score_df <- rec_importance_df <- rec_tmp
+
+  rec_importance_df <- rec_tmp |>
+    dplyr::mutate(
+      log_cw = round(max_value * log(CW + 1)) / max(log(CW + 1)),
+      log_c = round(max_value * log(C + 1)) / max(log(C + 1)),
+      log_o = round(max_value * log(O + 1)) / max(log(O + 1)),
+      log_w = round(max_value * log(W + 1)) / max(log(W + 1)),
+      rank_cw = rank(-log_cw, ties.method = "min"),
+      rank_c = rank(-log_c, ties.method = "min"),
+      rank_o = rank(-log_o, ties.method = "min"),
+      rank_w = rank(-log_w, ties.method = "min"),
+      scale_rank_cw = round(1 - rank_cw / max(rank_cw), 3),
+      scale_rank_c = round(1 - rank_c / max(rank_c), 3),
+      scale_rank_o = round(1 - rank_o / max(rank_o), 3),
+      scale_rank_w = round(1 - rank_w / max(rank_w), 3),
+      final_cw = round(scale_rank_cw / max(scale_rank_cw), 3),
+      final_c = round(scale_rank_c / max(scale_rank_c), 3),
+      final_o = round(scale_rank_o / max(scale_rank_o), 3),
+      final_w = round(scale_rank_w / max(scale_rank_w), 3),
+      modifier_c = dplyr::case_when(
+        final_c - final_cw > 0.10 ~ 1,
+        .default = 0
+      ),
+      modifier_o = dplyr::case_when(
+        final_c != 0 & final_o - final_cw > 0.10 ~ 1,
+        .default = 0
+      ),
+      modifier_w = dplyr::case_when(
+        final_c != 0 & final_w - final_cw > 0.10 ~ 1,
+        .default = 0
+      ),
+      Recreational_Importance_Modifier = modifier_c + modifier_o + modifier_w
+    ) |>
+    dplyr::select(
+      Species,
+      final_cw,
+      final_c,
+      final_o,
+      final_w,
+      modifier_c,
+      modifier_o,
+      modifier_w,
+      Recreational_Importance_Modifier
+    )
 
   #====================================================================================
   # Choke stock - Pull in the fishing mortality tab and use that information or could
@@ -223,7 +259,11 @@ summarize_const_demand <- function(
     }
 
     ff <- unique(ff)
-    choke_df[, "sum_future_acl"] <- sum(future_spex[ff, "ACL"], na.rm = TRUE)
+    choke_df[sp, "sum_future_acl"] <- sum(
+      future_spex[ff, "ACL"],
+      na.rm = TRUE
+    ) /
+      2
   }
 
   const_importance <- choke_df |>
@@ -245,6 +285,17 @@ summarize_const_demand <- function(
           1,
         .default = 0
       ),
+      Choke_Stock_Score = dplyr::case_when(
+        Species %in%
+          c(
+            "Canary rockfish",
+            "Shortspine thornyhead",
+            "Petrale sole",
+            "Yellowtail rockfish"
+          ) ~
+          4,
+        .default = Choke_Stock_Score
+      ),
       Projected_ACL_Attainment = round(Projected_ACL_Attainment, 2),
       Commercial_Importance_Modifier = com_importance_df$Commercial_Importance_Modifier,
       Recreational_Importance_Modifier = rec_importance_df$Recreational_Importance_Modifier,
@@ -254,7 +305,8 @@ summarize_const_demand <- function(
       Factor_Score = 10 * Factor_Score / max(Factor_Score),
       Rank = rank(-Factor_Score, ties.method = "min")
     ) |>
-    dplyr::arrange(Species, .locale = "en")
+    dplyr::arrange(Species, .locale = "en") |>
+    dplyr::select(-sum_future_acl)
 
   format_const_importance <- format_all(x = const_importance)
   readr::write_csv(
