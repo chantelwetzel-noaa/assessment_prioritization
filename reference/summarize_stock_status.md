@@ -12,7 +12,12 @@ files are then saved to the tables folder.
 ## Usage
 
 ``` r
-summarize_stock_status(abundance, species, years, model_loc = "model_files")
+summarize_stock_status(
+  abundance,
+  species,
+  catage_years,
+  model_loc = "model_files"
+)
 ```
 
 ## Arguments
@@ -30,7 +35,7 @@ summarize_stock_status(abundance, species, years, model_loc = "model_files")
   assessment prioritization. The csv file with the list of species names
   should be stored in the data-raw folder ("species_names.csv")
 
-- years:
+- catage_years:
 
   Vector of specific years to calculate the mean age of the catches by
   species.
