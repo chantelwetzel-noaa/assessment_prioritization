@@ -1,51 +1,51 @@
-Species,CW,C,O,W,Recreational_Importance_Modifier
-Arrowtooth flounder,0,0,0,0,0
-Aurora rockfish,0,0,0,0,0
-Bank rockfish,0.286,0.368,0,0,0
-Big skate,0,0,0,0,0
-Black rockfish,0.964,0,1,0.945,0
-Blackgill rockfish,0,0,0,0,0
-Blue/Deacon rockfish,0.714,0,0.824,0.667,1
-Bocaccio,0.821,0.895,0.177,0.778,0
-Cabezon,0.214,0,0,0.555,1
-California scorpionfish,0.786,0.842,0,0,0
-Canary rockfish,0.857,0.737,0.882,0.833,0
-Chilipepper,0.749,0.789,0,0,0
-China rockfish,0.143,0,0.353,0.278,2
-Copper rockfish,0.429,0,0.647,0.389,1
-Cowcod,0.249,0.316,0,0,0
-Darkblotched rockfish,0,0,0,0,0
-Dover sole,0,0,0,0,0
-English sole,0,0,0,0,0
-Flathead sole,0,0,0,0,0
-Greenspotted rockfish,0.678,0.632,0,0,0
-Greenstriped rockfish,0.178,0.158,0,0,0
-Kelp greenling,0.535,0,0.707,0.111,1
-Lingcod,1,1,0.942,1,0
-Longnose skate,0.035,0,0.059,0,0
-Longspine thornyhead,0,0,0,0,0
-Pacific cod,0.107,0,0,0.445,1
-Pacific ocean perch,0,0,0,0,0
-Pacific sanddab,0.571,0.526,0.118,0.223,0
-Pacific spiny dogfish,0.071,0.053,0,0,0
-Petrale sole,0.357,0.211,0.294,0.056,0
-Quillback rockfish,0.357,0,0.53,0.334,1
-Redbanded rockfish,0,0,0,0,0
-Redstripe rockfish,0,0,0,0,0
-Rex sole,0,0,0,0,0
-Rosethorn rockfish,0,0,0,0,0
-Rougheye/Blackspotted rockfish,0,0,0,0,0
-Sablefish,0.5,0.105,0.235,0.722,1
-Sharpchin rockfish,0,0,0,0,0
-Shortraker rockfish,0,0,0,0,0
-Shortspine thornyhead,0,0,0,0,0
-Silvergray rockfish,0,0,0,0,0
-Splitnose rockfish,0,0,0,0,0
-Squarespot rockfish,0.392,0.474,0,0,0
-Starry rockfish,0.643,0.579,0,0,0
-Stripetail rockfish,0,0,0,0,0
-Vermilion/Sunset rockfish,0.929,0.947,0.47,0.167,0
-Widow rockfish,0.464,0.316,0.412,0.501,0
-Yelloweye rockfish,0.607,0.421,0.589,0.611,0
-Yellowmouth rockfish,0,0,0,0,0
-Yellowtail rockfish,0.892,0.684,0.765,0.889,0
+Species,final_cw,final_c,final_o,final_w,modifier_c,modifier_o,modifier_w,Recreational_Importance_Modifier
+Arrowtooth flounder,0,0,0,0,0,0,0,0
+Aurora rockfish,0,0,0,0,0,0,0,0
+Bank rockfish,0.286,0.368,0,0,0,0,0,0
+Big skate,0,0,0,0,0,0,0,0
+Black rockfish,0.964,0,1,0.945,0,0,0,0
+Blackgill rockfish,0,0,0,0,0,0,0,0
+Blue/Deacon rockfish,0.714,0,0.882,0.667,0,0,0,0
+Bocaccio,0.821,0.895,0.177,0.778,0,0,0,0
+Cabezon,0.214,0,0,0.555,0,0,0,0
+California scorpionfish,0.786,0.842,0,0,0,0,0,0
+Canary rockfish,0.857,0.737,0.882,0.833,0,0,0,0
+Chilipepper,0.786,0.842,0,0,0,0,0,0
+China rockfish,0.143,0,0.353,0.278,0,0,0,0
+Copper rockfish,0.429,0,0.647,0.389,0,0,0,0
+Cowcod,0.286,0.368,0,0,0,0,0,0
+Darkblotched rockfish,0,0,0,0,0,0,0,0
+Dover sole,0,0,0,0,0,0,0,0
+English sole,0,0,0,0,0,0,0,0
+Flathead sole,0,0,0,0,0,0,0,0
+Greenspotted rockfish,0.678,0.632,0,0,0,0,0,0
+Greenstriped rockfish,0.214,0.211,0,0,0,0,0,0
+Kelp greenling,0.535,0,0.707,0.167,0,0,0,0
+Lingcod,1,1,0.942,1,0,0,0,0
+Longnose skate,0.035,0,0.059,0,0,0,0,0
+Longspine thornyhead,0,0,0,0,0,0,0,0
+Pacific cod,0.107,0,0,0.445,0,0,0,0
+Pacific ocean perch,0,0,0,0,0,0,0,0
+Pacific sanddab,0.571,0.526,0.118,0.223,0,0,0,0
+Pacific spiny dogfish,0.071,0.053,0,0,0,0,0,0
+Petrale sole,0.357,0.211,0.294,0.056,0,0,0,0
+Quillback rockfish,0.357,0,0.53,0.334,0,0,0,0
+Redbanded rockfish,0,0,0,0,0,0,0,0
+Redstripe rockfish,0,0,0,0,0,0,0,0
+Rex sole,0,0,0,0,0,0,0,0
+Rosethorn rockfish,0,0,0,0,0,0,0,0
+Rougheye/Blackspotted rockfish,0,0,0,0,0,0,0,0
+Sablefish,0.5,0.105,0.235,0.778,0,0,1,1
+Sharpchin rockfish,0,0,0,0,0,0,0,0
+Shortraker rockfish,0,0,0,0,0,0,0,0
+Shortspine thornyhead,0,0,0,0,0,0,0,0
+Silvergray rockfish,0,0,0,0,0,0,0,0
+Splitnose rockfish,0,0,0,0,0,0,0,0
+Squarespot rockfish,0.429,0.474,0,0,0,0,0,0
+Starry rockfish,0.643,0.579,0,0,0,0,0,0
+Stripetail rockfish,0,0,0,0,0,0,0,0
+Vermilion/Sunset rockfish,0.929,0.947,0.47,0.167,0,0,0,0
+Widow rockfish,0.464,0.368,0.412,0.501,0,0,0,0
+Yelloweye rockfish,0.607,0.421,0.589,0.611,0,0,0,0
+Yellowmouth rockfish,0,0,0,0,0,0,0,0
+Yellowtail rockfish,0.892,0.684,0.765,0.889,0,0,0,0

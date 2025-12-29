@@ -1,18 +1,18 @@
 Species,Rank,Factor Score,Recruitment Variation,Mean Catch Age,Mean Maximum Age,Recruitment Adjustment,Importance Adjustment,Ecosystem Adjustment,Total Adjustment,Adjusted Maximum Age,Target Assessment Frequency,Last Assessment Year,Years Since Assessment,Years Past Target Frequency,Ten Years or Greater,Less Than 6 Years Update,Management Group
 Greenstriped rockfish,1,10,0.84,16.8,68,0,0,0,0,68,8,2009,18,10,3,0,minor shelf rockfish
-Chilipepper,2,8.5,1,9.1,34,-0.2,0,-0.2,-0.4,20.4,4,2015,12,8,3,0,species specific
 English sole,2,8.5,NA,NA,21,0,0.2,0,0.2,25.2,6,2013,14,8,3,0,species specific
 Kelp greenling,2,8.5,0.65,4.2,15,0,-0.2,0,-0.2,12,4,2015,12,8,3,0,other groundfish
 Longspine thornyhead,2,8.5,0.6,15.3,49,0,0,-0.2,-0.2,39.2,6,2013,14,8,3,0,species specific
 Splitnose rockfish,2,8.5,1,15.9,112,-0.2,0.2,0.2,0.2,134.4,10,2009,18,8,3,0,minor slope rockfish
-Bocaccio,7,6.9,1,3,30,-0.2,-0.2,-0.2,-0.6000000000000001,11.999999999999996,4,2017,10,6,3,0,species specific
-California scorpionfish,7,6.9,0.6,7,23,0,0,-0.2,-0.2,18.400000000000002,4,2017,10,6,3,0,species specific
-Greenspotted rockfish,7,6.9,0.7,19.2,83,0,0,0.2,0.2,99.6,10,2011,16,6,3,0,minor shelf rockfish
-Sharpchin rockfish,7,6.9,0.8,13.3,68,0,0.2,0,0.2,81.6,8,2013,14,6,3,0,minor slope rockfish
-Arrowtooth flounder,11,5.4,0.8,8.1,25,0,0.2,-0.2,0,25,6,2017,10,4,3,0,species specific
-Aurora rockfish,11,5.4,0.5,31.1,154,0,0.2,0.2,0.4,215.6,10,2013,14,4,3,0,minor slope rockfish
-Blue/Deacon rockfish,11,5.4,0.5,9.8,34,0,-0.2,0,-0.2,27.200000000000003,6,2017,10,4,3,0,minor nearshore rockfish
-China rockfish,11,5.4,0.5,19.3,77,0,0,0.2,0.2,92.39999999999999,8,2015,12,4,3,0,minor nearshore rockfish
+Bocaccio,6,6.9,1,3,30,-0.2,-0.2,-0.2,-0.6000000000000001,11.999999999999996,4,2017,10,6,3,0,species specific
+California scorpionfish,6,6.9,0.6,7,23,0,0,-0.2,-0.2,18.400000000000002,4,2017,10,6,3,0,species specific
+Greenspotted rockfish,6,6.9,0.7,19.2,83,0,0,0.2,0.2,99.6,10,2011,16,6,3,0,minor shelf rockfish
+Sharpchin rockfish,6,6.9,0.8,13.3,68,0,0.2,0,0.2,81.6,8,2013,14,6,3,0,minor slope rockfish
+Arrowtooth flounder,10,5.4,0.8,8.1,25,0,0.2,-0.2,0,25,6,2017,10,4,3,0,species specific
+Aurora rockfish,10,5.4,0.5,31.1,154,0,0.2,0.2,0.4,215.6,10,2013,14,4,3,0,minor slope rockfish
+Blue/Deacon rockfish,10,5.4,0.5,9.3,39.5,0,-0.2,0,-0.2,31.6,6,2017,10,4,3,0,minor nearshore rockfish
+China rockfish,10,5.4,0.5,19.3,77,0,0,0.2,0.2,92.39999999999999,8,2015,12,4,3,0,minor nearshore rockfish
+Rougheye/Blackspotted rockfish,10,5.4,0.4,32.5,129,0,0.2,0.2,0.4,180.6,10,2013,14,4,3,0,minor slope rockfish
 Bank rockfish,15,3.1,NA,NA,85,0,0,0,0,85,8,-,NA,4,NA,NA,minor slope rockfish
 Big skate,15,3.1,0,4.3,12,0.2,0,-0.2,0,12,4,2019,8,4,0,0,species specific
 Flathead sole,15,3.1,NA,NA,27,0,0.2,0.2,0.4,37.8,6,-,NA,4,NA,NA,other flatfish
@@ -34,18 +34,18 @@ Pacific ocean perch,30,2.3,0.7,15.5,100,0,0,0,0,100,10,2017,10,0,3,0,species spe
 Cabezon,33,1.5,0.5,4.7,23,0,0,0,0,23,6,2019,8,2,0,0,other groundfish
 Lingcod,33,1.5,0.6,5.3,22.5,0,-0.2,-0.2,-0.4,13.5,4,2021,6,2,0,NA,species specific
 Canary rockfish,35,0.8,0.5,9.9,69,0,-0.2,0,-0.2,55.2,8,2023,4,0,0,1,species specific
+Chilipepper,35,0.8,1,8.7,33,-0.2,0,-0.2,-0.4,19.8,4,2025,2,0,0,1,species specific
 Dover sole,35,0.8,0.35,13.7,50,0,-0.2,-0.2,-0.4,30,6,2021,6,0,0,1,species specific
 Petrale sole,35,0.8,0.5,7.8,38,0,-0.2,-0.2,-0.4,22.8,4,2023,4,0,0,1,species specific
 Sablefish,35,0.8,1.4,8.5,62,-0.2,-0.2,-0.2,-0.6000000000000001,24.799999999999994,6,2025,2,0,0,1,species specific
 Shortspine thornyhead,35,0.8,0.5,24.6,135,0,-0.2,-0.2,-0.4,81,8,2023,4,0,0,1,species specific
 Yellowtail rockfish,35,0.8,0.5,13.6,34,0,-0.2,-0.2,-0.4,20.4,4,2025,2,0,0,1,species specific
-Black rockfish,41,0,0.6,8.8,30,0,-0.2,-0.2,-0.4,18,4,2023,4,0,0,0,species specific
-Copper rockfish,41,0,0,12.6,50,0.2,0,0,0.2,60,8,2021,6,0,0,NA,minor nearshore rockfish
-Cowcod,41,0,0,16.2,61,0.2,0.2,0.2,0.6000000000000001,97.60000000000001,8,2019,8,0,0,0,minor shelf rockfish
-Pacific spiny dogfish,41,0,0,22.4,83,0.2,0.2,-0.2,0.2,99.6,10,2021,6,0,0,NA,species specific
-Quillback rockfish,41,0,0.3,14.5,95,0.2,-0.2,0.2,0.2,114,10,2021,6,0,0,NA,minor nearshore rockfish
-Rex sole,41,0,0.5,8.6,29,0,-0.2,0,-0.2,23.200000000000003,6,2023,4,0,0,NA,other flatfish
-Rougheye/Blackspotted rockfish,41,0,0.5,34.3,138,0,0.2,0.2,0.4,193.2,10,2025,2,0,0,NA,minor slope rockfish
-Squarespot rockfish,41,0,0,11.6,41,0.2,0.2,0,0.4,57.4,8,2021,6,0,0,NA,minor shelf rockfish
-Vermilion/Sunset rockfish,41,0,0.55,7.5,59,0,-0.2,0,-0.2,47.2,6,2021,6,0,0,NA,minor shelf rockfish
-Yelloweye rockfish,41,0,0.5,20.6,123,0,0.2,0,0.2,147.6,10,2025,2,0,0,0,species specific
+Black rockfish,42,0,0.6,8.8,30,0,-0.2,-0.2,-0.4,18,4,2023,4,0,0,0,species specific
+Copper rockfish,42,0,0,12.6,50,0.2,0,0,0.2,60,8,2021,6,0,0,NA,minor nearshore rockfish
+Cowcod,42,0,0,16.2,61,0.2,0.2,0.2,0.6000000000000001,97.60000000000001,8,2019,8,0,0,0,minor shelf rockfish
+Pacific spiny dogfish,42,0,0,22.4,83,0.2,0.2,-0.2,0.2,99.6,10,2021,6,0,0,NA,species specific
+Quillback rockfish,42,0,0.3,14.5,95,0.2,-0.2,0.2,0.2,114,10,2021,6,0,0,NA,minor nearshore rockfish
+Rex sole,42,0,0.5,8.6,29,0,-0.2,0,-0.2,23.200000000000003,6,2023,4,0,0,NA,other flatfish
+Squarespot rockfish,42,0,0,11.6,41,0.2,0.2,0,0.4,57.4,8,2021,6,0,0,NA,minor shelf rockfish
+Vermilion/Sunset rockfish,42,0,0.55,7.5,59,0,-0.2,0,-0.2,47.2,6,2021,6,0,0,NA,minor shelf rockfish
+Yelloweye rockfish,42,0,0.5,20.6,123,0,0.2,0,0.2,147.6,10,2025,2,0,0,0,species specific

@@ -1,51 +1,51 @@
 Species,Rank,Factor Score,Last Assessed,New Research,Issues Can be Addressed,Survey Abundance,Survey Composition,Management Group
-Big skate,1,0,2019,0,0,0,0,species specific
-Black rockfish,1,0,2023,0,0,0,0,species specific
-Cabezon,1,0,2019,0,0,0,0,other groundfish
-China rockfish,1,0,2015,0,0,0,0,minor nearshore rockfish
-Copper rockfish,1,0,2023,0,0,0,0,minor nearshore rockfish
-Kelp greenling,1,0,2015,0,0,0,0,other groundfish
-Quillback rockfish,1,0,2021,0,0,0,0,minor nearshore rockfish
-Shortraker rockfish,1,0,NA,0,0,0,0,minor slope rockfish
-Silvergray rockfish,1,0,NA,0,0,0,0,minor shelf rockfish
-Yelloweye rockfish,1,0,2025,0,0,0,0,species specific
-Yellowmouth rockfish,1,0,NA,0,0,0,0,minor slope rockfish
-California scorpionfish,12,1.2,2017,0,0,0,1,species specific
-Sablefish,12,1.2,2025,1,0,0,0,species specific
-Widow rockfish,12,1.2,2025,1,0,0,0,species specific
-Blackgill rockfish,15,2.5,2017,0,0,0,2,minor slope rockfish
-Chilipepper,15,2.5,2025,2,0,0,0,species specific
-Cowcod,15,2.5,2019,0,0,2,0,minor shelf rockfish
-Pacific cod,15,2.5,NA,0,0,0,2,species specific
-Pacific ocean perch,15,2.5,2017,0,0,0,2,species specific
-Redstripe rockfish,15,2.5,NA,0,0,0,2,minor shelf rockfish
-Squarespot rockfish,15,2.5,2021,0,0,2,0,minor shelf rockfish
-Yellowtail rockfish,15,2.5,2025,1,0,0,1,species specific
-Arrowtooth flounder,23,3.8,2017,0,0,0,3,species specific
-Canary rockfish,23,3.8,2023,0,0,3,0,species specific
-Darkblotched rockfish,23,3.8,2017,0,0,0,3,species specific
-English sole,23,3.8,2013,0,0,0,3,species specific
-Flathead sole,23,3.8,NA,0,0,0,3,other flatfish
-Longspine thornyhead,23,3.8,2013,0,0,0,3,species specific
-Pacific sanddab,23,3.8,NA,0,0,0,3,other flatfish
-Pacific spiny dogfish,23,3.8,2021,0,0,2,1,species specific
-Redbanded rockfish,23,3.8,NA,1,0,0,2,minor slope rockfish
-Rosethorn rockfish,23,3.8,NA,0,0,0,3,minor shelf rockfish
-Sharpchin rockfish,23,3.8,2013,0,0,0,3,minor slope rockfish
-Stripetail rockfish,23,3.8,NA,0,0,0,3,minor shelf rockfish
-Aurora rockfish,35,5,2013,1,0,0,3,minor slope rockfish
-Lingcod,35,5,2021,0,0,2,2,species specific
-Rougheye/Blackspotted rockfish,35,5,2025,4,0,0,0,minor slope rockfish
-Starry rockfish,35,5,NA,0,0,2,2,minor shelf rockfish
-Bank rockfish,39,6.2,NA,1,0,2,2,minor slope rockfish
-Bocaccio,39,6.2,2017,0,0,2,3,species specific
-Greenspotted rockfish,39,6.2,2011,0,0,2,3,minor shelf rockfish
-Greenstriped rockfish,39,6.2,2009,0,0,2,3,minor shelf rockfish
-Longnose skate,39,6.2,2019,0,0,2,3,species specific
-Petrale sole,39,6.2,2023,0,0,3,2,species specific
-Rex sole,39,6.2,2023,0,0,3,2,other flatfish
-Shortspine thornyhead,39,6.2,2023,0,0,3,2,species specific
-Splitnose rockfish,39,6.2,2009,2,0,0,3,minor slope rockfish
-Vermilion/Sunset rockfish,39,6.2,2021,0,0,2,3,minor shelf rockfish
-Dover sole,49,7.5,2021,1,0,2,3,species specific
-Blue/Deacon rockfish,50,10,2017,8,0,0,0,minor nearshore rockfish
+Dover sole,1,10,2021,1,0,2,3,species specific
+Bank rockfish,2,8.3,NA,1,0,2,2,minor slope rockfish
+Bocaccio,2,8.3,2017,0,0,2,3,species specific
+Greenspotted rockfish,2,8.3,2011,0,0,2,3,minor shelf rockfish
+Greenstriped rockfish,2,8.3,2009,0,0,2,3,minor shelf rockfish
+Longnose skate,2,8.3,2019,0,0,2,3,species specific
+Petrale sole,2,8.3,2023,0,0,3,2,species specific
+Rex sole,2,8.3,2023,0,0,3,2,other flatfish
+Shortspine thornyhead,2,8.3,2023,0,0,3,2,species specific
+Splitnose rockfish,2,8.3,2009,2,0,0,3,minor slope rockfish
+Vermilion/Sunset rockfish,2,8.3,2021,0,0,2,3,minor shelf rockfish
+Aurora rockfish,12,6.7,2013,1,0,0,3,minor slope rockfish
+Blue/Deacon rockfish,12,6.7,2017,4,0,0,0,minor nearshore rockfish
+Lingcod,12,6.7,2021,0,0,2,2,species specific
+Starry rockfish,12,6.7,NA,0,0,2,2,minor shelf rockfish
+Arrowtooth flounder,16,5,2017,0,0,0,3,species specific
+Canary rockfish,16,5,2023,0,0,3,0,species specific
+Darkblotched rockfish,16,5,2017,0,0,0,3,species specific
+English sole,16,5,2013,0,0,0,3,species specific
+Flathead sole,16,5,NA,0,0,0,3,other flatfish
+Longspine thornyhead,16,5,2013,0,0,0,3,species specific
+Pacific sanddab,16,5,NA,0,0,0,3,other flatfish
+Pacific spiny dogfish,16,5,2021,0,0,2,1,species specific
+Redbanded rockfish,16,5,NA,1,0,0,2,minor slope rockfish
+Rosethorn rockfish,16,5,NA,0,0,0,3,minor shelf rockfish
+Sharpchin rockfish,16,5,2013,0,0,0,3,minor slope rockfish
+Stripetail rockfish,16,5,NA,0,0,0,3,minor shelf rockfish
+Blackgill rockfish,28,3.3,2017,0,0,0,2,minor slope rockfish
+Cowcod,28,3.3,2019,0,0,2,0,minor shelf rockfish
+Pacific cod,28,3.3,NA,0,0,0,2,species specific
+Pacific ocean perch,28,3.3,2017,0,0,0,2,species specific
+Redstripe rockfish,28,3.3,NA,0,0,0,2,minor shelf rockfish
+Squarespot rockfish,28,3.3,2021,0,0,2,0,minor shelf rockfish
+California scorpionfish,34,1.7,2017,0,0,0,1,species specific
+Yellowtail rockfish,34,1.7,2025,0,0,0,1,species specific
+Big skate,36,0,2019,0,0,0,0,species specific
+Black rockfish,36,0,2023,0,0,0,0,species specific
+Cabezon,36,0,2019,0,0,0,0,other groundfish
+Chilipepper,36,0,2025,0,0,0,0,species specific
+China rockfish,36,0,2015,0,0,0,0,minor nearshore rockfish
+Copper rockfish,36,0,2023,0,0,0,0,minor nearshore rockfish
+Kelp greenling,36,0,2015,0,0,0,0,other groundfish
+Quillback rockfish,36,0,2021,0,0,0,0,minor nearshore rockfish
+Rougheye/Blackspotted rockfish,36,0,2025,0,0,0,0,minor slope rockfish
+Sablefish,36,0,2025,0,0,0,0,species specific
+Shortraker rockfish,36,0,NA,0,0,0,0,minor slope rockfish
+Silvergray rockfish,36,0,NA,0,0,0,0,minor shelf rockfish
+Widow rockfish,36,0,2025,0,0,0,0,species specific
+Yelloweye rockfish,36,0,2025,0,0,0,0,species specific
+Yellowmouth rockfish,36,0,NA,0,0,0,0,minor slope rockfish
