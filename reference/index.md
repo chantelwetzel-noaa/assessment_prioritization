@@ -18,6 +18,8 @@
   results.
 - [`create_calender()`](https://chantelwetzel-noaa.github.io/wcsap/reference/create_calender.md)
   : Create a calender
+- [`filter_area_gemm()`](https://chantelwetzel-noaa.github.io/wcsap/reference/filter_area_gemm.md)
+  : Filter the GEMM data for select sectors
 - [`filter_gemm()`](https://chantelwetzel-noaa.github.io/wcsap/reference/filter_gemm.md)
   : Filter the GEMM data for select sectors
 - [`filter_revenue()`](https://chantelwetzel-noaa.github.io/wcsap/reference/filter_revenue.md)
