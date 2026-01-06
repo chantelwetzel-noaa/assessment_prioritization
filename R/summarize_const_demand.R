@@ -270,18 +270,18 @@ summarize_const_demand <- function(
     dplyr::mutate(
       Projected_ACL_Attainment = Average_Catches / sum_future_acl,
       Choke_Stock_Score = dplyr::case_when(
-        Projected_ACL_Attainment[sp] >= 1.25 ~ 5,
-        Projected_ACL_Attainment[sp] < 1.25 &
-          Projected_ACL_Attainment[sp] >= 1 ~
+        Projected_ACL_Attainment >= 1.25 ~ 5,
+        Projected_ACL_Attainment < 1.25 &
+          Projected_ACL_Attainment >= 1 ~
           4,
-        Projected_ACL_Attainment[sp] < 1.0 &
-          Projected_ACL_Attainment[sp] >= 0.90 ~
+        Projected_ACL_Attainment < 1.0 &
+          Projected_ACL_Attainment >= 0.90 ~
           3,
-        Projected_ACL_Attainment[sp] < 0.9 &
-          Projected_ACL_Attainment[sp] >= 0.80 ~
+        Projected_ACL_Attainment < 0.9 &
+          Projected_ACL_Attainment >= 0.80 ~
           2,
-        Projected_ACL_Attainment[sp] < 0.8 &
-          Projected_ACL_Attainment[sp] >= 0.70 ~
+        Projected_ACL_Attainment < 0.8 &
+          Projected_ACL_Attainment >= 0.70 ~
           1,
         .default = 0
       ),
