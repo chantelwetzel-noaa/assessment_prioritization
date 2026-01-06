@@ -4,7 +4,6 @@ tribal_score_file|stem|b1b0f320ba0e892e|d14081da4ee5bef9|2c530c1562a7fbd1|-20074
 harvest_spex_data_file|stem|cd5f0e4f21e99ed8|ddfde98653d4c588|2c530c1562a7fbd1|-1993836880|data-raw/GMT015-final_specifications-2020-2024.csv|t20426.8497795103s|s132764b|132764|file|local|vector|||0||
 catage_years|stem|d9a69bbc3ef92c87|11a87833c1042826|2c530c1562a7fbd1|58906881||t20431.6895671229s|s104b|104|rds|local|vector|||0||
 survey_species|stem|99d92ab66b05a56d|9d2a6f3ece01325b|b3c6a42a2b1a63ce|151906837||t20431.6895674585s|s729b|729|rds|local|vector|||0.01||
-future_spex_data_file|stem|b2d7ca572d4637aa|ee2ca88804edb735|2c530c1562a7fbd1|1852971394|data-raw/GMT008-harvest specifications-2027-28.csv|t20426.9496731877s|s134623b|134623|file|local|vector|||0||
 nwfsc_hkl_data_file|stem|d5a1533b9bf1f822|d959902220555e7e|2c530c1562a7fbd1|-1251031030|data-raw/nwfsc_hkl_DWarehouse_version_09032025.csv|t20335.6265520514s|s87440263b|87440263|file|local|vector|||0||
 recreational_importance_score_file|stem|67ca14ba5f6daef0|be3f2644b0d768dd|2c530c1562a7fbd1|-829540122|data-raw/recr_importance.csv|t20361.7118543751s|s1352b|1352|file|local|vector|||0||
 recent_5_years|stem|77302c189f2ee945|c0c3fb7a7c7c7f9e|2c530c1562a7fbd1|1409203081||t20431.6895688937s|s104b|104|rds|local|vector|||0||
@@ -19,7 +18,6 @@ wcgbt_data|stem|38105573e2078717|6419c21aa3fc64ed|43a8972122146fcf|457716435||t2
 overfished_data|stem|2fe5a5469dfe1c41|1784b4414fad44c0|a953ec44d7b253d5|2018407194||t20431.6896303772s|s276b|276|rds|local|vector|||0.12||
 tribal_score_data|stem|8dc60049c38930ba|a23d76cc42240925|57481ecdd0d886f3|1967856055||t20431.6896310601s|s776b|776|rds|local|vector|||0.05||
 harvest_spex_data|stem|02698f9324879f2f|f1a4bbf811da6d64|b61b560f385d7927|1010753485||t20431.6896327067s|s19705b|19705|rds|local|vector|||0.13||
-future_spex_data|stem|a3e282a65950313a|380bf8aa5a1c66f3|9d27472f016ddfcb|1641657089||t20431.6896335749s|s16723b|16723|rds|local|vector|||0.07||
 nwfsc_hkl_data|stem|8a5ee30fb034e54e|02374358ac0865cb|4783ba7b604989af|-1077365138||t20431.6896534989s|s3816406b|3816406|rds|local|vector|||0.67||
 recreational_importance_scores|stem|c95a5bab51cdaa87|2fed4b4d85da00f4|eb27c63a7fb3843f|-607038061||t20431.6896541816s|s1008b|1008|rds|local|vector|||0.03||
 gemm_mortality_data_raw|stem|e7d9ad4e6f4b2f75|7053effc536ede65|1e0b40c5b30f581a|567763255||t20431.6896765743s|s377922b|377922|rds|local|vector|||1.84||
@@ -43,22 +41,21 @@ tribal|stem|5a4d426d5cd8ca9b|eb8020616ec56b9e|742f8e1661ffc07d|-68488020||t20431
 abundance_updated|stem|dd075b1b926d1247|88e82a0f1cd71bc7|227e4f4225cfb5c6|734786717||t20432.9087374291s|s2041b|2041|rds|local|vector|||0.16||
 wcgbt_bio_cleaned|stem|b2faffe2f45fa66e|7f337a881cc1f931|6e81cf6d5ded35d4|947703043||t20431.6898444066s||10167739|rds|local|vector|||0.01||no applicable method for 'filter' applied to an object of class 'NULL'
 new_survey_data|stem|363c2dc6fac0ab88|26c4da02f6132f60|2c530c1562a7fbd1|-1781107571||t20433.9810529366s|s1585b|1585|rds|local|vector|||0.75|package 'dplyr' was built under R version 4.4.2. package 'readr' was built under R version 4.4.2|
-constituent_demand|stem|214117712cee367b|fb32092e9b3a6fd2|e63f85bbceab0fce|-79348027||t20433.9968639107s|s1303b|1303|rds|local|vector|||0.38||
 stock_status|stem|b2f28c7de0c913c8|a5fb4004bd683b0d|e31a96ae06d4a093|-2014263098||t20438.6996359272s|s1358b|1358|rds|local|vector|||91.83|covar file contains the warning      'Variances are 0.0 for first two elements, so do not write '   input 'covar' changed to FALSE.|
 rebuilding|stem|0c28def88b81403b|362f6a2e3b6a4a8e|1d7c8c3b7da3eae8|684471090||t20438.6996372046s|s653b|653|rds|local|vector|||0.08||
 abundance_updated_file|stem|786f019289791e97|aa4daeee09a745a7|2c530c1562a7fbd1|934225372|data-processed/abundance_processed.csv|t20438.6996358339s|s3945b|3945|file|local|vector|||1.02|package 'dplyr' was built under R version 4.4.2. package 'readr' was built under R version 4.4.2|
-new_research_file|stem|681ef87d918be228|a2199159bfb47296|2c530c1562a7fbd1|-1324786715|data-raw/new_research.csv|t20438.706308089s|s231b|231|file|local|vector|||1.63|package 'dplyr' was built under R version 4.4.2. package 'readr' was built under R version 4.4.2|
-new_research|stem|9b3564c03bd7f781|ebf8f05cd6aeb117|1b43cb47dc407f4b|1378736951||t20438.8277845761s|s398b|398|rds|local|vector|||0.34||
-new_info|stem|de2ee8d728134753|0569c9c7146af237|4753ccb0aaac4bc6|127673957||t20440.8781189966s|s1029b|1029|rds|local|vector|||0.64||
 assess_frequency|stem|1a64c03ab409cf82|b707838d5c56b894|ee40cc33d5545f4f|1777687381||t20440.9180028737s|s1933b|1933|rds|local|vector|||0.48||
-clean_wcgbt_bio|function|a619e04d8e7cc896
+new_research_file|stem|c8aeaec91fb40d62|a2199159bfb47296|2c530c1562a7fbd1|-1324786715|data-raw/new_research.csv|t20459.8432238408s|s705b|705|file|local|vector|||0||
+new_research|stem|5a942eaaa5f7058c|ebf8f05cd6aeb117|c2b70738a49db1d0|1378736951||t20459.8501798631s|s570b|570|rds|local|vector|||0.03||
+new_info|stem|2a225370c4a7e561|0569c9c7146af237|6d2af37f8d33653c|127673957||t20459.8501819787s|s1037b|1037|rds|local|vector|||0.16||
+clean_wcgbt_bio|function|10c55e8443b67487
 calculate_ties|function|e265cb53f866141e
 filter_area_gemm|function|4301a97660790325
 format_species_names|function|6605f60ad7b3524e
 clean_model_files|function|b29cebfd0df9876d
 move_files_to_sap|function|ef68036590237a26
 filter_revenue|function|1a1a485b81cb6ef5
-create_calender|function|e2f813d981e55e6c
+create_calender|function|c1016aff3906c87e
 get_species_list|function|dcdb11b85358677f
 filter_gemm|function|3aa75538e113e897
 calculate_rank|function|4c2f7b53ad5b0f9f
@@ -66,18 +63,21 @@ x|object|2f6eed6d15855d0f
 get_species_codes|function|ec1d89a601e19a25
 filter_years|function|ff9293f03b947f32
 all_species|function|8c39de18caffbbd1
-clean_nwfsc_hkl|function|d8eea76ccc8d51ec
+clean_nwfsc_hkl|function|c21ab12697876f11
 format_table|function|26351f4da752dd40
-summarize_survey_new_information|function|41bf087b047a1939
+summarize_survey_new_information|function|29e3ac76d46bd2db
 format_all|function|cde3ea45b282057b
 summarize_ecosystem|function|de826dd322626749
 summarize_new_information|function|5761187fa22c0e0a
 summarize_rec_importance|function|c17dbce5633b4170
-summarize_const_demand|function|27b80800f8ceb447
+summarize_const_demand|function|5a7306e3fdb60841
 summarize_rebuilding|function|7e1913e988add2fa
 summarize_fishing_mortality|function|3aa7047d8e35369b
 summarize_frequency|function|1c3d9f0c4434723a
 summarize_stock_status|function|120baa35ff944481
 summarize_revenue|function|205b73bd541b9932
 summarize_future_spex|function|a5d4719111a803c6
-rank|stem|80e5f7fadd7a7324|ba916fdf3b8e7105|7ac21258753f0658|293663229||t20440.922143055s|s1914b|1914|rds|local|vector|||0.06||
+future_spex_data_file|stem|996707d767d0f380|ee2ca88804edb735|2c530c1562a7fbd1|1852971394|data-raw/GMT008-harvest specifications-2027-28.csv|t20459.8661588607s|s134788b|134788|file|local|vector|||0.99|package 'dplyr' was built under R version 4.4.2. package 'readr' was built under R version 4.4.2|
+future_spex_data|stem|4f40dbf179583d7d|380bf8aa5a1c66f3|03c339d4b906f8be|1641657089||t20459.8663331761s|s16743b|16743|rds|local|vector|||0.19||
+constituent_demand|stem|adb1841ac4d77cd1|fb32092e9b3a6fd2|ce95db13a6c52dbc|-79348027||t20459.8663383054s|s1343b|1343|rds|local|vector|||0.38||
+rank|stem|d7f201e630603183|ba916fdf3b8e7105|c515bd902485342c|293663229||t20459.866339127s|s1905b|1905|rds|local|vector|||0.06||

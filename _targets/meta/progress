@@ -1,5 +1,6 @@
 name|type|parent|branches|progress
-future_spex_data_file|stem|future_spex_data_file|0|skipped
+future_spex_data_file|stem|future_spex_data_file|0|dispatched
+future_spex_data_file|stem|future_spex_data_file|0|completed
 recreational_importance_score_file|stem|recreational_importance_score_file|0|skipped
 harvest_spex_data_file|stem|harvest_spex_data_file|0|skipped
 tribal_score_file|stem|tribal_score_file|0|skipped
@@ -19,7 +20,8 @@ prev_cycle|stem|prev_cycle|0|skipped
 new_survey_data|stem|new_survey_data|0|skipped
 revenue_data_file|stem|revenue_data_file|0|skipped
 wcgbt_data|stem|wcgbt_data|0|skipped
-future_spex_data|stem|future_spex_data|0|skipped
+future_spex_data|stem|future_spex_data|0|dispatched
+future_spex_data|stem|future_spex_data|0|completed
 recreational_importance_scores|stem|recreational_importance_scores|0|skipped
 harvest_spex_data|stem|harvest_spex_data|0|skipped
 tribal_score_data|stem|tribal_score_data|0|skipped
@@ -45,7 +47,8 @@ recreational|stem|recreational|0|skipped
 rebuilding|stem|rebuilding|0|skipped
 tribal_revenue_filtered|stem|tribal_revenue_filtered|0|skipped
 commercial_revenue_filtered|stem|commercial_revenue_filtered|0|skipped
-constituent_demand|stem|constituent_demand|0|skipped
+constituent_demand|stem|constituent_demand|0|dispatched
+constituent_demand|stem|constituent_demand|0|completed
 tribal|stem|tribal|0|skipped
 commercial|stem|commercial|0|skipped
 assess_frequency|stem|assess_frequency|0|skipped
