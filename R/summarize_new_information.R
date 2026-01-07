@@ -19,6 +19,49 @@ summarize_new_information <- function(
   assess_year,
   new_research
 ) {
+  # Deal with lingcod and yellowtail in survey data if there are multiple entries
+  if (length(grep("lingcod", survey_data$Common_name)) > 1) {
+    aa <- grep("lingcod", survey_data$Common_name)
+    add <- data.frame(
+      Common_name = "lingcod",
+      set_tow = sum(survey_data[aa, "set_tow"]),
+      total_lengths = sum(survey_data[aa, "total_lengths"]),
+      total_ages = sum(survey_data[aa, "total_ages"]),
+      total_otoliths = sum(survey_data[aa, "total_otoliths"]),
+      years_since_assessment = sum(survey_data[aa, "years_since_assessment"]) /
+        2,
+      ave_set_tows = sum(survey_data[aa, "ave_set_tows"]) / 2,
+      ave_lengths = sum(survey_data[aa, "ave_lengths"]) / 2,
+      ave_ages = sum(survey_data[aa, "ave_ages"]) / 2,
+      ave_otoliths = sum(survey_data[aa, "ave_otoliths"]) / 2,
+      wcgbt = NA,
+      nwfsc_hkl = NA
+    )
+    survey_data_reduced <- survey_data[-aa, ]
+    survey_data <- dplyr::bind_rows(survey_data_reduced, add)
+  }
+  if (length(grep("yellowtail rockfish", survey_data$Common_name)) > 1) {
+    aa <- grep("yellowtail rockfish", survey_data$Common_name)
+    add <- data.frame(
+      Common_name = "yellowtail rockfish",
+      set_tow = sum(survey_data[aa, "set_tow"]),
+      total_lengths = sum(survey_data[aa, "total_lengths"]),
+      total_ages = sum(survey_data[aa, "total_ages"]),
+      total_otoliths = sum(survey_data[aa, "total_otoliths"]),
+      ,
+      years_since_assessment = sum(survey_data[aa, "years_since_assessment"]) /
+        2,
+      ave_set_tows = sum(survey_data[aa, "ave_set_tows"]) / 2,
+      ave_lengths = sum(survey_data[aa, "ave_lengths"]) / 2,
+      ave_ages = sum(survey_data[aa, "ave_ages"]) / 2,
+      ave_otoliths = sum(survey_data[aa, "ave_otoliths"]) / 2,
+      wcgbt = NA,
+      nwfsc_hkl = NA
+    )
+    survey_data_reduced <- survey_data_reduced[-aa, ]
+    survey_data <- dplyr::bind_rows(survey_data_reduced, add)
+  }
+
   new_info_df <- data.frame(
     Species = species[, 1],
     Rank = NA,
