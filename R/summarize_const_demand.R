@@ -302,7 +302,7 @@ summarize_const_demand <- function(
       Factor_Score = Choke_Stock_Score +
         Commercial_Importance_Modifier +
         Recreational_Importance_Modifier,
-      Factor_Score = 10 * Factor_Score / max(Factor_Score),
+      Factor_Score = round(10 * Factor_Score / max(Factor_Score), 2),
       Rank = rank(-Factor_Score, ties.method = "min")
     ) |>
     dplyr::arrange(Species, .locale = "en") |>
