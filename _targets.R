@@ -24,25 +24,10 @@ targets::tar_option_set(
   )
 )
 
-# Load in Rdata object for the WCGBT bio data
-# Have not figured out how to load an rdata object via tar_target
-load("data-raw/bio_pull_all_NWFSC.Combo_2025-09-12.rdata")
 
 # Source all functions in the R folder because I can't get teh westcoastdata (e.g., data_summary)
 # to build as a package...
 targets::tar_source()
-source(
-  "C:/Users/chantel.wetzel/Documents/github/prioritization/data_summary/R/get_species_list.R"
-)
-source(
-  "C:/Users/chantel.wetzel/Documents/github/prioritization/data_summary/R/clean_nwfsc_hkl.R"
-)
-source(
-  "C:/Users/chantel.wetzel/Documents/github/prioritization/data_summary/R/clean_wcgbt_bio.R"
-)
-source(
-  "C:/Users/chantel.wetzel/Documents/github/prioritization/data_summary/R/summarize_new_survey_information.R"
-)
 
 # End this file with a list of target objects.
 list(
@@ -56,11 +41,6 @@ list(
     targets::tar_target(
       species,
       readr::read_csv(species_file)
-    ),
-    # List of species to pull survey data for:
-    targets::tar_target(
-      survey_species,
-      get_species_list()
     ),
     # File to record the assessment year and the SSC recommendations.  This file should be updated
     # by hand each cycle:
@@ -196,28 +176,13 @@ list(
       new_research,
       readr::read_csv(new_research_file)
     ),
-    # Pull NWFSC WCGBTS data
     targets::tar_target(
-      wcgbt_data,
-      x,
-    ),
-    #targets::tar_target(
-    #  wcgbt_data,
-    #  westcoastdata::pull_wcgbts(
-    #    dir = here::here("data-raw"),
-    #    load = TRUE,
-    #    species = survey_species
-    #  )
-    #),
-    # NWFSC HKL Survey Data
-    targets::tar_target(
-      nwfsc_hkl_data_file,
-      command = "data-raw/nwfsc_hkl_DWarehouse_version_09032025.csv",
-      format = "file"
+      new_survey_data_file,
+      command = "C:/Users/chantel.wetzel/Documents/github/prioritization/westcoastdata/data-processed/2026/all_nwfsc_survey_new_information.csv"
     ),
     targets::tar_target(
-      nwfsc_hkl_data,
-      readr::read_csv(nwfsc_hkl_data_file)
+      new_survey_data,
+      readr::read_csv(new_survey_data_file)
     )
   ),
 
@@ -269,42 +234,10 @@ list(
         data = revenue_data_filtered,
         type = "tribal"
       )
-    ) #,
-    # Clean NWFSC WCGBT data
-    #tar_target(
-    #  wcgbt_bio_cleaned,
-    #  clean_wcgbt_bio(
-    #    dir = here::here("data-raw"),
-    #    species = survey_species,
-    #    data = wcgbt_data
-    #  )
-    #),
-    # Clean NWFSC HKL data
-    #tar_target(
-    #  nwfsc_hkl_cleaned,
-    #  clean_nwfsc_hkl(
-    #    dir = here::here("data-raw"),
-    #    species = survey_species,
-    #    data = nwfsc_hkl_data
-    #  )
-    #)
+    )
   ),
 
   list(
-    # Determine the new available survey data
-    targets::tar_target(
-      new_survey_data,
-      read.csv(here::here(
-        "data-processed",
-        "all_nwfsc_survey_new_information.csv"
-      ))
-      #summarize_survey_new_information(
-      #  dir = here::here("data-processed"),
-      #  stock_year = last_assess_year_df,
-      #  wcgbt = wcgbt_bio_cleaned,
-      #  hkl = nwfsc_hkl_cleaned
-      #)
-    ),
     # 6 Stock Status
     targets::tar_target(
       stock_status,

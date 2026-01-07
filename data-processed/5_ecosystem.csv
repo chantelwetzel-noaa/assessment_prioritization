@@ -1,51 +1,51 @@
 Species,Rank,Factor Score,Top Down Scaled,Bottom Up Scaled,Management Group
 Pacific spiny dogfish,1,10,7.02,0.32,species specific
-Sablefish,2,9.59,6.67,0.38,species specific
-Arrowtooth flounder,3,5.72,4.04,0.17,species specific
-Lingcod,4,3.09,2.13,0.14,species specific
+Sablefish,2,9.6,6.67,0.38,species specific
+Arrowtooth flounder,3,5.74,4.04,0.18,species specific
+Lingcod,4,3.31,2.29,0.15,species specific
 Shortspine thornyhead,5,2.01,1.02,0.46,species specific
-Yellowtail rockfish,6,1.99,1.2,0.26,species specific
-Dover sole,7,1.88,0.06,1.32,species specific
-Longnose skate,8,1.64,1.1,0.11,species specific
-Chilipepper,9,1.18,0.77,0.1,species specific
-Bocaccio,10,0.98,0.64,0.08,species specific
-Black rockfish,11,0.94,0.64,0.06,species specific
-Petrale sole,12,0.73,0.5,0.04,species specific
-Big skate,13,0.69,0.46,0.05,species specific
-Widow rockfish,14,0.6,0.24,0.2,species specific
+Yellowtail rockfish,6,2,1.21,0.26,species specific
+Dover sole,7,1.84,0.06,1.3,species specific
+Longnose skate,8,1.41,0.95,0.09,species specific
+Chilipepper,9,1.21,0.79,0.1,species specific
+Bocaccio,10,1.03,0.67,0.09,species specific
+Black rockfish,11,0.94,0.63,0.05,species specific
+Big skate,12,0.92,0.62,0.06,species specific
+Petrale sole,13,0.73,0.5,0.04,species specific
+Widow rockfish,14,0.62,0.25,0.21,species specific
 California scorpionfish,15,0.39,0.16,0.12,species specific
 Pacific cod,15,0.39,0.16,0.12,species specific
 Longspine thornyhead,17,0.27,0.02,0.18,species specific
-Cabezon,18,0.26,0.18,0.01,other groundfish
-English sole,19,0.22,0.01,0.15,species specific
-Splitnose rockfish,20,0.21,0.01,0.15,minor slope rockfish
-Pacific ocean perch,21,0.12,0.02,0.07,species specific
-Vermilion/Sunset rockfish,21,0.12,0.08,0.01,minor shelf rockfish
-Yelloweye rockfish,21,0.12,0.08,0,species specific
-Pacific sanddab,24,0.1,0,0.07,other flatfish
-Greenstriped rockfish,25,0.09,0.02,0.05,minor shelf rockfish
-Canary rockfish,26,0.08,0.02,0.04,species specific
-Silvergray rockfish,27,0.07,0.04,0.01,minor shelf rockfish
-Rex sole,28,0.06,0,0.04,other flatfish
-Blue/Deacon rockfish,29,0.05,0.03,0.01,minor nearshore rockfish
-Darkblotched rockfish,29,0.05,0,0.03,species specific
+English sole,18,0.26,0.01,0.18,species specific
+Splitnose rockfish,19,0.19,0,0.13,minor slope rockfish
+Vermilion/Sunset rockfish,20,0.14,0.09,0.01,minor shelf rockfish
+Pacific ocean perch,21,0.13,0.02,0.07,species specific
+Yelloweye rockfish,22,0.12,0.08,0,species specific
+Pacific sanddab,23,0.11,0,0.08,other flatfish
+Greenstriped rockfish,24,0.09,0.02,0.05,minor shelf rockfish
+Canary rockfish,25,0.08,0.02,0.04,species specific
+Redstripe rockfish,25,0.08,0.05,0.01,minor shelf rockfish
+Silvergray rockfish,27,0.07,0.05,0.01,minor shelf rockfish
+Darkblotched rockfish,28,0.06,0,0.04,species specific
 Kelp greenling,29,0.05,0.03,0.01,other groundfish
+Rex sole,29,0.05,0,0.04,other flatfish
+Cabezon,31,0.04,0.03,0,other groundfish
 Bank rockfish,32,0.03,0,0.02,minor slope rockfish
-Copper rockfish,32,0.03,0.02,0.01,minor nearshore rockfish
-Redstripe rockfish,32,0.03,0.02,0.01,minor shelf rockfish
-Sharpchin rockfish,32,0.03,0,0.02,minor slope rockfish
+Blue/Deacon rockfish,32,0.03,0.02,0.01,minor nearshore rockfish
+Cowcod,32,0.03,0.02,0,minor shelf rockfish
+Greenspotted rockfish,32,0.03,0.02,0,minor shelf rockfish
 Starry rockfish,32,0.03,0.02,0,minor shelf rockfish
 Stripetail rockfish,32,0.03,0.02,0,minor shelf rockfish
-China rockfish,38,0.02,0.01,0,minor nearshore rockfish
-Speckled rockfish,38,0.02,0.01,0,minor shelf rockfish
-Aurora rockfish,40,0.01,0,0,minor slope rockfish
-Blackgill rockfish,40,0.01,0,0.01,minor slope rockfish
-Cowcod,40,0.01,0.01,0,minor shelf rockfish
-Greenspotted rockfish,40,0.01,0.01,0,minor shelf rockfish
-Rosethorn rockfish,40,0.01,0,0,minor shelf rockfish
-Rougheye/Blackspotted rockfish,40,0.01,0,0.01,minor slope rockfish
-Yellowmouth rockfish,40,0.01,0,0.01,minor slope rockfish
-Flathead sole,47,0,0,0,other flatfish
-Quillback rockfish,47,0,0,0,minor nearshore rockfish
-Redbanded rockfish,47,0,0,0,minor slope rockfish
-Shortraker rockfish,47,0,0,0,minor slope rockfish
+Sharpchin rockfish,38,0.02,0,0.02,minor slope rockfish
+Aurora rockfish,39,0.01,0,0,minor slope rockfish
+Blackgill rockfish,39,0.01,0,0.01,minor slope rockfish
+China rockfish,39,0.01,0.01,0,minor nearshore rockfish
+Copper rockfish,39,0.01,0.01,0,minor nearshore rockfish
+Rosethorn rockfish,39,0.01,0,0,minor shelf rockfish
+Rougheye/Blackspotted rockfish,39,0.01,0,0.01,minor slope rockfish
+Yellowmouth rockfish,39,0.01,0,0.01,minor slope rockfish
+Flathead sole,46,0,0,0,other flatfish
+Quillback rockfish,46,0,0,0,minor nearshore rockfish
+Redbanded rockfish,46,0,0,0,minor slope rockfish
+Shortraker rockfish,46,0,0,0,minor slope rockfish
+Squarespot rockfish,46,0,0,0,minor shelf rockfish
