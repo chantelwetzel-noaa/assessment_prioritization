@@ -108,11 +108,11 @@ summarize_revenue <- function(
   revenue_df <- revenue_df |>
     dplyr::rename(Species = speciesName) |>
     dplyr::mutate(
-      Assess_Last_Cycle = dplyr::case_when(
+      Assessed_Last_Cycle = dplyr::case_when(
         assess_year[, "Last_Assess"] == last_assess_year ~ -2,
         .default = 0
       ),
-      Factor_Score = log(Revenue + 1) + Assess_Last_Cycle,
+      Factor_Score = log(Revenue + 1) + Assessed_Last_Cycle,
       Factor_Score = dplyr::case_when(
         Factor_Score > 0 ~ Factor_Score,
         .default = 0

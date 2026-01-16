@@ -35,7 +35,7 @@ summarize_const_demand <- function(
 
   data <- data.frame(
     Species = species[, 1],
-    Commercial_Importance_Modifier = 0,
+    Commercial_Importance_Score = 0,
     CW = NA,
     C = NA,
     O = NA,
@@ -141,7 +141,7 @@ summarize_const_demand <- function(
         abs(final_twl - final_ntwl) < 0.10 ~ 1,
         .default = 0
       ),
-      Commercial_Importance_Modifier = modifier_c +
+      Commercial_Importance_Score = modifier_c +
         modifier_o +
         modifier_w +
         modifier_twl
@@ -158,7 +158,7 @@ summarize_const_demand <- function(
       modifier_o,
       modifier_w,
       modifier_twl,
-      Commercial_Importance_Modifier
+      Commercial_Importance_Score
     )
 
   #===================================================
@@ -208,7 +208,7 @@ summarize_const_demand <- function(
         final_c != 0 & final_w - final_cw > 0.10 ~ 1,
         .default = 0
       ),
-      Recreational_Importance_Modifier = modifier_c + modifier_o + modifier_w
+      Recreational_Importance_Score = modifier_c + modifier_o + modifier_w
     ) |>
     dplyr::select(
       Species,
@@ -219,7 +219,7 @@ summarize_const_demand <- function(
       modifier_c,
       modifier_o,
       modifier_w,
-      Recreational_Importance_Modifier
+      Recreational_Importance_Score
     )
 
   #====================================================================================
@@ -288,20 +288,18 @@ summarize_const_demand <- function(
       Choke_Stock_Score = dplyr::case_when(
         Species %in%
           c(
-            "Canary rockfish",
             "Shortspine thornyhead",
-            "Petrale sole",
             "Yellowtail rockfish"
           ) ~
-          4,
+          2,
         .default = Choke_Stock_Score
       ),
-      Projected_ACL_Attainment = round(Projected_ACL_Attainment, 2),
-      Commercial_Importance_Modifier = com_importance_df$Commercial_Importance_Modifier,
-      Recreational_Importance_Modifier = rec_importance_df$Recreational_Importance_Modifier,
+      Projected_ACL_Attainment = round(Projected_ACL_Attainment, 3),
+      Commercial_Importance_Score = com_importance_df$Commercial_Importance_Score,
+      Recreational_Importance_Score = rec_importance_df$Recreational_Importance_Score,
       Factor_Score = Choke_Stock_Score +
-        Commercial_Importance_Modifier +
-        Recreational_Importance_Modifier,
+        Commercial_Importance_Score +
+        Recreational_Importance_Score,
       Factor_Score = round(10 * Factor_Score / max(Factor_Score), 2),
       Rank = rank(-Factor_Score, ties.method = "min")
     ) |>
