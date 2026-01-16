@@ -39,17 +39,17 @@ create_calender <- function(
       as.Date("2027-06-16"),
       as.Date("2027-06-22"),
       by = "1 day"
-    )) #,
-    #lubridate::yday(seq(
-    #  as.Date("2027-09-17"),
-    #  as.Date("2027-09-22"),
-    #  by = "1 day"
-    #)),
-    #lubridate::yday(seq(
-    #  as.Date("2027-11-13"),
-    #  as.Date("2027-11-18"),
-    #  by = "1 day"
-    #))
+    )),
+    lubridate::yday(seq(
+      as.Date("2027-09-17"),
+      as.Date("2027-09-21"),
+      by = "1 day"
+    )),
+    lubridate::yday(seq(
+      as.Date("2027-11-13"),
+      as.Date("2027-11-19"),
+      by = "1 day"
+    ))
   )] <- "Council Meeting"
   mark_dates[
     lubridate::yday(c(
@@ -66,13 +66,13 @@ create_calender <- function(
       "2027-12-24"
     ))
   ] <- "Federal Holiday"
-  mark_dates[c(
-    lubridate::yday(seq(
-      as.Date("2027-04-26"),
-      as.Date("2027-04-30"),
-      by = "1 day"
-    ))
-  )] <- "Potential STAR Panel - June Council Meeting"
+  #mark_dates[c(
+  #  lubridate::yday(seq(
+  #    as.Date("2027-04-26"),
+  #    as.Date("2027-04-30"),
+  #    by = "1 day"
+  #  ))
+  #)] <- "Potential STAR Panel - June Council Meeting"
   mark_dates[c(
     lubridate::yday(seq(
       as.Date("2027-05-03"),
@@ -87,6 +87,16 @@ create_calender <- function(
     lubridate::yday(seq(
       as.Date("2027-05-17"),
       as.Date("2027-05-21"),
+      by = "1 day"
+    )),
+    lubridate::yday(seq(
+      as.Date("2027-05-24"),
+      as.Date("2027-05-28"),
+      by = "1 day"
+    )),
+    lubridate::yday(seq(
+      as.Date("2027-06-07"),
+      as.Date("2027-06-11"),
       by = "1 day"
     )),
     lubridate::yday(seq(
@@ -117,22 +127,20 @@ create_calender <- function(
   desired_order <- c(
     "Council Meeting",
     "Federal Holiday",
-    "STAR Panel - June Council Meeting",
-    "STAR Panel - Sept. Council Meeting",
-    #"STAR Panel (Possible) - Sept. Council Meeting",
-    "Weekend"
+    "Weekend",
+    #"STAR Panel - June Council Meeting",
+    "STAR Panel - Sept. Council Meeting"
   )
   ordered_colors <- c(
     "lightcyan2",
     "pink",
     "darkorchid1",
-    "darkolivegreen1",
-    #"darkolivegreen4",
+    #"darkolivegreen1",
     "grey80"
   )[order(desired_order)]
   ordered_colors <-
-    nmfspalette::nmfs_palette("regional")(10)
-
+    nmfspalette::nmfs_palette("urchin")(length(desired_order))
+  ordered_colors <- PNWColors::pnw_palette("Sailboat", 7)[c(2, 3, 6, 4)]
   calendR::calendR(
     year = year,
     title = year,
@@ -142,7 +150,7 @@ create_calender <- function(
     orientation = c("portrait", "landscape")[1],
     weeknames = c("M", "T", "W", "TH", "F", "S", "S"),
     special.days = mark_dates,
-    special.col = PNWColors::pnw_palette("Sailboat", 7)[2:6],
+    special.col = ordered_colors,
     legend.pos = "bottom",
     mbg.col = PNWColors::pnw_palette("Sailboat", 6)[1], #ordered_colors[1],
     months.col = "white"
@@ -162,7 +170,7 @@ create_calender <- function(
     orientation = c("portrait", "landscape")[2],
     weeknames = c("M", "T", "W", "TH", "F", "S", "S"),
     special.days = mark_dates,
-    special.col = PNWColors::pnw_palette("Sailboat", 7)[2:6],
+    special.col = ordered_colors,
     legend.pos = "bottom",
     mbg.col = PNWColors::pnw_palette("Sailboat", 6)[1], #ordered_colors[1],
     months.col = "white"
