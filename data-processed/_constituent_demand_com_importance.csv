@@ -1,4 +1,4 @@
-Species,final_cw,final_c,final_o,final_w,final_twl,final_ntwl,modifier_c,modifier_o,modifier_w,modifier_twl,Commercial_Importance_Modifier
+Species,final_cw,final_c,final_o,final_w,final_twl,final_ntwl,modifier_c,modifier_o,modifier_w,modifier_twl,Commercial_Importance_Score
 Arrowtooth flounder,0.388,0.229,0.617,0.472,0.613,0.131,0,1,0,0,1
 Aurora rockfish,0.224,0.334,0.277,0.25,0.34,0.283,1,0,0,1,2
 Bank rockfish,0.49,0.624,0.149,0.166,0.522,0.522,1,0,0,1,2

@@ -42,10 +42,12 @@ rebuilding|stem|rebuilding|0|skipped
 commercial_revenue_filtered|stem|commercial_revenue_filtered|0|skipped
 tribal_revenue_filtered|stem|tribal_revenue_filtered|0|skipped
 fishing_mortality|stem|fishing_mortality|0|skipped
-commercial|stem|commercial|0|skipped
-tribal|stem|tribal|0|skipped
-constituent_demand|stem|constituent_demand|0|dispatched
-constituent_demand|stem|constituent_demand|0|completed
-assess_frequency|stem|assess_frequency|0|skipped
+commercial|stem|commercial|0|dispatched
+commercial|stem|commercial|0|completed
+tribal|stem|tribal|0|dispatched
+tribal|stem|tribal|0|completed
+constituent_demand|stem|constituent_demand|0|skipped
+assess_frequency|stem|assess_frequency|0|dispatched
+assess_frequency|stem|assess_frequency|0|completed
 rank|stem|rank|0|dispatched
 rank|stem|rank|0|completed

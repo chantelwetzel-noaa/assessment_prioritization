@@ -1,4 +1,4 @@
-"Species","Rank","Factor Score","Tribal Score","Revenue","CA Revenue","OR Revenue","WA Revenue","Assess Last Cycle","Management Group"
+"Species","Rank","Factor Score","Tribal Score","Revenue","CA Revenue","OR Revenue","WA Revenue","Assessed Last Cycle","Management Group"
 "Petrale sole",1,10,2,1337056.7,0,0,1337056.7,0,"species specific"
 "Sablefish",2,9.77253178403605,2,6849059.9,0,0,6849059.9,-2,"species specific"
 "Pacific cod",3,9.18291153467865,3,131922.9,0,0,131922.9,0,"species specific"
