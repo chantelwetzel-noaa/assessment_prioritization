@@ -32,11 +32,8 @@ recreational|stem|aa77f67697b11e24|e43b8304a89b144f|210d02d7b03a3dbf|1641201537|
 fishing_mortality|stem|287016287ceea2a6|a2f1f2eafc29bd92|ee1b97f366a2696b|-1043438507||t20431.6914309394s|s1668b|1668|rds|local|vector|||0.26||
 commercial_revenue_filtered|stem|4f9808717a95da44|4eb3e1fa67d54167|3af90a07bbbb855c|-705007826||t20431.6914322149s|s56629b|56629|rds|local|vector|||0.01||
 tribal_revenue_filtered|stem|234d5dd3e9c0c8e6|670be80b9e1a50c2|3af90a07bbbb855c|424871529||t20431.6914324117s|s5441b|5441|rds|local|vector|||0||
-abundance_updated|stem|dd075b1b926d1247|88e82a0f1cd71bc7|227e4f4225cfb5c6|734786717||t20432.9087374291s|s2041b|2041|rds|local|vector|||0.16||
 wcgbt_bio_cleaned|stem|b2faffe2f45fa66e|7f337a881cc1f931|6e81cf6d5ded35d4|947703043||t20431.6898444066s||10167739|rds|local|vector|||0.01||no applicable method for 'filter' applied to an object of class 'NULL'
-stock_status|stem|b2f28c7de0c913c8|a5fb4004bd683b0d|e31a96ae06d4a093|-2014263098||t20438.6996359272s|s1358b|1358|rds|local|vector|||91.83|covar file contains the warning      'Variances are 0.0 for first two elements, so do not write '   input 'covar' changed to FALSE.|
 rebuilding|stem|0c28def88b81403b|362f6a2e3b6a4a8e|1d7c8c3b7da3eae8|684471090||t20438.6996372046s|s653b|653|rds|local|vector|||0.08||
-abundance_updated_file|stem|786f019289791e97|aa4daeee09a745a7|2c530c1562a7fbd1|934225372|data-processed/abundance_processed.csv|t20438.6996358339s|s3945b|3945|file|local|vector|||1.02|package 'dplyr' was built under R version 4.4.2. package 'readr' was built under R version 4.4.2|
 new_research_file|stem|c8aeaec91fb40d62|a2199159bfb47296|2c530c1562a7fbd1|-1324786715|data-raw/new_research.csv|t20459.8432238408s|s705b|705|file|local|vector|||0||
 new_research|stem|5a942eaaa5f7058c|ebf8f05cd6aeb117|c2b70738a49db1d0|1378736951||t20459.8501798631s|s570b|570|rds|local|vector|||0.03||
 new_survey_data_file|stem|42cf6fb81fd91d2a|c787402901690a55|2c530c1562a7fbd1|-451848443||t20460.8958071399s|s162b|162|rds|local|vector|||0||
@@ -54,7 +51,10 @@ survey_species|stem|99d92ab66b05a56d|9d2a6f3ece01325b|2c530c1562a7fbd1|151906837
 future_spex_data_file|stem|491f1235a16fa92d|ee2ca88804edb735|2c530c1562a7fbd1|1852971394|data-raw/GMT008-harvest specifications-2027-28.csv|t20465.6373703972s|s134788b|134788|file|local|vector|||0.84|package 'dplyr' was built under R version 4.4.2. package 'readr' was built under R version 4.4.2|
 future_spex_data|stem|e370dc1999c5b31e|380bf8aa5a1c66f3|c4d0ea01bf337d83|1641657089||t20465.7277057319s|s16745b|16745|rds|local|vector|||0.14||
 constituent_demand|stem|4aed02bbd85236c3|fb32092e9b3a6fd2|ec4c7907993f2838|-79348027||t20465.7277130494s|s1494b|1494|rds|local|vector|||0.28||
-create_calender|function|c1016aff3906c87e
+commercial|stem|cace658d62fc6d3d|2c3139a77d1fcc75|947e60fe34faacfb|-1216504900||t20465.7297264506s|s1887b|1887|rds|local|vector|||0.28||
+tribal|stem|45b41c3bf17263f2|eb8020616ec56b9e|8d065b0c123c513e|-68488020||t20465.7297277619s|s1413b|1413|rds|local|vector|||0.08||
+stock_status|stem|b2f28c7de0c913c8|a5fb4004bd683b0d|73364098d81d1c1c|-2014263098||t20475.8278318794s|s1358b|1358|rds|local|vector|||131|covar file contains the warning      'Variances are 0.0 for first two elements, so do not write '   input 'covar' changed to FALSE.|
+create_calender|function|b1293fc5c077ad83
 all_species|function|8c39de18caffbbd1
 calculate_rank|function|4c2f7b53ad5b0f9f
 clean_model_files|function|b29cebfd0df9876d
@@ -70,15 +70,15 @@ format_table|function|26351f4da752dd40
 format_all|function|cde3ea45b282057b
 summarize_rebuilding|function|7e1913e988add2fa
 summarize_future_spex|function|a5d4719111a803c6
-summarize_stock_status|function|120baa35ff944481
-summarize_frequency|function|1c3d9f0c4434723a
+summarize_stock_status|function|a7f187c4d915f15e
+summarize_frequency|function|67ff3bb3c4e534ce
 summarize_revenue|function|22d046681004e80a
 summarize_rec_importance|function|c17dbce5633b4170
 summarize_const_demand|function|501074680ddb11b0
 summarize_fishing_mortality|function|3aa7047d8e35369b
 summarize_new_information|function|ddbd55a12b398a1b
 summarize_ecosystem|function|de826dd322626749
-commercial|stem|cace658d62fc6d3d|2c3139a77d1fcc75|947e60fe34faacfb|-1216504900||t20465.7297264506s|s1887b|1887|rds|local|vector|||0.28||
-tribal|stem|45b41c3bf17263f2|eb8020616ec56b9e|8d065b0c123c513e|-68488020||t20465.7297277619s|s1413b|1413|rds|local|vector|||0.08||
-assess_frequency|stem|05c7299f230d3478|b707838d5c56b894|6bdd3d2e8ad6431b|1777687381||t20465.7297292519s|s1930b|1930|rds|local|vector|||0.09||
-rank|stem|2ac370e1bbc0c328|ba916fdf3b8e7105|653b095ab5eadaac|293663229||t20465.729729885s|s1935b|1935|rds|local|vector|||0.05||
+abundance_updated_file|stem|3ccb2b50f42952ed|aa4daeee09a745a7|2c530c1562a7fbd1|934225372|data-processed/abundance_processed.csv|t20475.8278317664s|s4570b|4570|file|local|vector|||1.08|package 'dplyr' was built under R version 4.4.2. package 'readr' was built under R version 4.4.3|
+abundance_updated|stem|19729bd1b40a33c7|88e82a0f1cd71bc7|3bc644a410d145b2|734786717||t20475.8281376644s|s2193b|2193|rds|local|vector|||0.19||
+assess_frequency|stem|82df9554eccfa53f|b707838d5c56b894|226d032108031297|1777687381||t20475.828140714s|s1926b|1926|rds|local|vector|||0.19||
+rank|stem|e3379cea6ee5755d|ba916fdf3b8e7105|4e248bc144cf56d4|293663229||t20475.8281416913s|s1943b|1943|rds|local|vector|||0.06||

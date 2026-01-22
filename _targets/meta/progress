@@ -1,5 +1,6 @@
 name|type|parent|branches|progress
-abundance_updated_file|stem|abundance_updated_file|0|skipped
+abundance_updated_file|stem|abundance_updated_file|0|dispatched
+abundance_updated_file|stem|abundance_updated_file|0|completed
 ecosystem_data_file|stem|ecosystem_data_file|0|skipped
 tribal_score_file|stem|tribal_score_file|0|skipped
 recent_5_years|stem|recent_5_years|0|skipped
@@ -16,7 +17,8 @@ recreational_importance_score_file|stem|recreational_importance_score_file|0|ski
 last_assess_year_df_file|stem|last_assess_year_df_file|0|skipped
 new_survey_data_file|stem|new_survey_data_file|0|skipped
 harvest_spex_data_file|stem|harvest_spex_data_file|0|skipped
-abundance_updated|stem|abundance_updated|0|skipped
+abundance_updated|stem|abundance_updated|0|dispatched
+abundance_updated|stem|abundance_updated|0|completed
 ecosystem_data|stem|ecosystem_data|0|skipped
 tribal_score_data|stem|tribal_score_data|0|skipped
 gemm_mortality_data_raw|stem|gemm_mortality_data_raw|0|skipped
@@ -42,10 +44,8 @@ rebuilding|stem|rebuilding|0|skipped
 commercial_revenue_filtered|stem|commercial_revenue_filtered|0|skipped
 tribal_revenue_filtered|stem|tribal_revenue_filtered|0|skipped
 fishing_mortality|stem|fishing_mortality|0|skipped
-commercial|stem|commercial|0|dispatched
-commercial|stem|commercial|0|completed
-tribal|stem|tribal|0|dispatched
-tribal|stem|tribal|0|completed
+commercial|stem|commercial|0|skipped
+tribal|stem|tribal|0|skipped
 constituent_demand|stem|constituent_demand|0|skipped
 assess_frequency|stem|assess_frequency|0|dispatched
 assess_frequency|stem|assess_frequency|0|completed
