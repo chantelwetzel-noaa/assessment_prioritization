@@ -170,7 +170,7 @@ summarize_stock_status <- function(
   ssc <- utils::read.csv(here::here("data-raw", "assess_year_ssc_rec.csv")) |>
     dplyr::select(-Last_Assess)
   new_abundance <- dplyr::left_join(
-    x = new_abundance,
+    x = new_abundance |> dplyr::select(-Last_Assess),
     y = ssc
   )
 
@@ -215,7 +215,7 @@ summarize_stock_status <- function(
     here::here("data-processed", "6_stock_status.csv")
   )
   readr::write_csv(
-    new_abundance,
+    abundance_out,
     here::here("data-processed", "abundance_processed.csv")
   )
   readr::write_csv(

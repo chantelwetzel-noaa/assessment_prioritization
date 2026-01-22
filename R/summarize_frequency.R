@@ -77,7 +77,7 @@ summarize_frequency <- function(
     Total_Adjustment = NA,
     Adjusted_Maximum_Age = NA,
     Target_Assessment_Frequency = NA,
-    Last_Assessment_Year = abundance$Last_Assess,
+    Last_Assessment_Year = abundance$year,
     Years_Since_Assessment = NA,
     Years_Past_Target_Frequency = NA,
     Ten_Years_or_Greater = NA,
