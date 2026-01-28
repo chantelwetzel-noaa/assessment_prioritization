@@ -25,7 +25,6 @@ harvest_spex_filtered|stem|3bf770d112d5041b|cd6d230d0754d047|38db78bdb99c3178|-1
 nwfsc_hkl_cleaned|stem|cca4be7843b31dcf|b47c460e68f9db95|728f9e7f257a2a21|-743680197||t20431.6903542298s|s2574496b|2574496|rds|local|vector|||43.07||
 rec_catch_filtered|stem|52a6492ef8bf5cc2|1f6c51dc341ed683|9439023340b6d87f|646432824||t20431.6903545307s|s29299b|29299|rds|local|vector|||0||
 revenue_data_filtered|stem|46a61517eacf90e7|f95fb325c3c85d46|9e376416cd7dbb28|-1303166869||t20431.6913347998s|s61339b|61339|rds|local|vector|||0.01||
-fishing_mortality|stem|287016287ceea2a6|a2f1f2eafc29bd92|ee1b97f366a2696b|-1043438507||t20431.6914309394s|s1668b|1668|rds|local|vector|||0.26||
 wcgbt_bio_cleaned|stem|b2faffe2f45fa66e|7f337a881cc1f931|6e81cf6d5ded35d4|947703043||t20431.6898444066s||10167739|rds|local|vector|||0.01||no applicable method for 'filter' applied to an object of class 'NULL'
 rebuilding|stem|0c28def88b81403b|362f6a2e3b6a4a8e|1d7c8c3b7da3eae8|684471090||t20438.6996372046s|s653b|653|rds|local|vector|||0.08||
 new_research_file|stem|c8aeaec91fb40d62|a2199159bfb47296|2c530c1562a7fbd1|-1324786715|data-raw/new_research.csv|t20459.8432238408s|s705b|705|file|local|vector|||0||
@@ -51,12 +50,12 @@ future_spex_data|stem|8388b2a7ca34c910|380bf8aa5a1c66f3|5c63f85aa85f2e17|1641657
 recreational_importance_score_file|stem|e36e0a6de191e07a|be3f2644b0d768dd|2c530c1562a7fbd1|-829540122|data-raw/recr_importance.csv|t20481.7998493752s|s1350b|1350|file|local|vector|||0.72|package 'dplyr' was built under R version 4.4.2. package 'readr' was built under R version 4.4.3|
 recreational_importance_scores|stem|1507d8300ea2da68|2fed4b4d85da00f4|80dc945bae7d3c46|-607038061||t20481.8018022096s|s1006b|1006|rds|local|vector|||0.53||
 recreational|stem|b3079ac102e8d9be|e43b8304a89b144f|86ac01ebf4543da1|1641201537||t20481.8018049589s|s2084b|2084|rds|local|vector|||0.2||
-constituent_demand|stem|7226b892ff8c58d7|fb32092e9b3a6fd2|fec85a05ddd233f4|-79348027||t20481.8018098237s|s1492b|1492|rds|local|vector|||0.34||
 commercial|stem|74bcee529c2f0e57|2c3139a77d1fcc75|2e1e8b2d58a0ad6d|-1216504900||t20481.8115172601s|s1857b|1857|rds|local|vector|||0.29||
 assess_frequency|stem|f95fcea596d31023|b707838d5c56b894|24066086a5a1a0d8|1777687381||t20481.8115186382s|s1928b|1928|rds|local|vector|||0.11||
-rank|stem|f11f7a2ee284e431|ba916fdf3b8e7105|8fc63f85233ad8aa|293663229||t20481.811519236s|s1919b|1919|rds|local|vector|||0.05||
 commercial_revenue_filtered|stem|9669a61dcffc1670|4eb3e1fa67d54167|51b83044a956e929|-705007826||t20481.8134143635s|s55248b|55248|rds|local|vector|||0.01||
 tribal_revenue_filtered|stem|234d5dd3e9c0c8e6|670be80b9e1a50c2|51b83044a956e929|424871529||t20481.813414815s|s5441b|5441|rds|local|vector|||0||
+constituent_demand|stem|9049022cee9477d9|fb32092e9b3a6fd2|595b0b7c00bc65e8|-79348027||t20481.8387527043s|s1490b|1490|rds|local|vector|||0.28||
+rank|stem|bef14fe27ac2ed3c|ba916fdf3b8e7105|26f4039fde6c8eae|293663229||t20481.8387533938s|s1920b|1920|rds|local|vector|||0.04||
 create_calender|function|62b8fbda2a525a73
 all_species|function|8c39de18caffbbd1
 calculate_rank|function|4c2f7b53ad5b0f9f
@@ -67,7 +66,7 @@ filter_years|function|ff9293f03b947f32
 get_species_codes|function|ec1d89a601e19a25
 calculate_ties|function|e265cb53f866141e
 filter_gemm|function|3aa75538e113e897
-filter_area_gemm|function|447fb06e8d3a97fe
+filter_area_gemm|function|7f5b879d1b27a1bf
 move_files_to_sap|function|ef68036590237a26
 format_table|function|26351f4da752dd40
 format_all|function|cde3ea45b282057b
@@ -81,4 +80,5 @@ summarize_const_demand|function|501074680ddb11b0
 summarize_fishing_mortality|function|3aa7047d8e35369b
 summarize_new_information|function|ddbd55a12b398a1b
 summarize_ecosystem|function|de826dd322626749
-gemm_mortality_filtered|stem|a35ea5753bd1c6fb|8e8c183e612acabe|3a542f3402dc5bc0|-625161150||t20481.8360565799s|s399330b|399330|rds|local|vector|||0.02||
+gemm_mortality_filtered|stem|666ce9f899b3b28f|8e8c183e612acabe|3131d5ec466b7ffb|-625161150||t20481.8397376697s|s397483b|397483|rds|local|vector|||0.01||
+fishing_mortality|stem|e633f82f5281538a|a2f1f2eafc29bd92|e2e568a19fcc1258|-1043438507||t20481.8397429549s|s1665b|1665|rds|local|vector|||0.42||

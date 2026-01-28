@@ -42,7 +42,8 @@ recreational|stem|recreational|0|skipped
 rebuilding|stem|rebuilding|0|skipped
 commercial_revenue_filtered|stem|commercial_revenue_filtered|0|skipped
 tribal_revenue_filtered|stem|tribal_revenue_filtered|0|skipped
-fishing_mortality|stem|fishing_mortality|0|skipped
+fishing_mortality|stem|fishing_mortality|0|dispatched
+fishing_mortality|stem|fishing_mortality|0|completed
 commercial|stem|commercial|0|skipped
 tribal|stem|tribal|0|skipped
 constituent_demand|stem|constituent_demand|0|skipped

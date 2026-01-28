@@ -39,10 +39,14 @@ filter_area_gemm <- function(
       data$species == "Copper Rockfish"
   )
   remove_kelp <- c(
-    which(data$species == "Kelp greenling (California)"),
+    which(data$species == "Kelp Greenling (California)"),
+    which(
+      data$grouping == "Other groundfish" &
+        data$species == "Kelp Greenling"
+    ),
     which(
       data$grouping == "Cabezon/kelp greenling (Oregon)" &
-        data$species == "Kelp greenling"
+        data$species == "Kelp Greenling"
     )
   )
   remove_quill <-
