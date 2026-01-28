@@ -24,7 +24,6 @@ revenue_data|stem|83f06815bff0143e|f28056b983b44c24|91588dcfe765cd59|-366443557|
 harvest_spex_filtered|stem|3bf770d112d5041b|cd6d230d0754d047|38db78bdb99c3178|-1290529774||t20431.6898446843s|s19849b|19849|rds|local|vector|||0.02||
 nwfsc_hkl_cleaned|stem|cca4be7843b31dcf|b47c460e68f9db95|728f9e7f257a2a21|-743680197||t20431.6903542298s|s2574496b|2574496|rds|local|vector|||43.07||
 rec_catch_filtered|stem|52a6492ef8bf5cc2|1f6c51dc341ed683|9439023340b6d87f|646432824||t20431.6903545307s|s29299b|29299|rds|local|vector|||0||
-gemm_mortality_filtered|stem|a35ea5753bd1c6fb|8e8c183e612acabe|c3e4af9e86136681|-625161150||t20431.690355121s|s399330b|399330|rds|local|vector|||0.01||
 revenue_data_filtered|stem|46a61517eacf90e7|f95fb325c3c85d46|9e376416cd7dbb28|-1303166869||t20431.6913347998s|s61339b|61339|rds|local|vector|||0.01||
 fishing_mortality|stem|287016287ceea2a6|a2f1f2eafc29bd92|ee1b97f366a2696b|-1043438507||t20431.6914309394s|s1668b|1668|rds|local|vector|||0.26||
 wcgbt_bio_cleaned|stem|b2faffe2f45fa66e|7f337a881cc1f931|6e81cf6d5ded35d4|947703043||t20431.6898444066s||10167739|rds|local|vector|||0.01||no applicable method for 'filter' applied to an object of class 'NULL'
@@ -56,6 +55,8 @@ constituent_demand|stem|7226b892ff8c58d7|fb32092e9b3a6fd2|fec85a05ddd233f4|-7934
 commercial|stem|74bcee529c2f0e57|2c3139a77d1fcc75|2e1e8b2d58a0ad6d|-1216504900||t20481.8115172601s|s1857b|1857|rds|local|vector|||0.29||
 assess_frequency|stem|f95fcea596d31023|b707838d5c56b894|24066086a5a1a0d8|1777687381||t20481.8115186382s|s1928b|1928|rds|local|vector|||0.11||
 rank|stem|f11f7a2ee284e431|ba916fdf3b8e7105|8fc63f85233ad8aa|293663229||t20481.811519236s|s1919b|1919|rds|local|vector|||0.05||
+commercial_revenue_filtered|stem|9669a61dcffc1670|4eb3e1fa67d54167|51b83044a956e929|-705007826||t20481.8134143635s|s55248b|55248|rds|local|vector|||0.01||
+tribal_revenue_filtered|stem|234d5dd3e9c0c8e6|670be80b9e1a50c2|51b83044a956e929|424871529||t20481.813414815s|s5441b|5441|rds|local|vector|||0||
 create_calender|function|62b8fbda2a525a73
 all_species|function|8c39de18caffbbd1
 calculate_rank|function|4c2f7b53ad5b0f9f
@@ -66,7 +67,7 @@ filter_years|function|ff9293f03b947f32
 get_species_codes|function|ec1d89a601e19a25
 calculate_ties|function|e265cb53f866141e
 filter_gemm|function|3aa75538e113e897
-filter_area_gemm|function|4301a97660790325
+filter_area_gemm|function|447fb06e8d3a97fe
 move_files_to_sap|function|ef68036590237a26
 format_table|function|26351f4da752dd40
 format_all|function|cde3ea45b282057b
@@ -80,5 +81,4 @@ summarize_const_demand|function|501074680ddb11b0
 summarize_fishing_mortality|function|3aa7047d8e35369b
 summarize_new_information|function|ddbd55a12b398a1b
 summarize_ecosystem|function|de826dd322626749
-commercial_revenue_filtered|stem|9669a61dcffc1670|4eb3e1fa67d54167|51b83044a956e929|-705007826||t20481.8134143635s|s55248b|55248|rds|local|vector|||0.01||
-tribal_revenue_filtered|stem|234d5dd3e9c0c8e6|670be80b9e1a50c2|51b83044a956e929|424871529||t20481.813414815s|s5441b|5441|rds|local|vector|||0||
+gemm_mortality_filtered|stem|a35ea5753bd1c6fb|8e8c183e612acabe|3a542f3402dc5bc0|-625161150||t20481.8360565799s|s399330b|399330|rds|local|vector|||0.02||
