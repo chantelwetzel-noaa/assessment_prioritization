@@ -34,7 +34,7 @@ filter_revenue <- function(data, type = NULL) {
     ),
     which(
       data$PACFIN_SPECIES_COMMON_NAME == "KELP GREENLING" &
-        data$AGENCY_CODE == "C"
+        data$AGENCY_CODE %in% c("C", "O")
     ),
     which(
       data$PACFIN_SPECIES_COMMON_NAME == "QUILLBACK ROCKFISH" &
