@@ -75,16 +75,6 @@ create_calender <- function(
   #)] <- "Potential STAR Panel - June Council Meeting"
   mark_dates[c(
     lubridate::yday(seq(
-      as.Date("2027-05-03"),
-      as.Date("2027-05-07"),
-      by = "1 day"
-    )),
-    lubridate::yday(seq(
-      as.Date("2027-05-10"),
-      as.Date("2027-05-14"),
-      by = "1 day"
-    )),
-    lubridate::yday(seq(
       as.Date("2027-05-17"),
       as.Date("2027-05-21"),
       by = "1 day"
