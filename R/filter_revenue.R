@@ -9,35 +9,53 @@
 filter_revenue <- function(data, type = NULL) {
   remove <- c(
     which(
-      data$PACFIN_SPECIES_COMMON_NAME == "BLACK ROCKFISH" &
+      data$PACFIN_SPECIES_COMMON_NAME %in%
+        c("BLACK ROCKFISH", "NOM. BLACK ROCKFISH") &
         data$AGENCY_CODE == "C"
     ),
     which(
-      data$PACFIN_SPECIES_COMMON_NAME == "BLUE ROCKFISH" &
+      data$PACFIN_SPECIES_COMMON_NAME %in%
+        c("BLUE ROCKFISH", "NOM. BLUE ROCKFISH") &
         data$AGENCY_CODE == "C"
     ),
     which(
-      data$PACFIN_SPECIES_COMMON_NAME == "DEACON ROCKFISH" &
+      data$PACFIN_SPECIES_COMMON_NAME %in%
+        c("DEACON ROCKFISH", "NOM. DEACON ROCKFISH") &
         data$AGENCY_CODE == "C"
     ),
     which(
-      data$PACFIN_SPECIES_COMMON_NAME == "CABEZON" &
-        data$AGENCY_CODE %in% c("C", "O")
-    ),
-    which(
-      data$PACFIN_SPECIES_COMMON_NAME == "CHINA ROCKFISH" &
+      data$PACFIN_SPECIES_COMMON_NAME %in%
+        c("CABEZON", "NOM. CABEZON") &
         data$AGENCY_CODE == "C"
     ),
     which(
-      data$PACFIN_SPECIES_COMMON_NAME == "COPPER ROCKFISH" &
+      data$PACFIN_SPECIES_COMMON_NAME %in%
+        c("CABEZON", "NOM. CABEZON") &
+        data$AGENCY_CODE == "O"
+    ),
+    which(
+      data$PACFIN_SPECIES_COMMON_NAME %in%
+        c("CHINA ROCKFISH", "NOM. CHINA ROCKFISH") &
         data$AGENCY_CODE == "C"
     ),
     which(
-      data$PACFIN_SPECIES_COMMON_NAME == "KELP GREENLING" &
-        data$AGENCY_CODE %in% c("C", "O")
+      data$PACFIN_SPECIES_COMMON_NAME %in%
+        c("COPPER ROCKFISH", "NOM. CHINA ROCKFISH") &
+        data$AGENCY_CODE == "C"
     ),
     which(
-      data$PACFIN_SPECIES_COMMON_NAME == "QUILLBACK ROCKFISH" &
+      data$PACFIN_SPECIES_COMMON_NAME %in%
+        c("KELP GREENLING", "NOM. KELP GREENLING") &
+        data$AGENCY_CODE == "O"
+    ),
+    which(
+      data$PACFIN_SPECIES_COMMON_NAME %in%
+        c("KELP GREENLING", "NOM. KELP GREENLING") &
+        data$AGENCY_CODE == "C"
+    ),
+    which(
+      data$PACFIN_SPECIES_COMMON_NAME %in%
+        c("QUILLBACK ROCKFISH", "NOM. QUILLBACK ROCKFISH") &
         data$AGENCY_CODE == "C"
     )
   )
