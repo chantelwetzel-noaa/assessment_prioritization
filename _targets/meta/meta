@@ -50,6 +50,13 @@ assess_frequency|stem|f95fcea596d31023|b707838d5c56b894|24066086a5a1a0d8|1777687
 commercial_revenue_filtered|stem|9669a61dcffc1670|4eb3e1fa67d54167|51b83044a956e929|-705007826||t20481.8134143635s|s55248b|55248|rds|local|vector|||0.01||
 tribal_revenue_filtered|stem|234d5dd3e9c0c8e6|670be80b9e1a50c2|51b83044a956e929|424871529||t20481.813414815s|s5441b|5441|rds|local|vector|||0||
 gemm_mortality_filtered|stem|666ce9f899b3b28f|8e8c183e612acabe|3131d5ec466b7ffb|-625161150||t20481.8397376697s|s397483b|397483|rds|local|vector|||0.01||
+future_spex_data_file|stem|8a0075132df15717|ee2ca88804edb735|2c530c1562a7fbd1|1852971394|data-raw/GMT008-harvest specifications-2027-28.csv|t20482.7735287968s|s134213b|134213|file|local|vector|||0.77|package 'dplyr' was built under R version 4.4.2. package 'readr' was built under R version 4.4.3|
+harvest_spex_data_file|stem|31507e02a52531f6|ddfde98653d4c588|2c530c1562a7fbd1|-1993836880|data-raw/GMT015-final_specifications-2020-2024.csv|t20482.7735785409s|s132759b|132759|file|local|vector|||0||
+future_spex_data|stem|aac9b71daf00d6c2|380bf8aa5a1c66f3|c94f41c9a66496a7|1641657089||t20482.7763424383s|s16618b|16618|rds|local|vector|||0.22||
+harvest_spex_filtered|stem|a6c1a2ffd45bcb1d|cd6d230d0754d047|9c8aab0a8a832eb6|-1290529774||t20482.7763446169s|s20369b|20369|rds|local|vector|||0||
+fishing_mortality|stem|160be32d9d561539|a2f1f2eafc29bd92|3865448ff67c09af|-1043438507||t20482.7763486723s|s1671b|1671|rds|local|vector|||0.31||
+constituent_demand|stem|3e7f285eb0573ea3|fb32092e9b3a6fd2|8edfac909871fa00|-79348027||t20482.7763541077s|s1492b|1492|rds|local|vector|||0.44||
+rank|stem|adf00d6c14a953f2|ba916fdf3b8e7105|08192f8c3aa71223|293663229||t20482.7763551771s|s1930b|1930|rds|local|vector|||0.06||
 create_calender|function|62b8fbda2a525a73
 all_species|function|8c39de18caffbbd1
 calculate_rank|function|4c2f7b53ad5b0f9f
@@ -74,11 +81,4 @@ summarize_const_demand|function|501074680ddb11b0
 summarize_fishing_mortality|function|3aa7047d8e35369b
 summarize_new_information|function|ddbd55a12b398a1b
 summarize_ecosystem|function|de826dd322626749
-future_spex_data_file|stem|0d9a19ced78d469f|ee2ca88804edb735|2c530c1562a7fbd1|1852971394|data-raw/GMT008-harvest specifications-2027-28.csv|t20481.8464435962s|s133856b|133856|file|local|vector|||0.99|package 'dplyr' was built under R version 4.4.2. package 'readr' was built under R version 4.4.3|
-harvest_spex_data_file|stem|00f545d41a5a3328|ddfde98653d4c588|2c530c1562a7fbd1|-1993836880|data-raw/GMT015-final_specifications-2020-2024.csv|t20481.8481331485s|s131912b|131912|file|local|vector|||0||
-future_spex_data|stem|40ef83e443597550|380bf8aa5a1c66f3|f7f6b97094d21882|1641657089||t20481.8483245359s|s16512b|16512|rds|local|vector|||0.14||
-harvest_spex_data|stem|c6bc6d2862b4ecaa|f1a4bbf811da6d64|9da10c200ba702d2|1010753485||t20481.8483259826s|s19568b|19568|rds|local|vector|||0.1||
-harvest_spex_filtered|stem|4e3c3e406ce186b1|cd6d230d0754d047|e1ff08ba1235dbde|-1290529774||t20481.8483262642s|s19714b|19714|rds|local|vector|||0.02||
-fishing_mortality|stem|77322fabf1f32207|a2f1f2eafc29bd92|3f8f258ef48ea4a5|-1043438507||t20481.8483293823s|s1669b|1669|rds|local|vector|||0.25||
-constituent_demand|stem|71a911ab24280c35|fb32092e9b3a6fd2|7b0edc7d8e36faa5|-79348027||t20481.8483332321s|s1491b|1491|rds|local|vector|||0.3||
-rank|stem|7201332729adf608|ba916fdf3b8e7105|f053ff1339f8cfdc|293663229||t20481.848333855s|s1921b|1921|rds|local|vector|||0.04||
+harvest_spex_data|stem|a9177ff9594a7e36|f1a4bbf811da6d64|2a8ced8c1cb71f61|1010753485||t20482.782953781s|s20215b|20215|rds|local|vector|||0.18||

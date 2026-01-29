@@ -10,7 +10,7 @@ library(targets)
 # targets::tar_glimpse()
 
 # Use the following commands to remove one or all files when getting errors
-# targets::tar_delete("rank")
+# targets::tar_delete("harvest_spex_data")
 # targets::tar_destroy("all")
 
 # Set target-specific options such as packages:
