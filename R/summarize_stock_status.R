@@ -188,9 +188,9 @@ summarize_stock_status <- function(
         Estimate <= MSST & Trend == 1 ~ 8,
         Estimate <= MSST & Trend == 0 ~ 9,
         Estimate <= MSST & Trend == -1 ~ 10,
-        is.na(Estimate) & PSA < 1.8 ~ 4,
-        is.na(Estimate) & PSA >= 1.8 & PSA < 2 ~ 6,
-        is.na(Estimate) & PSA >= 2.0 ~ 9
+        is.na(Estimate) & PSA < 1.8 ~ 3,
+        is.na(Estimate) & PSA >= 1.8 & PSA < 2 ~ 5,
+        is.na(Estimate) & PSA >= 2.0 ~ 7
       ),
       Factor_Score = round(10 * Factor_Score / max(Factor_Score), 1),
       Rank = rank(-Factor_Score, ties.method = "min")
