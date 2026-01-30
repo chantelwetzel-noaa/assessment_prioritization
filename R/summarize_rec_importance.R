@@ -122,7 +122,7 @@ summarize_rec_importance <- function(
         Pseudo_Revenue_OR +
         Pseudo_Revenue_WA,
       Assessed_Last_Cycle = dplyr::case_when(
-        assess_year[, "Last_Assess"] == last_assess_year ~ -2,
+        assess_year[["year"]] == last_assess_year ~ -2,
         .default = 0
       ),
       Factor_Score = log(Pseudo_Revenue_Coastwide + 1) + Assessed_Last_Cycle,

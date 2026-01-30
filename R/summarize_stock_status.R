@@ -40,6 +40,7 @@ summarize_stock_status <- function(
   abundance,
   species,
   catage_years,
+  ssc,
   model_loc = "model_files"
 ) {
   new_models <- list.files(model_loc)
@@ -167,8 +168,8 @@ summarize_stock_status <- function(
   }
 
   # Combine with the SSC recommendation
-  ssc <- utils::read.csv(here::here("data-raw", "assess_year_ssc_rec.csv")) |>
-    dplyr::select(-Last_Assess)
+  #ssc <- utils::read.csv(here::here("data-raw", "assess_year_ssc_rec.csv")) |>
+  #  dplyr::select(-Last_Assess)
   new_abundance <- dplyr::left_join(
     x = new_abundance |> dplyr::select(-Last_Assess),
     y = ssc

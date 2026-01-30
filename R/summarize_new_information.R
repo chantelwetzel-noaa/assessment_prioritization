@@ -66,7 +66,7 @@ summarize_new_information <- function(
     Species = species[, 1],
     Rank = NA,
     Factor_Score = NA,
-    Last_Assessed = assess_year$Last_Assess,
+    Last_Assessed = assess_year[["year"]],
     New_Research = 0,
     Issues_Can_be_Addressed = 0,
     Survey_Abundance = 0,

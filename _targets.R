@@ -10,7 +10,7 @@ library(targets)
 # targets::tar_glimpse()
 
 # Use the following commands to remove one or all files when getting errors
-# targets::tar_delete("harvest_spex_data")
+# targets::tar_delete("stock_status")
 # targets::tar_destroy("all")
 
 # Set target-specific options such as packages:
@@ -51,7 +51,22 @@ list(
     ),
     targets::tar_target(
       last_assess_year_df,
-      readr::read_csv(last_assess_year_df_file)
+      readr::read_csv(last_assess_year_df_file) |>
+        dplyr::select(-Last_Assess) |>
+        dplyr::mutate(
+          year = dplyr::case_when(
+            Species == "kelp greenling" ~ NA,
+            .default = year
+          ),
+          type = dplyr::case_when(
+            Species == "kelp greenling" ~ NA,
+            .default = type
+          ),
+          SSC_Rec = dplyr::case_when(
+            Species == "kelp greenling" ~ NA,
+            .default = SSC_Rec
+          )
+        )
     ),
     # prev_cycle used to reach into the archived folder for last cycle output
     targets::tar_target(
@@ -142,7 +157,25 @@ list(
     ),
     targets::tar_target(
       abundance_prev_cycle,
-      readr::read_csv(abundance_prev_cycle_file)
+      readr::read_csv(abundance_prev_cycle_file) |>
+        dplyr::mutate(
+          Estimate = dplyr::case_when(
+            Species == "kelp greenling" ~ NA,
+            .default = Estimate
+          ),
+          Recruit_Var = dplyr::case_when(
+            Species == "kelp greenling" ~ NA,
+            .default = Recruit_Var
+          ),
+          Mean_Catch_Age = dplyr::case_when(
+            Species == "kelp greenling" ~ NA,
+            .default = Mean_Catch_Age
+          ),
+          Last_Assess = dplyr::case_when(
+            Species == "kelp greenling" ~ NA,
+            .default = Last_Assess
+          )
+        )
     ),
     # Ecosystem top-down and bottom-up measures provided by Kristin Marshall:
     targets::tar_target(
@@ -244,7 +277,8 @@ list(
       summarize_stock_status(
         abundance = abundance_prev_cycle,
         species = species,
-        catage_years = catage_years
+        catage_years = catage_years,
+        ssc = last_assess_year_df
       )
     ),
     # Update abundance based on the new assessments
