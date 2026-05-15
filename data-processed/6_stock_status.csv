@@ -31,21 +31,21 @@ Longnose skate,20,4.3,0.5650093042995659,0.4,0.25,1.68,0,species specific
 Pacific cod,20,4.3,NA,0.4,0.25,1.34,0,species specific
 Pacific sanddab,20,4.3,NA,0.25,0.125,1.25,0,other flatfish
 Petrale sole,20,4.3,0.33551742955056424,0.25,0.125,1.94,0,species specific
-Rougheye/Blackspotted rockfish,20,4.3,0.47,0.4,0.25,2.27,0,minor slope rockfish
 Vermilion/Sunset rockfish,20,4.3,0.4563867207011219,0.4,0.25,2.05,1,minor shelf rockfish
 Widow rockfish,20,4.3,0.500772116641719,0.4,0.25,2.05,0,species specific
-Aurora rockfish,36,2.9,0.64,0.4,0.25,2.1,0,minor slope rockfish
-Big skate,36,2.9,0.7919660611438123,0.4,0.25,1.99,0,species specific
-Copper rockfish,36,2.9,0.6833748671449591,0.4,0.25,2.27,0,minor nearshore rockfish
-Longspine thornyhead,36,2.9,0.75,0.4,0.25,1.53,0,species specific
-Pacific ocean perch,36,2.9,0.77,0.4,0.25,1.69,0,species specific
-Pacific spiny dogfish,36,2.9,0.63,0.4,0.25,2.13,0,species specific
-Sharpchin rockfish,36,2.9,0.68,0.4,0.25,2.05,0,minor slope rockfish
-Splitnose rockfish,36,2.9,0.66,0.4,0.25,1.82,0,minor slope rockfish
-Yellowtail rockfish,36,2.9,0.6255695404622099,0.4,0.25,1.88,0,species specific
-Arrowtooth flounder,45,1.4,0.87,0.25,0.125,1.21,0,species specific
-Chilipepper,45,1.4,0.8324680008723222,0.4,0.25,1.35,0,species specific
-Dover sole,45,1.4,0.84,0.25,0.125,1.54,0,species specific
-English sole,45,1.4,0.88,0.25,0.125,1.19,0,species specific
-Greenstriped rockfish,45,1.4,0.81,0.4,0.25,1.88,0,minor shelf rockfish
-Rex sole,45,1.4,0.7612365407551356,0.25,0.125,1.28,0,other flatfish
+Aurora rockfish,35,2.9,0.64,0.4,0.25,2.1,0,minor slope rockfish
+Big skate,35,2.9,0.7919660611438123,0.4,0.25,1.99,0,species specific
+Copper rockfish,35,2.9,0.6833748671449591,0.4,0.25,2.27,0,minor nearshore rockfish
+Longspine thornyhead,35,2.9,0.75,0.4,0.25,1.53,0,species specific
+Pacific ocean perch,35,2.9,0.77,0.4,0.25,1.69,0,species specific
+Pacific spiny dogfish,35,2.9,0.63,0.4,0.25,2.13,0,species specific
+Sharpchin rockfish,35,2.9,0.68,0.4,0.25,2.05,0,minor slope rockfish
+Splitnose rockfish,35,2.9,0.66,0.4,0.25,1.82,0,minor slope rockfish
+Yellowtail rockfish,35,2.9,0.6255695404622099,0.4,0.25,1.88,0,species specific
+Arrowtooth flounder,44,1.4,0.87,0.25,0.125,1.21,0,species specific
+Chilipepper,44,1.4,0.8324680008723222,0.4,0.25,1.35,0,species specific
+Dover sole,44,1.4,0.84,0.25,0.125,1.54,0,species specific
+English sole,44,1.4,0.88,0.25,0.125,1.19,0,species specific
+Greenstriped rockfish,44,1.4,0.81,0.4,0.25,1.88,0,minor shelf rockfish
+Rex sole,44,1.4,0.7612365407551356,0.25,0.125,1.28,0,other flatfish
+Rougheye/Blackspotted rockfish,44,1.4,0.8720398620546113,0.4,0.25,2.27,0,minor slope rockfish

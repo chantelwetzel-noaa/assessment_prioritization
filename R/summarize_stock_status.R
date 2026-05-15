@@ -151,11 +151,11 @@ summarize_stock_status <- function(
         dplyr::mutate(
           Estimate = new_results[new_results_key, "WeightedStatus"],
           Trend = dplyr::case_when(
-            new_abundance[new_abundance_key, "Estimate"] >=
-              new_abundance[new_abundance_key, "Target"] ~
+            as.numeric(new_abundance[new_abundance_key, "Estimate"]) >=
+              as.numeric(new_abundance[new_abundance_key, "Target"]) ~
               0,
-            new_results[new_results_key, "WeightedStatus"] >
-              new_results[new_results_key, "WeightedStatus_5"] ~
+            as.numeric(new_results[new_results_key, "WeightedStatus"]) >
+              as.numeric(new_results[new_results_key, "WeightedStatus_5"]) ~
               1,
             .default = -1
           ),
