@@ -44,14 +44,14 @@ Mortality:
 - Morality for species is determined using the Groundfish Expanded
   Multiyear Mortality report to determine average mortality which is
   compared against the current and future harvest specifications. These
-  data can only be split north and south of 40$^{\circ}$ 10$^{\prime}$
+  data can only be split north and south of 40$`^\circ`$ 10$`^\prime`$
   North latitude. The FOS team will only update their mortality
   estimates once the changes are finalized in the federal register.
 - Conclusion: **The GEMM provides state specific estimates for black
   rockfish, cabezon, kelp greenling, and quillback rockfish (Oregon and
   Washington combined). Blue/deacon rockfish is only split out for
   Oregon. China and copper rockfishes are only available north of
-  40$^{\circ}$ 10$^{\prime}$.**
+  40$`^\circ`$ 10$`^\prime`$.**
 - Action: Create function to filter the select species (black, cabezon,
   kelp greenling, and quillback) that have state specific estimates in
   the GEMM.
@@ -59,12 +59,12 @@ Mortality:
 Adopted harvest specifications:
 
 - Adopted harvest specifications are provided either on a coastwide
-  basis of north and south of 40$^{\circ}$ 10$^{\prime}$ North latitude
+  basis of north and south of 40$`^\circ`$ 10$`^\prime`$ North latitude
   for species managed in a complex, except for a few exceptions.
 - Conclusion: **There are state specific harvest specifications for
   quillback rockfish, cabezon, kelp greenling, blue rockfish, black
   rockfish, and copper rockfish. China rockfish is only available north
-  of 40$^{\circ}$ 10$^{\prime}$.**
+  of 40$`^\circ`$ 10$`^\prime`$.**
 - Action: Create function to filter the select species (quillback,
   cabezon, kelp greenling, blue, black, and copper) harvest
   specifications.
@@ -72,7 +72,7 @@ Adopted harvest specifications:
 Future harvest specification:
 
 - Future harvest specifications are provided either on a coastwide basis
-  of north and south of 40$^{\circ}$ 10$^{\prime}$ North latitude for
+  of north and south of 40$`^\circ`$ 10$`^\prime`$ North latitude for
   species managed in a complex, except for a few exceptions.
 - Conclusion: **Same as adopted harvest specifications.**
 
@@ -102,7 +102,7 @@ Abundance measures:
 - The abundance by stock is calculated using information from the most
   recent assessments or from available PSA scores.
 - Conclusion: **Can be filtered, except for china rockfish which has two
-  assessments for the area north of 40$^{\circ}$ 10$^{\prime}$.**
+  assessments for the area north of 40$`^\circ`$ 10$`^\prime`$.**
 - Action: Delete model files for California species and add the most
   recent kelp greenling and china rockfish assessments.
 
@@ -117,6 +117,6 @@ Model files:
 - The abundance by stock is calculated using information from the most
   recent assessments or from available PSA scores.
 - Conclusion: **Can be filtered, except for china rockfish which has two
-  assessments for the area north of 40$^{\circ}$ 10$^{\prime}$.**
+  assessments for the area north of 40$`^\circ`$ 10$`^\prime`$.**
 - Action: Delete model files for California species and add the most
   recent kelp greenling and china rockfish assessments.
